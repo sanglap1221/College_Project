@@ -1,0 +1,415 @@
+const { app, BrowserWindow, shell, dialog } = require('electron');
+const { spawn, exec } = require('child_process');
+const path = require('path');
+const http = require('http');
+const net = require('net');
+
+let backendProcess;
+let frontendProcess;
+let mainWindow;
+let isQuitting = false;
+
+// ── Kill specific PIDs on a port ──
+function killByPort(port) {
+  return new Promise((resolve) => {
+    if (process.platform !== 'win32') return resolve();
+
+    exec(`netstat -ano | findstr LISTENING | findstr :${port}`, (err, stdout) => {
+      if (!stdout || !stdout.trim()) {
+        console.log(`Port ${port}: already free.`);
+        return resolve();
+      }
+
+      const pids = new Set();
+      for (const line of stdout.trim().split('\n')) {
+        const parts = line.trim().split(/\s+/);
+        const addr = parts[1] || '';
+        const pid = parts[parts.length - 1];
+        if (addr.endsWith(`:${port}`) && pid && pid !== '0') {
+          pids.add(pid);
+        }
+      }
+
+      if (pids.size === 0) return resolve();
+
+      console.log(`Port ${port} busy — killing PIDs: ${[...pids].join(', ')}`);
+      let done = 0;
+      for (const pid of pids) {
+        exec(`taskkill /PID ${pid} /F /T`, () => {
+          done++;
+          if (done === pids.size) resolve();
+        });
+      }
+    });
+  });
+}
+
+// ── Wait until TCP port is actually free ──
+function waitForPortFree(port, retries = 15) {
+  return new Promise((resolve) => {
+    const check = (remaining) => {
+      if (remaining <= 0) {
+        console.log(`Port ${port} timeout — continuing anyway.`);
+        return resolve();
+      }
+      const tester = net.createServer();
+      tester.once('error', () => {
+        console.log(`Port ${port} still occupied (${remaining} retries left)...`);
+        setTimeout(() => check(remaining - 1), 1000);
+      });
+      tester.once('listening', () => {
+        tester.close(() => {
+          console.log(`Port ${port} is now free.`);
+          resolve();
+        });
+      });
+      tester.listen(port, '127.0.0.1');
+    };
+    check(retries);
+  });
+}
+
+// ── Kill ports then wait for them to be free ──
+async function prepareports() {
+  console.log('Checking ports 3000 and 8000...');
+  await Promise.all([killByPort(3000), killByPort(8000)]);
+  console.log('Waiting for ports to be fully released...');
+  await Promise.all([waitForPortFree(3000), waitForPortFree(8000)]);
+}
+
+// ── Start Backend + Frontend ──
+function startServers() {
+  const rootDir = path.join(__dirname, '..');
+  const backendDir = path.join(rootDir, 'backend');
+  const frontendDir = path.join(rootDir, 'frontend');
+  const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+  const pythonExe = process.platform === 'win32'
+    ? path.join(backendDir, 'venv', 'Scripts', 'python.exe')
+    : path.join(backendDir, 'venv', 'bin', 'python');
+
+  // Backend — no --reload, single clean process
+  backendProcess = spawn(
+    pythonExe,
+    ['-m', 'uvicorn', 'app.main:app', '--host', '127.0.0.1', '--port', '8000'],
+    { cwd: backendDir, windowsHide: true }
+  );
+  backendProcess.stdout.on('data', (d) => console.log(`Backend: ${d.toString().trim()}`));
+  backendProcess.stderr.on('data', (d) => console.error(`Backend Err: ${d.toString().trim()}`));
+  backendProcess.on('error', (e) => console.error('Backend failed:', e));
+  backendProcess.on('close', (code) => console.log(`Backend exited: ${code}`));
+
+  // Frontend
+  const frontendScript = app.isPackaged ? 'start' : 'dev';
+  frontendProcess = spawn(npmCmd, ['run', frontendScript], {
+    cwd: frontendDir,
+    windowsHide: true,
+    shell: true
+  });
+  frontendProcess.stdout.on('data', (d) => console.log(`Frontend: ${d.toString().trim()}`));
+  frontendProcess.stderr.on('data', (d) => console.error(`Frontend Err: ${d.toString().trim()}`));
+  frontendProcess.on('error', (e) => console.error('Frontend failed:', e));
+  frontendProcess.on('close', (code) => console.log(`Frontend exited: ${code}`));
+}
+
+// ── Poll until localhost:3000 responds ──
+function waitForFrontend(win) {
+  console.log('waitForFrontend: checking http://localhost:3000 ...');
+  http.get('http://localhost:3000', (res) => {
+    console.log(`waitForFrontend: got response status ${res.statusCode}`);
+    res.resume();
+    console.log('waitForFrontend: loading URL http://localhost:3000');
+    win.loadURL('http://localhost:3000');
+  }).on('error', (err) => {
+    console.log(`waitForFrontend: error connecting: ${err.message}. Retrying in 1s...`);
+    setTimeout(() => waitForFrontend(win), 1000);
+  });
+}
+
+// ── Helper to intercept external links and open in system browser ──
+function handleExternalLinks(url) {
+  if (url.startsWith('http://') || url.startsWith('https://')) {
+    if (url.includes('system_browser=true') || (!url.includes('localhost') && !url.includes('127.0.0.1'))) {
+      shell.openExternal(url).catch(err => console.error('Failed to open external link:', err));
+      return true;
+    }
+  }
+  return false;
+}
+
+// ── Show Save dialog and download PDF ──
+function handlePdfDownload(url) {
+  let suggestedName = 'report.pdf';
+  try {
+    const urlObj = new URL(url);
+    const nameParam = urlObj.searchParams.get('name');
+    if (nameParam) suggestedName = nameParam;
+  } catch (e) {}
+
+  dialog.showSaveDialog(mainWindow, {
+    title: 'Save PDF',
+    defaultPath: path.join(app.getPath('downloads'), suggestedName),
+    filters: [{ name: 'PDF Files', extensions: ['pdf'] }]
+  }).then(({ canceled, filePath }) => {
+    if (canceled || !filePath) return;
+
+    mainWindow.webContents.session.once('will-download', (event, item) => {
+      item.setSavePath(filePath);
+      item.once('done', (e, state) => {
+        if (state === 'completed') {
+          console.log('PDF saved:', filePath);
+          shell.showItemInFolder(filePath);
+          shell.openPath(filePath);
+        } else {
+          console.error('Download failed:', state);
+        }
+      });
+    });
+
+    mainWindow.webContents.downloadURL(url);
+  });
+}
+
+// ── Handle print request via silent window and system print dialog ──
+function handleReportPrint(url) {
+  let suggestedName = 'Astrological_Report';
+  try {
+    const urlObj = new URL(url);
+    const nameParam = urlObj.searchParams.get('name');
+    if (nameParam) suggestedName = nameParam;
+  } catch (e) {}
+
+  const printWindow = new BrowserWindow({
+    show: false,
+    width: 950,
+    height: 750,
+    title: `Print — ${suggestedName}`,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+    }
+  });
+
+  printWindow.loadURL(url);
+
+  printWindow.webContents.once('did-finish-load', async () => {
+    // 1. Check if printers are available
+    let printers = [];
+    try {
+      printers = await printWindow.webContents.getPrintersAsync();
+    } catch (e) {
+      console.warn('Could not enumerate printers:', e);
+    }
+
+    if (!printers || printers.length === 0) {
+      console.warn(`No printers found on system for ${suggestedName}.`);
+      printWindow.close();
+
+      const choice = await dialog.showMessageBox(mainWindow, {
+        type: 'info',
+        title: 'প্রিন্টার পাওয়া যায়নি (No Printer Found)',
+        message: 'আপনার সিস্টেমে কোনো প্রিন্টার যুক্ত পাওয়া যায়নি।\n\nআপনি কি রিপোর্টটি PDF ফাইল হিসেবে সংরক্ষণ করতে চান?',
+        buttons: ['PDF সংরক্ষণ করুন (Save as PDF)', 'বাতিল (Cancel)'],
+        defaultId: 0,
+        cancelId: 1
+      });
+
+      if (choice.response === 0) {
+        // Fallback to PDF download
+        const downloadUrl = url.replace('/api/print-report/', '/api/download-pdf/report_') + '.pdf';
+        handlePdfDownload(downloadUrl);
+      }
+      return;
+    }
+
+    // 2. Printers available -> trigger print dialog
+    setTimeout(() => {
+      printWindow.webContents.print({
+        silent: false,
+        printBackground: true,
+        useSystemDialog: true
+      }, async (success, failureReason) => {
+        if (!success) {
+          console.error(`Print failed for ${suggestedName}: ${failureReason}`);
+          if (failureReason === 'Failed to enumerate printers') {
+            const choice = await dialog.showMessageBox(mainWindow, {
+              type: 'info',
+              title: 'প্রিন্ট সম্পন্ন করা যায়নি',
+              message: 'সিস্টেমে কোনো কার্যকর প্রিন্টার পাওয়া যায়নি।\n\nরিপোর্টটি কি PDF আকারে সেভ করতে চান?',
+              buttons: ['PDF সেভ করুন (Save as PDF)', 'বাতিল'],
+              defaultId: 0,
+              cancelId: 1
+            });
+            if (choice.response === 0) {
+              const downloadUrl = url.replace('/api/print-report/', '/api/download-pdf/report_') + '.pdf';
+              handlePdfDownload(downloadUrl);
+            }
+          }
+        }
+        printWindow.close();
+      });
+    }, 800);
+  });
+}
+
+// ── Open a report in a NEW Electron window ──
+function openReportWindow(url, title) {
+  const reportWin = new BrowserWindow({
+    width: 950,
+    height: 750,
+    autoHideMenuBar: true,
+    title: title || 'Report View — জীবন জিজ্ঞাসা',
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+    }
+  });
+
+  reportWin.setMenuBarVisibility(false);
+  reportWin.loadURL(url);
+
+  // Handle PDF download/print from report window
+  reportWin.webContents.setWindowOpenHandler(({ url: targetUrl }) => {
+    if (handleExternalLinks(targetUrl)) {
+      return { action: 'deny' };
+    }
+    if (targetUrl.includes('/api/print-report/')) {
+      handleReportPrint(targetUrl);
+      return { action: 'deny' };
+    }
+    if (targetUrl.includes('/api/download-pdf/')) {
+      handlePdfDownload(targetUrl);
+      return { action: 'deny' };
+    }
+    if (targetUrl.includes('.pdf') || targetUrl.includes('blob:') || targetUrl.includes('/pdf') || targetUrl.includes('localhost')) {
+      return { action: 'allow' };
+    }
+    return { action: 'deny' };
+  });
+
+  return reportWin;
+}
+
+// ── Create the ONE main window ──
+function createWindow() {
+  mainWindow = new BrowserWindow({
+    width: 1400,
+    height: 900,
+    show: false,
+    autoHideMenuBar: true,
+    title: 'জীবন জিজ্ঞাসা',
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+    }
+  });
+
+  mainWindow.setMenuBarVisibility(false);
+
+  mainWindow.once('ready-to-show', () => {
+    console.log('Electron event: ready-to-show fired');
+    mainWindow.show();
+    mainWindow.center();
+  });
+
+  // Fallback: show the window if ready-to-show does not fire within 6 seconds
+  setTimeout(() => {
+    if (mainWindow && !mainWindow.isDestroyed() && !mainWindow.isVisible()) {
+      console.log('ready-to-show fallback: showing window manually after timeout');
+      mainWindow.show();
+      mainWindow.center();
+    }
+  }, 6000);
+
+  // if (!app.isPackaged) {
+  //   mainWindow.webContents.openDevTools();
+  // }
+
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    if (handleExternalLinks(url)) {
+      return { action: 'deny' };
+    }
+    // Intercept print action
+    if (url.includes('/api/print-report/')) {
+      handleReportPrint(url);
+      return { action: 'deny' };
+    }
+    // 1. Download action
+    if (url.includes('/api/download-pdf/')) {
+      handlePdfDownload(url);
+      return { action: 'deny' };
+    }
+    // 2. Blob URLs (regenerated report previews from Admin Panel)
+    if (url.startsWith('blob:')) {
+      // Open in a new Electron window instead of default popup
+      openReportWindow(url, 'Report Preview — জীবন জিজ্ঞাসা');
+      return { action: 'deny' };
+    }
+    // 3. Open/View action - allows target="_blank" to open in a new popup window
+    if (url.includes('.pdf') || url.includes('/pdf') || url.includes('localhost')) {
+      return { action: 'allow' };
+    }
+    return { action: 'deny' };
+  });
+
+  waitForFrontend(mainWindow);
+}
+
+// ── Kill both servers on exit ──
+function cleanup() {
+  if (isQuitting) return;
+  isQuitting = true;
+  console.log('Shutting down servers...');
+
+  if (process.platform === 'win32') {
+    if (backendProcess?.pid) exec(`taskkill /PID ${backendProcess.pid} /F /T`);
+    if (frontendProcess?.pid) exec(`taskkill /PID ${frontendProcess.pid} /F /T`);
+    exec(`for /f "tokens=5" %a in ('netstat -ano ^| findstr LISTENING ^| findstr :8000') do @taskkill /PID %a /F /T 2>nul`);
+    exec(`for /f "tokens=5" %a in ('netstat -ano ^| findstr LISTENING ^| findstr :3000') do @taskkill /PID %a /F /T 2>nul`);
+  } else {
+    backendProcess?.kill('SIGTERM');
+    frontendProcess?.kill('SIGTERM');
+  }
+}
+
+// ── App lifecycle ──
+app.whenReady().then(async () => {
+  await prepareports();
+  console.log('Starting servers...');
+  startServers();
+  createWindow();
+});
+
+app.on('web-contents-created', (_, contents) => {
+  contents.setWindowOpenHandler(({ url }) => {
+    if (handleExternalLinks(url)) {
+      return { action: 'deny' };
+    }
+    // Intercept print action
+    if (url.includes('/api/print-report/')) {
+      handleReportPrint(url);
+      return { action: 'deny' };
+    }
+    // 1. Download action
+    if (url.includes('/api/download-pdf/')) {
+      handlePdfDownload(url);
+      return { action: 'deny' };
+    }
+    // 2. Blob URLs (regenerated report previews from Admin Panel)
+    if (url.startsWith('blob:')) {
+      openReportWindow(url, 'Report Preview — জীবন জিজ্ঞাসা');
+      return { action: 'deny' };
+    }
+    // 3. Open/View action - allows target="_blank" to open in a new popup window
+    if (url.includes('.pdf') || url.includes('blob:') || url.includes('/pdf') || url.includes('localhost')) {
+      return { action: 'allow' };
+    }
+    return { action: 'deny' };
+  });
+});
+
+app.on('before-quit', cleanup);
+app.on('will-quit', cleanup);
+app.on('window-all-closed', () => {
+  cleanup();
+  app.quit();
+});
