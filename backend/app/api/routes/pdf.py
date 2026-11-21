@@ -13,6 +13,7 @@ from app.astrology.calculations import _calendar_ymd_diff, PREDEFINED_ANTARDASHA
 from app.schemas import PdfRequest
 from app.db import save_astro_data
 from app.auth_middleware import get_current_user
+from app.rag.rag_store import rag_store
 
 def enrich_payload_with_translations(payload: dict[str, Any]):
     lang = payload.get("lang") or payload.get("language") or "bn"
@@ -478,3 +479,74 @@ def download_pdf(
         media_type="application/pdf",
         headers=headers
     )
+
+
+@router.post("/api/ai-chat")
+def ai_chat_endpoint(payload: dict[str, Any]):
+    import os
+    import httpx
+
+    messages = payload.get("messages", [])
+    report_state = payload.get("report_state", {})
+    language = payload.get("language", "English")
+
+    groq_api_key = os.getenv("GROQ_API_KEY") or os.getenv("NEXT_PUBLIC_GROQ_API_KEY")
+    if not groq_api_key:
+        raise HTTPException(status_code=400, detail="Groq API key not configured on backend")
+
+    # Get latest user query for RAG retrieval
+    last_user_query = ""
+    for m in reversed(messages):
+        if m.get("role") == "user":
+            last_user_query = m.get("content", "")
+            break
+
+    retrieved_chunks = rag_store.retrieve(last_user_query, top_k=2)
+    rag_context_str = "\n\n".join(retrieved_chunks)
+
+    # Keep only the last 4 messages and compact report state
+    recent_messages = messages[-4:] if len(messages) > 4 else messages
+    compact_report_state = {
+        "report_no": report_state.get("report_no"),
+        "customer_name": report_state.get("customer", {}).get("name"),
+        "summary": report_state.get("summary"),
+    }
+
+    system_prompt = (
+        f"You are an expert Vedic Astrologer and AI Assistant for Jibon Jiggasa. "
+        f"You explain birth charts, dashas, houses, and report generation methods "
+        f"based on the official documentation chunks provided below.\n\n"
+        f"CRITICAL REQUIREMENT: You MUST reply entirely in the following language: {language}.\n\n"
+        f"--- DOCUMENT KNOWLEDGE CHUNKS ---\n{rag_context_str}\n-----------------------------------\n\n"
+        "Guidelines:\n"
+        f"- Respond strictly in {language}.\n"
+        "- Keep answers short, punchy, and well-formatted (use bullet points or bold headers).\n"
+        "- Avoid long paragraphs.\n"
+        f"- Report Summary: {compact_report_state}"
+    )
+
+    formatted_messages = [{"role": "system", "content": system_prompt}] + recent_messages
+
+    try:
+        with httpx.Client(timeout=30.0) as client:
+            resp = client.post(
+                "https://api.groq.com/openai/v1/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {groq_api_key}",
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "model": "openai/gpt-oss-120b",
+                    "messages": formatted_messages,
+                    "temperature": 0.7,
+                    "max_tokens": 1000
+                }
+            )
+            if resp.status_code != 200:
+                raise HTTPException(status_code=resp.status_code, detail=resp.text)
+            data = resp.json()
+            reply = data["choices"][0]["message"]["content"]
+            return {"reply": reply}
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc))
+

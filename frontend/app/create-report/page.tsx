@@ -10,6 +10,7 @@ import { ReportForm } from "../../components/ReportForm";
 import { BengaliDatePicker } from "../../components/BengaliDatePicker";
 import { useAuth } from "../../components/AuthProvider";
 import AboutModal from "../../components/AboutModal";
+import FloatingAiAssistant from "../../components/FloatingAiAssistant";
 import { calculateReport, renderPdf, getPdfStatus, API } from "../../services/api";
 import type { ReportInput, ReportState, CustomerState, AstrologyState, DashaRow } from "../../types/report";
 
@@ -2398,6 +2399,7 @@ export default function CreateReportPage() {
         </div>
       )}
       <AboutModal isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
+      <FloatingAiAssistant reportState={reportState} />
     </div>
   )
 }

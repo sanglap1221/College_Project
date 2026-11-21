@@ -6,3 +6,4 @@ build/
 *.pyz
 *.node
 *.map
+venv/

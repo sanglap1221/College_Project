@@ -211,3 +211,22 @@ export async function searchPlaces(query: string, limit: number = 5): Promise<Pl
   }
   return response.json();
 }
+
+export async function sendAiChatMessage(messages: { role: string; content: string }[], reportState: any, language: string = "English"): Promise<string> {
+  const response = await fetch(`${API}/api/ai-chat`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify({
+      messages,
+      report_state: reportState,
+      language,
+    }),
+  });
+  handleAuthError(response);
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.detail || `AI chat failed: ${response.statusText}`);
+  }
+  const data = await response.json();
+  return data.reply;
+}
