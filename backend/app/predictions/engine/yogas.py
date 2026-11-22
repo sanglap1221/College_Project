@@ -164,10 +164,13 @@ def detect_all(c, cfg):
                         all_conds.append(cond)
 
             sign_name = SIGNS[s - 1]
-            cluster_id = f"YOGA-CLUSTER-SIGN{s}-" + "-".join(all_planets)
+            has_raja = any("raja" in y.get("id", "").lower() for y in y_list)
+            yoga_prefix = "RAJA" if has_raja else "COMBINED"
+            yoga_label = "Raja Yoga" if has_raja else "Planetary Combination"
+            merged_id = f"YOGA-{yoga_prefix}-" + "-".join(p.upper() for p in all_planets)
             merged_entry = {
-                "id": cluster_id,
-                "name": f"Conjunction Cluster ({', '.join(all_planets)}) in {sign_name}",
+                "id": merged_id,
+                "name": f"{yoga_label} ({', '.join(all_planets)} in {sign_name})",
                 "conditions": all_conds,
                 "passed": True,
                 "planets": all_planets,

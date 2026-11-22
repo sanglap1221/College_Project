@@ -12,7 +12,7 @@ import json
 import logging
 from typing import Any, Dict, List, Optional, Set
 
-from .reference import TOPICS, HOUSE_DOMAIN, PLANET_KEYWORDS, ordinal
+from .reference import TOPICS, HOUSE_DOMAIN, PLANET_KEYWORDS, ordinal, CANONICAL_TOPIC_ORDER
 from .chart import Chart
 from .rules import RuleBook, evaluate
 from . import dasha as D
@@ -40,7 +40,12 @@ def run_pipeline(
     if not ref_date:
         ref_date = datetime.date.today().isoformat()
 
-    requested_topics = topics if topics else list(TOPICS.keys())
+    # Enforce canonical topic ordering across all charts & languages
+    order_map = {t: i for i, t in enumerate(CANONICAL_TOPIC_ORDER)}
+    requested_topics = sorted(
+        [t for t in (topics if topics else CANONICAL_TOPIC_ORDER) if t in TOPICS],
+        key=lambda x: order_map.get(x, 999)
+    )
 
     # Stage 1: Evaluate deterministic rules & yogas
     items, yoga_trace = evaluate(chart, rb)
@@ -128,9 +133,14 @@ def run_pipeline(
             agg,
             timing_items,
             chart_facts=chart.planets,
+            chart=chart,
             max_items=rb.cfg.get("evidence", {}).get("max_items_per_side", 5),
             language=language,
         )
+
+        # Omit empty sections with zero evidence groups
+        if agg.get("counts", {}).get("independent_groups", 0) == 0:
+            continue
 
         allowed_ids: Set[str] = {e["rule_id"] for e in used_items if "rule_id" in e}
         allowed_houses: Set[int] = {h for e in used_items for h in e.get("houses", [])}

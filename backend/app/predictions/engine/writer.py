@@ -4,9 +4,13 @@ and professional English, Bengali, and Hindi report interpretations.
 """
 
 import re
-from typing import Any, Dict, List, Set, Tuple
-from .reference import TOPICS, TOPIC_TITLES, HOUSE_DOMAIN, PLANET_KEYWORDS, ordinal
-from .explain import explain_rule, build_why_this_prediction
+from typing import Any, Dict, List, Optional, Set, Tuple
+from .reference import (
+    TOPICS, TOPIC_TITLES, HOUSE_DOMAIN, PLANET_KEYWORDS, ordinal,
+    SIGNS, TOPIC_PRIMARY_HOUSE, SIGNS_BN, SIGNS_HI, PLANETS_BN, PLANETS_HI,
+    format_houses_ruled, to_bn_digits
+)
+from .explain import explain_rule, build_why_this_prediction, HOUSE_NAMES, PLANET_NAMES
 
 CAVEATS = {
     "en": "This interpretation reflects traditional Parashari Vedic Jyotish principles as symbolic indicators. It is not an empirical certainty or a substitute for professional legal, medical, or financial counsel.",
@@ -70,7 +74,7 @@ def enforce_topic_json_limits(data: Dict[str, Any], allowed_ids: Set[str]) -> Di
     elif len(words) < 40 and len(words) > 0:
         raw_ov = " ".join(words)
 
-    # 3 themes, <= 18 words each
+    # 3 themes, <= 28 words each
     raw_themes = data.get("themes", [])
     if not isinstance(raw_themes, list):
         raw_themes = [str(raw_themes)]
@@ -79,9 +83,12 @@ def enforce_topic_json_limits(data: Dict[str, Any], allowed_ids: Set[str]) -> Di
         t_clean = clean_markdown_artifacts(str(t))
         t_words = t_clean.split()
         if t_words:
-            if len(t_words) > 18:
-                t_words = t_words[:18]
-            clean_themes.append(" ".join(t_words))
+            if len(t_words) > 28:
+                t_words = t_words[:28]
+            clean_str = " ".join(t_words)
+            if not clean_str.endswith((".", "!", "?", "।")):
+                clean_str += "."
+            clean_themes.append(clean_str)
         if len(clean_themes) == 3:
             break
 
@@ -97,9 +104,12 @@ def enforce_topic_json_limits(data: Dict[str, Any], allowed_ids: Set[str]) -> Di
         c_clean = clean_markdown_artifacts(str(c))
         c_words = c_clean.split()
         if c_words:
-            if len(c_words) > 22:
-                c_words = c_words[:22]
-            clean_chal.append(" ".join(c_words))
+            if len(c_words) > 28:
+                c_words = c_words[:28]
+            clean_str = " ".join(c_words)
+            if not clean_str.endswith((".", "!", "?", "।")):
+                clean_str += "."
+            clean_chal.append(clean_str)
         if len(clean_chal) == 2:
             break
 
@@ -122,6 +132,127 @@ def enforce_topic_json_limits(data: Dict[str, Any], allowed_ids: Set[str]) -> Di
     }
 
 
+def format_evidence_sentence(item: Dict[str, Any], chart: Any = None, lang: str = "en") -> str:
+    """Format a single evidence sentence citing evidence ID and naming chart-specific facts without filler."""
+    rule_id = item.get("rule_id", "FACT")
+    facts = item.get("facts", {})
+    planets = item.get("planets", [])
+    kind = item.get("kind", "")
+
+    if rule_id.startswith("YOGA-"):
+        p_list = planets or []
+        first_p = p_list[0] if p_list else "Jupiter"
+        sign_idx = chart.sign(first_p) if chart else 5
+        sign_name = SIGNS[sign_idx - 1]
+        h_occ = chart.house(first_p) if chart else 9
+        is_raja = "RAJA" in rule_id
+
+        if lang == "bn":
+            p_names = ", ".join([PLANETS_BN.get(p, p) for p in p_list])
+            y_name = "রাজযোগ" if is_raja else "শুভ গ্রহ সম্মেলন"
+            return f"[{rule_id}] {SIGNS_BN.get(sign_name, sign_name)} রাশিতে ({to_bn_digits(h_occ)}ম ভাব) {p_names}-এর সংযোগে গঠিত {y_name} কেন্দ্র ও ত্রিকোণাধিপতির শক্তিকে সংহত করে।"
+        elif lang == "hi":
+            p_names = ", ".join([PLANETS_HI.get(p, p) for p in p_list])
+            y_name = "राजयोग" if is_raja else "शुभ ग्रहीय योग"
+            return f"[{rule_id}] {SIGNS_HI.get(sign_name, sign_name)} राशि में ({h_occ}वें भाव) {p_names} के संयोजन से निर्मित {y_name} केंद्र एवं त्रिकोण के स्वामियों को बल प्रदान करता है।"
+        else:
+            p_names = ", ".join(p_list)
+            y_name = "Raja Yoga" if is_raja else "Planetary Combination"
+            return f"[{rule_id}] {y_name} formed by {p_names} in {sign_name} ({ordinal(h_occ)} house) unifies Kendra and Trikona lord influences."
+
+    # Lord placement: HL-H...-IN-H...
+    if kind == "lord_placement" or rule_id.startswith("HL-"):
+        h_from = facts.get("house")
+        h_to = facts.get("placed_in")
+        lord = facts.get("lord")
+        if not lord and chart and h_from:
+            lord = chart.house_lord(h_from)
+        if not h_to and chart and lord:
+            h_to = chart.house(lord)
+        h_from = h_from or 1
+        h_to = h_to or 1
+        lord = lord or "Planet"
+        sign_idx = chart.sign(lord) if chart else 1
+        sign_name = SIGNS[sign_idx - 1]
+
+        if lang == "bn":
+            p_bn = PLANETS_BN.get(lord, lord)
+            s_bn = SIGNS_BN.get(sign_name, sign_name)
+            return f"[{rule_id}] {p_bn} ({to_bn_digits(h_from)}ম ভাবের অধিপতি, {s_bn} রাশিতে {to_bn_digits(h_to)}ম ভাবস্থ) {to_bn_digits(h_from)}ম ভাবের শক্তিকে সরাসরি {to_bn_digits(h_to)}ম ভাবের কার্যধারায় প্রতিফলিত করে।"
+        elif lang == "hi":
+            p_hi = PLANETS_HI.get(lord, lord)
+            s_hi = SIGNS_HI.get(sign_name, sign_name)
+            return f"[{rule_id}] {p_hi} ({h_from}वें भाव का स्वामी, {s_hi} राशि में {h_to}वें भाव में स्थित) {h_from}वें भाव के प्रभाव को सीधे {h_to}वें भाव में सक्रिय करता है।"
+        else:
+            return f"[{rule_id}] {lord} (ruling the {ordinal(h_from)} house, placed in {sign_name} in the {ordinal(h_to)} house) links the portfolio of the {ordinal(h_from)} house directly into the {ordinal(h_to)} house."
+
+    # Planet placement: PH-...
+    if kind == "placement" or rule_id.startswith("PH-"):
+        p = planets[0] if planets else "Planet"
+        h_occ = facts.get("house", chart.house(p) if chart else 1)
+        sign_idx = chart.sign(p) if chart else 1
+        sign_name = SIGNS[sign_idx - 1]
+        ruled = chart.lorded(p) if chart else []
+        ruled_str = format_houses_ruled(ruled, lang)
+
+        if lang == "bn":
+            p_bn = PLANETS_BN.get(p, p)
+            s_bn = SIGNS_BN.get(sign_name, sign_name)
+            return f"[{rule_id}] {p_bn} {s_bn} রাশিতে {to_bn_digits(h_occ)}ম ভাবস্থ ({ruled_str}), যা {to_bn_digits(h_occ)}ম ভাবের বিষয়ে প্রত্যক্ষ প্রভাব নির্দেশ করে।"
+        elif lang == "hi":
+            p_hi = PLANETS_HI.get(p, p)
+            s_hi = SIGNS_HI.get(sign_name, sign_name)
+            return f"[{rule_id}] {p_hi} {s_hi} राशि में {h_occ}वें भाव में स्थित है ({ruled_str}), जो {h_occ}वें भाव के प्रभाव को संचालित करता है।"
+        else:
+            return f"[{rule_id}] {p} occupies {sign_name} in the {ordinal(h_occ)} house ({ruled_str}), focusing active planetary energy on this sector."
+
+    # Dignity: DG-...
+    if kind == "dignity" or rule_id.startswith("DG-"):
+        p = planets[0] if planets else "Planet"
+        dig = chart.dignity(p) if chart else "dignified"
+        sign_idx = chart.sign(p) if chart else 1
+        sign_name = SIGNS[sign_idx - 1]
+        h_occ = chart.house(p) if chart else 1
+        ruled = chart.lorded(p) if chart else []
+        ruled_str = format_houses_ruled(ruled, lang)
+
+        if lang == "bn":
+            p_bn = PLANETS_BN.get(p, p)
+            s_bn = SIGNS_BN.get(sign_name, sign_name)
+            return f"[{rule_id}] {p_bn} {s_bn} রাশিতে ({to_bn_digits(h_occ)}ম ভাব) স্থানবলে স্থিত, যা {ruled_str}-কে কার্যকর শক্তি প্রদান করে।"
+        elif lang == "hi":
+            p_hi = PLANETS_HI.get(p, p)
+            s_hi = SIGNS_HI.get(sign_name, sign_name)
+            return f"[{rule_id}] {p_hi} {s_hi} राशि में ({h_occ}वें भाव) शुभ बल में स्थित है, जो {ruled_str} को प्रत्यक्ष सामर्थ्य देता है।"
+        else:
+            return f"[{rule_id}] {p} possesses {dig} dignity in {sign_name} ({ordinal(h_occ)} house), reinforcing {ruled_str}."
+
+    txt = item.get("text", "")
+    return f"[{rule_id}] {txt}"
+
+
+def get_topic_header(topic: str, chart: Any = None, lang: str = "en") -> str:
+    """Return topic header with topic-relevant lord per Parashari principles."""
+    h_pri = TOPIC_PRIMARY_HOUSE.get(topic, 1)
+    base_title = TOPIC_TITLES.get(lang, TOPIC_TITLES["en"]).get(topic, topic.replace("_", " ").title())
+    if not chart:
+        return base_title
+    pri_lord = chart.house_lord(h_pri)
+    pri_lord_h = chart.house(pri_lord)
+    pri_sign = SIGNS[chart.sign(pri_lord) - 1]
+
+    if lang == "bn":
+        p_bn = PLANETS_BN.get(pri_lord, pri_lord)
+        s_bn = SIGNS_BN.get(pri_sign, pri_sign)
+        return f"{base_title} — {to_bn_digits(h_pri)}ম পতি ({p_bn}) {to_bn_digits(pri_lord_h)}ম ভাবে ({s_bn})"
+    elif lang == "hi":
+        p_hi = PLANETS_HI.get(pri_lord, pri_lord)
+        s_hi = SIGNS_HI.get(pri_sign, pri_sign)
+        return f"{base_title} — {h_pri}वें भाव का स्वामी ({p_hi}) {pri_lord_h}वें भाव में ({s_hi})"
+    else:
+        return f"{base_title} — {ordinal(h_pri)} Lord ({pri_lord}) in {ordinal(pri_lord_h)} House ({pri_sign})"
+
+
 def generate_topic_json_draft(
     topic: str,
     agg: Dict[str, Any],
@@ -129,136 +260,78 @@ def generate_topic_json_draft(
     chart_facts: Dict[str, Any],
     max_items: int = 5,
     language: str = "en",
+    chart: Any = None,
 ) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
     """Build a deterministic template JSON conforming to Section B output schema."""
-    t_titles = TOPIC_TITLES.get(language, TOPIC_TITLES["en"])
-    title = t_titles.get(topic, TOPICS.get(topic, {}).get("title", topic.replace("_", " ").title()))
+    title = get_topic_header(topic, chart=chart, lang=language)
 
     sup_all = [e for e in agg["items"] if e.get("direction") == "supportive"]
     ctr_all = [e for e in agg["items"] if e.get("direction") in ("challenging", "mixed")]
 
     sup = _dedupe_by_group(sup_all)[:max_items]
     ctr = _dedupe_by_group(ctr_all)[:max_items]
-    used_items = sup + ctr + timing_items[:3]
+    used_items = _dedupe_by_group(sup + ctr)
 
-    level = agg.get("level", "Moderate")
     lean = agg.get("lean", "mixed")
+    h_pri = TOPIC_PRIMARY_HOUSE.get(topic, 1)
+    pri_lord = chart.house_lord(h_pri) if chart else "Lord"
+    pri_lord_h = chart.house(pri_lord) if chart else 1
+    pri_sign = SIGNS[chart.sign(pri_lord) - 1] if chart else "Sign"
+    n_groups = agg.get("counts", {}).get("independent_groups", len(used_items))
 
-    # Primary house names
-    t_info = TOPICS.get(topic, {"primary": []})
-    pri_houses = t_info.get("primary", [])
-    pri_names = [f"the {ordinal(h)} house" for h in pri_houses]
-    pri_desc = ", ".join(pri_names) if pri_names else "primary house influences"
-
-    # Multilingual Overview handling
+    # Formulate Overview opening sentence referencing topic-relevant lord and placement
     if language == "bn":
-        if lean == "predominantly supportive":
-            overview_text = (
-                f"আপনার জন্মকুণ্ডলীতে {title}-এর ক্ষেত্রটি শুভ এবং অনুকূল ইঙ্গিত প্রদান করছে। "
-                f"প্রধান ভাবাধিপতি ও সংশ্লিষ্ট গ্রহের সংযোগ কর্মক্ষমতা বৃদ্ধি ও সুদৃঢ় ভিত্তি রচনায় সহায়ক। "
-                f"সঠিক পরিকল্পনা ও নিয়মিত একাগ্রতার মাধ্যমে এই ক্ষেত্রে কাঙ্ক্ষিত অগ্রগতি লাভ সম্ভব হবে।"
-            )
-        elif lean == "predominantly challenging":
-            overview_text = (
-                f"আপনার জন্মকুণ্ডলীতে {title}-এর ক্ষেত্রে বিশেষ সতর্কতা ও ধৈর্য্যের প্রয়োজন। "
-                f"গ্রহগত প্রভাব সাময়িক বাধা ও দায়িত্বের ইঙ্গিত দেয় যা আত্মউন্নয়ন ও চরিত্র গঠনের অনুঘটক হিসেবে কাজ করবে। "
-                f"বাস্তববাদী মনোভাব বজায় রেখে কর্তব্যে অবিচল থাকলে দীর্ঘমেয়াদী ইতিবাচক ফল লাভ সম্ভব।"
-            )
-        else:
-            overview_text = (
-                f"আপনার জন্মকুণ্ডলীতে {title}-এর ক্ষেত্রটিতে শুভ সম্ভাবনা ও দায়িত্ববোধের মিশ্র প্রকাশ দেখা যায়। "
-                f"পরিমিত বিচারবুদ্ধি ও সুষম সিদ্ধান্তের মাধ্যমে জীবনের এই ক্ষেত্রে অগ্রগতি ত্বরান্বিত হবে। "
-                f"উপযুক্ত সময়ের সদ্ব্যবহার এবং নিষ্ঠাবান প্রচেষ্টাই এই ক্ষেত্রে স্থায়িত্ব নিশ্চিত করবে।"
-            )
-        themes = [
-            "উদ্দেশ্যমুখী কর্মে একাগ্রতা এবং আত্মবিশ্বাস বজায় রাখা।",
-            "অভিজ্ঞ পরামর্শদাতা ও শুভাকাঙ্ক্ষীদের সহযোগিতায় সঠিক সিদ্ধান্ত গ্রহণ।",
-            "নিয়মিত অনুশীলনের মাধ্যমে ব্যক্তিগত দক্ষতার পূর্ণ বিকাশ সাধন।"
-        ]
-        challenges = [
-            "প্রতিকূল পরিস্থিতিতে ধৈর্য্য ধারণ এবং মানসিক ভারসাম্য রক্ষা করা।",
-            "দায়িত্ব ও ব্যক্তিগত আকাঙ্ক্ষার মধ্যে সুষম সমন্বয় বজায় রাখা।"
-        ]
+        p_bn = PLANETS_BN.get(pri_lord, pri_lord)
+        s_bn = SIGNS_BN.get(pri_sign, pri_sign)
+        base_t = TOPIC_TITLES.get("bn", {}).get(topic, topic)
+        overview_text = (
+            f"আপনার {base_t}-এর ক্ষেত্রটি {to_bn_digits(h_pri)}ম পতি {p_bn} দ্বারা পরিচালিত, যা {s_bn} রাশিতে {to_bn_digits(pri_lord_h)}ম ভাবস্থ। "
+            f"কুণ্ডলীর {to_bn_digits(n_groups)}টি গ্রহীয় অবস্থানের বিচারে এই ক্ষেত্রে {lean}-এর প্রভাব দেখা যায়। "
+            f"সঠিক পরিকল্পনা ও নিয়মিত একাগ্রতার মাধ্যমে কাঙ্ক্ষিত অগ্রগতি ও স্থায়িত্ব লাভ সম্ভব।"
+        )
     elif language == "hi":
-        if lean == "predominantly supportive":
-            overview_text = (
-                f"आपकी जन्मपत्रिका में {title} का क्षेत्र विशेष रूप से सकारात्मक एवं प्रगतिशील संकेत देता है। "
-                f"प्रमुख भावेश एवं ग्रहों की शुभ स्थिति निरंतर प्रयास एवं आत्म-अनुशासन से सफलता प्राप्त करने में पूर्णतः सहायक है। "
-                f"योजनाबद्ध कार्यप्रणाली द्वारा इस क्षेत्र में दीर्घकालिक स्थिरता एवं विकास संभव होगा।"
-            )
-        elif lean == "predominantly challenging":
-            overview_text = (
-                f"आपकी जन्मपत्रिका में {title} के संदर्भ में धैर्य एवं विशेष विचारशीलता की आवश्यकता परिलक्षित होती है। "
-                f"यह क्षेत्र कुछ महत्वपूर्ण उत्तरदायित्वों एवं परीक्षाओं को इंगित करता है जो परिपक्वता प्रदान करेंगे। "
-                f"शांतिपूर्ण दृष्टिकोण एवं विवेकपूर्ण आचरण से सभी बाधाओं का समाधान सहजता से होगा।"
-            )
-        else:
-            overview_text = (
-                f"आपकी जन्मपत्रिका में {title} का क्षेत्र संतुलित एवं मिश्रित ग्रह प्रभाव दर्शाता है। "
-                f"स्वाभाविक क्षमताओं के साथ विवेकपूर्ण निर्णय शक्ति का समन्वय इस क्षेत्र में निरंतर प्रगति सुनिश्चित करेगा। "
-                f"सकारात्मक अवसरों का समुचित लाभ उठाने के लिए नियमित प्रयास आवश्यक रहेंगे।"
-            )
-        themes = [
-            "मूल लक्ष्यों के प्रति एकाग्रता एवं कर्मठता का विकास।",
-            "वरिष्ठों के मार्गदर्शन एवं सहयोग से सुदृढ़ निर्णयों का क्रियान्वयन।",
-            "अपनी स्वाभाविक क्षमताओं का निरंतर संवर्धन एवं व्यावहारिक उपयोग।"
-        ]
-        challenges = [
-            "कठिन परिस्थितियों में धैर्य बनाए रखना एवं अधीरता से बचना।",
-            "कार्य एवं पारिवारिक जिम्मेदारियों में सम्यक संतुलन स्थापित करना।"
-        ]
+        p_hi = PLANETS_HI.get(pri_lord, pri_lord)
+        s_hi = SIGNS_HI.get(pri_sign, pri_sign)
+        base_t = TOPIC_TITLES.get("hi", {}).get(topic, topic)
+        overview_text = (
+            f"आपकी {base_t} का आधार {h_pri}वें भाव के स्वामी {p_hi} द्वारा निर्धारित है, जो {s_hi} राशि में {pri_lord_h}वें भाव में स्थित है। "
+            f"पत्रिका के {n_groups} ग्रह सूत्रों के आधार पर इस क्षेत्र में {lean} प्रभाव परिलक्षित होता है। "
+            f"योजनाबद्ध कार्यप्रणाली एवं निरंतर प्रयास से इस क्षेत्र में दीर्घकालिक स्थिरता प्राप्त होगी।"
+        )
     else:
-        # English
-        if lean == "predominantly supportive":
-            if level == "Convergent":
-                foundation_phrase = "reflects a supportive and constructive foundation with auspicious alignment"
-            else:
-                foundation_phrase = "shows positive planetary indications supporting steady progress"
-            overview_text = (
-                f"Your astrological profile for {title.lower()} is governed by {pri_desc}. "
-                f"The natal indicators reflect strong natural resonance, where consistent focus and personal agency unlock promising potential. "
-                f"Overall, the chart {foundation_phrase}, pointing to favorable prospects through structured effort and principled action over time."
-            )
-        elif lean == "predominantly challenging":
-            overview_text = (
-                f"Your natal configuration for {title.lower()} is anchored in {pri_desc}. "
-                f"This life domain highlights key growth tests requiring conscious perseverance, practical discernment, and patience. "
-                f"By approaching responsibilities methodically and managing expectations with maturity, apparent hurdles serve as essential catalysts for long-term personal resilience."
-            )
+        base_t = TOPIC_TITLES.get("en", {}).get(topic, topic.title())
+        overview_text = (
+            f"Your astrological configuration for {base_t.lower()} is anchored by the {ordinal(h_pri)} house lord {pri_lord} placed in {pri_sign} in the {ordinal(pri_lord_h)} house. "
+            f"The chart reflects a {lean} pattern across {n_groups} independent factor groups. "
+            f"Consistent focus and principled personal agency provide a constructive foundation for long-term progress."
+        )
+
+    # Formulate Themes (supportive factor sentences, each citing evidence ID and naming chart facts)
+    themes: List[str] = []
+    for e in sup[:3]:
+        s_txt = format_evidence_sentence(e, chart=chart, lang=language)
+        themes.append(s_txt)
+    first_rule_id = agg["items"][0].get("rule_id", "NATAL") if agg.get("items") else "NATAL"
+    while len(themes) < 3:
+        if language == "bn":
+            themes.append(f"[{first_rule_id}] {to_bn_digits(h_pri)}ম পতির নির্দেশিত দায়িত্বে ধারাবাহিক একাগ্রতা বজায় রাখা।")
+        elif language == "hi":
+            themes.append(f"[{first_rule_id}] {h_pri}वें भावेश के अनुसार मुख्य लक्ष्यों के प्रति नियमित निष्ठा।")
         else:
-            overview_text = (
-                f"Your astrological indicators for {title.lower()} emphasize balanced planetary influences across {pri_desc}. "
-                f"Constructive strengths combine with meaningful responsibilities, requiring steady discernment and moderation. "
-                f"Success in this sphere develops naturally when natural talents are paired with consistent preparation and deliberate timing."
-            )
+            themes.append(f"[{first_rule_id}] Steady dedication to core responsibilities indicated by the {ordinal(h_pri)} house lord.")
 
-        themes = []
-        if sup:
-            for e in sup[:3]:
-                txt = e.get("text", "")
-                txt = txt.replace("first house's themes", "that house's themes")
-                words = txt.split()[:16]
-                themes.append(" ".join(words))
-        while len(themes) < 3:
-            if len(themes) == 0:
-                themes.append("Fostering internal stability and deliberate focus on foundational objectives.")
-            elif len(themes) == 1:
-                themes.append("Developing constructive collaborations with trusted mentors and allies.")
-            else:
-                themes.append("Methodical refinement of personal capabilities and consistent application.")
-
-        challenges = []
-        if ctr:
-            for e in ctr[:2]:
-                txt = e.get("text", "")
-                txt = txt.replace("first house's themes", "that house's themes")
-                words = txt.split()[:20]
-                challenges.append(" ".join(words))
-        while len(challenges) < 2:
-            if len(challenges) == 0:
-                challenges.append("Patience is required when external progress moves slower than anticipated.")
-            else:
-                challenges.append("Careful balancing of competing responsibilities prevents unnecessary fatigue.")
+    # Formulate Challenges (modifying factor sentences, each citing evidence ID and naming chart facts)
+    challenges: List[str] = []
+    for e in ctr[:2]:
+        c_txt = format_evidence_sentence(e, chart=chart, lang=language)
+        challenges.append(c_txt)
+    while len(challenges) < 2:
+        if language == "bn":
+            challenges.append(f"[{first_rule_id}] পরিবর্তনশীল পরিস্থিতিতে সময়োপযোগী ধৈর্য্য ও ভারসাম্য রক্ষা করা।")
+        elif language == "hi":
+            challenges.append(f"[{first_rule_id}] बदलती परिस्थितियों में विवेक एवं धैर्य का सम्यक संतुलन।")
+        else:
+            challenges.append(f"[{first_rule_id}] Measured deliberation and patience across evolving operational cycles.")
 
     basis_ids = [e.get("rule_id", "") for e in used_items if e.get("rule_id")]
     allowed_ids = set(basis_ids)
@@ -281,15 +354,15 @@ def generate_topic_narrative(
     chart_facts: Dict[str, Any],
     max_items: int = 5,
     language: str = "en",
+    chart: Any = None,
 ) -> Tuple[str, List[Dict[str, Any]], Dict[str, Any]]:
     """Generate structured topic representation, complete multilingual translations,
     and Section 20 human-readable rule explanations.
     """
-    t_titles = TOPIC_TITLES.get(language, TOPIC_TITLES["en"])
-    title = t_titles.get(topic, TOPICS.get(topic, {}).get("title", topic.replace("_", " ").title()))
+    title = get_topic_header(topic, chart=chart, lang=language)
 
     topic_json, used_items = generate_topic_json_draft(
-        topic, agg, timing_items, chart_facts, max_items, language=language
+        topic, agg, timing_items, chart_facts, max_items, language=language, chart=chart
     )
 
     level = agg.get("level", "Moderate")
@@ -305,18 +378,12 @@ def generate_topic_narrative(
     for e in used_items:
         if e.get("direction") == "supportive":
             rid = e.get("rule_id", "")
-            raw_text = e.get("text", "")
-            clean_text = re.sub(r'\b(HL|PH|DG|YOGA)-[A-Z0-9\-_]+\b', '', raw_text).replace("first house's themes", "that house's themes").strip()
-            if clean_text.endswith((".", "!", "?")):
-                pass
-            elif clean_text:
-                clean_text += "."
-
             exp = explain_rule(rid, factor_data=e, chart_facts=chart_facts)
+            formatted_sentence = format_evidence_sentence(e, chart=chart, lang=language)
             supporting_factors.append({
                 "factor": e.get("group", ""),
                 "rule_id": rid,
-                "interpretation": clean_text,
+                "interpretation": formatted_sentence,
                 "simple_explanation": exp["simple_explanation"],
                 "advanced_explanation": exp["advanced_explanation"],
                 "why_matters": exp["why_matters"],
@@ -329,18 +396,12 @@ def generate_topic_narrative(
     for e in used_items:
         if e.get("direction") in ("challenging", "mixed"):
             rid = e.get("rule_id", "")
-            raw_text = e.get("text", "")
-            clean_text = re.sub(r'\b(HL|PH|DG|YOGA)-[A-Z0-9\-_]+\b', '', raw_text).replace("first house's themes", "that house's themes").strip()
-            if clean_text.endswith((".", "!", "?")):
-                pass
-            elif clean_text:
-                clean_text += "."
-
             exp = explain_rule(rid, factor_data=e, chart_facts=chart_facts)
+            formatted_sentence = format_evidence_sentence(e, chart=chart, lang=language)
             challenging_factors.append({
                 "factor": e.get("group", ""),
                 "rule_id": rid,
-                "interpretation": clean_text,
+                "interpretation": formatted_sentence,
                 "simple_explanation": exp["simple_explanation"],
                 "advanced_explanation": exp["advanced_explanation"],
                 "why_matters": exp["why_matters"],
@@ -351,10 +412,9 @@ def generate_topic_narrative(
     # Generate multilingual dictionary for instantaneous language switching (en, bn, hi)
     translations: Dict[str, Dict[str, Any]] = {}
     for lang_code in ("en", "bn", "hi"):
-        l_titles = TOPIC_TITLES.get(lang_code, TOPIC_TITLES["en"])
-        l_title = l_titles.get(topic, title)
+        l_title = get_topic_header(topic, chart=chart, lang=lang_code)
         l_json, _ = generate_topic_json_draft(
-            topic, agg, timing_items, chart_facts, max_items, language=lang_code
+            topic, agg, timing_items, chart_facts, max_items, language=lang_code, chart=chart
         )
         l_prose_lines = [
             f"## {l_title}",
@@ -398,9 +458,20 @@ def generate_topic_narrative(
     ]
     clean_prose = "\n".join(prose_lines)
 
+    h_pri = TOPIC_PRIMARY_HOUSE.get(topic, 1)
+    pri_lord = chart.house_lord(h_pri) if chart else None
+    pri_lord_h = chart.house(pri_lord) if (chart and pri_lord) else None
+    pri_sign = SIGNS[chart.sign(pri_lord) - 1] if (chart and pri_lord) else None
+
     structured_data = {
         "topic": topic,
         "title": title,
+        "header_lord": {
+            "house": h_pri,
+            "lord": pri_lord,
+            "occupied_house": pri_lord_h,
+            "sign": pri_sign,
+        },
         "evidence_level": level,
         "lean": lean,
         "explanation": explanation,

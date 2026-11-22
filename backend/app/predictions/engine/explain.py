@@ -8,6 +8,7 @@ while preserving internal rule IDs and conditions for the Advanced Astrologer vi
 
 import re
 from typing import Any, Dict, List, Optional, Tuple
+from .reference import PLANETS, ordinal
 
 PLANET_NAMES = {
     "Sun": {"en": "Sun", "bn": "রবি (সূর্য)", "hi": "सूर्य"},
@@ -101,14 +102,14 @@ HOUSE_NAMES = {
     },
     8: {
         "en": "8th house (transformation, shared resources and research)",
-        "bn": "৮ম ভাব (রন্ধ্র ভাব — পরিবর্তন, নিগূঢ় বিষয় ও যৌথ সম্পদ)",
-        "hi": "अष्टम भाव (आयु भाव — परिवर्तन, गूढ़ रहस्य एवं आकस्मिक लाभ)",
+        "bn": "৮ম ভাব (রন্ধ্র ভাব — পরিবর্তন, নিগূঢ় বিষয় ও সংকট উত্তরণ)",
+        "hi": "अष्टम भाव (परिवर्तन, गूढ़ रहस्य एवं आकस्मिक लाभ)",
         "short_en": "8th house",
         "short_bn": "৮ম ভাব",
         "short_hi": "अष्टम भाव",
-        "themes_en": "inner transformation, research acumen, longevity and shared assets",
-        "themes_bn": "মনস্তাত্ত্বিক রূপান্তর, গভীর অনুসন্ধান, যৌথ বিষয় ও আয়ু বিচার",
-        "themes_hi": "आंतरिक रूपांतरण, गूढ़ अनुसंधान, दीर्घायु एवं साझे संसाधन",
+        "themes_en": "inner transformation, research depth, crisis resilience and shared assets",
+        "themes_bn": "মনস্তাত্ত্বিক রূপান্তর, গভীর অনুসন্ধান, সংকট উত্তরণ ও যৌথ বিষয়",
+        "themes_hi": "आंतरिक रूपांतरण, गूढ़ अनुसंधान, संकट प्रबंधन एवं साझे संसाधन",
     },
     9: {
         "en": "9th house (dharma, higher learning, mentors and long journeys)",
@@ -228,18 +229,18 @@ def explain_rule(
 
         simple_en = (
             f"The ruler of your {h1_info['short_en']} is positioned in your {h2_info['short_en']}. "
-            f"In traditional Vedic astrology, this creates a meaningful bridge connecting themes of "
-            f"{h1_info['themes_en']} with {h2_info['themes_en']}."
+            f"In traditional Vedic astrology, this channels the significations of "
+            f"{h1_info['themes_en']} directly into {h2_info['themes_en']}."
         )
         simple_bn = (
             f"আপনার {h1_info['short_bn']}-এর অধিপতি {h2_info['short_bn']}-এ অবস্থান করছে। "
-            f"প্রচলিত বৈদিক জ্যোতিষ মতে, এই অবস্থান {h1_info['themes_bn']}-এর সাথে {h2_info['themes_bn']}-এর "
-            f"বিষয়গুলির মধ্যে একটি অর্থপূর্ণ সংযোগ নির্দেশ করে।"
+            f"প্রচলিত বৈদিক জ্যোতিষ মতে, এই অবস্থান {h1_info['themes_bn']}-এর "
+            f"সম্ভাবনাকে {h2_info['themes_bn']}-এর ক্ষেত্রে প্রত্যক্ষভাবে পরিচালিত করে।"
         )
         simple_hi = (
             f"आपके {h1_info['short_hi']} का स्वामी {h2_info['short_hi']} में स्थित है। "
-            f"पारंपरिक वैदिक ज्योतिष के अनुसार, यह स्थिति {h1_info['themes_hi']} को {h2_info['themes_hi']} "
-            f"से जोड़ती है, जिससे इन दोनों क्षेत्रों में संतुलन स्थापित होता है।"
+            f"पारंपरिक वैदिक ज्योतिष के अनुसार, यह स्थिति {h1_info['themes_hi']} "
+            f"की ऊर्जा को सीधे {h2_info['themes_hi']} में सक्रिय करती है।"
         )
 
         adv_en = (
@@ -402,32 +403,36 @@ def explain_rule(
 
     # 4. Yogas: YOGA-{NAME} or YOGA-CLUSTER-...
     if rule_id_clean.startswith("YOGA-"):
-        yoga_name = rule_id_clean.replace("YOGA-", "").replace("_", " ").title()
-        if "Cluster" in yoga_name:
+        parts = rule_id_clean.replace("YOGA-", "").split("-")
+        yoga_type = parts[0].title()
+        planets_involved = [p.title() for p in parts[1:] if p.title() in PLANETS]
+        p_str_en = ", ".join(planets_involved) if planets_involved else "participating planets"
+        p_str_bn = ", ".join([PLANET_NAMES.get(p, {}).get("bn", p) for p in planets_involved]) if planets_involved else "সংশ্লিষ্ট গ্রহসমূহ"
+        p_str_hi = ", ".join([PLANET_NAMES.get(p, {}).get("hi", p) for p in planets_involved]) if planets_involved else "संबंधित ग्रह"
+
+        if yoga_type == "Raja":
             simple_en = (
-                f"A harmonious planetary conjunction concentrates multiple planetary influences in one sign. "
-                f"This creates a focused powerhouse of potential that enriches your personal abilities."
+                f"The classical Raja Yoga is formed in your birth chart by {p_str_en} linking kendra and trikona houses. "
+                f"In traditional Parashari texts, this combination supports authority, intellectual clarity, and enduring achievement."
             )
             simple_bn = (
-                f"একই রাশিতে একাধিক গ্রহের শুভ সমাবেশ একটি বিশেষ যোগ রচনা করেছে। "
-                f"এটি আপনার বহুমুখী গুণাবলী ও প্রতিভাকে একমুখী করে বিশেষ সাফল্য এনে দিতে সহায়ক।"
+                f"আপনার জন্মকুণ্ডলীতে কেন্দ্র ও ত্রিকোণাধিপতি {p_str_bn}-এর সংযোগে শাস্ত্রীয় রাজযোগ গঠিত হয়েছে। "
+                f"পরাশরী নীতি মতে, এই শুভ যোগ কর্মদক্ষতা, নেতৃত্ব ও দীর্ঘস্থায়ী সাফল্যের সহায়ক।"
             )
             simple_hi = (
-                f"एक ही राशि में कई ग्रहों की युति एक विशेष योग का निर्माण करती है। "
-                f"यह आपकी बहुमुखी क्षमताओं को केंद्रित कर विशिष्ट उपलब्धियां प्राप्त करने में सहायक है।"
+                f"आपकी जन्मपत्रिका में केंद्राधिपति एवं त्रिकोणाधिपति {p_str_hi} के संबंध से शास्त्रीय राजयोग का निर्माण हुआ है। "
+                f"पारंपरिक वैदिक ग्रंथों में यह शुभ योग सम्मान, विवेकपूर्ण बुद्धि एवं दीर्घकालिक सफलता का सूचक है।"
             )
         else:
             simple_en = (
-                f"The classical {yoga_name} is formed in your birth chart. "
-                f"In traditional Jyotish texts, this auspicious combination denotes honor, mental clarity, and enduring success."
+                f"The verified classical {yoga_type} Yoga ({p_str_en}) is active in your chart per Parashari canon, "
+                f"supporting purposeful vitality and stability in its sphere."
             )
             simple_bn = (
-                f"আপনার জন্মকুণ্ডলীতে প্রথাগত {yoga_name} গঠিত হয়েছে। "
-                f"শাস্ত্রীয় জ্যোতিষ মতে, এই শুভ যোগ সমাজে সুনাম, মানসিক স্থিরতা ও দীর্ঘস্থায়ী সমৃদ্ধির সহায়ক।"
+                f"আপনার জন্মকুণ্ডলীতে শাস্ত্রীয় {yoga_type} যোগ ({p_str_bn}) গঠিত হয়েছে, যা সংশ্লিষ্ট ক্ষেত্রে ইতিবাচক স্থায়িত্ব দেয়।"
             )
             simple_hi = (
-                f"आपकी जन्मपत्रिका में शास्त्रीय {yoga_name} का निर्माण हुआ है। "
-                f"पारंपरिक वैदिक ग्रंथों में यह शुभ योग सम्मान, विवेकपूर्ण बुद्धि एवं दीर्घकालिक सफलता का सूचक है।"
+                f"आपकी जन्मपत्रिका में शास्त्रीय {yoga_type} योग ({p_str_hi}) निर्मित हुआ है, जो संबंधित क्षेत्र में स्थिरता प्रदान करता है।"
             )
 
         adv_en = f"Rule {rule_id_clean}: Classical yoga condition verified per Parashari canon."
@@ -451,7 +456,7 @@ def explain_rule(
             "category": "yoga",
             "houses": [],
             "planet": None,
-            "technical_interpretation": f"Formation of {yoga_name}.",
+            "technical_interpretation": f"Formation of {yoga_type} Yoga.",
             "simple_explanation": {"en": simple_en, "bn": simple_bn, "hi": simple_hi},
             "advanced_explanation": {"en": adv_en, "bn": adv_bn, "hi": adv_hi},
             "why_matters": {"en": why_matters_en, "bn": why_matters_bn, "hi": why_matters_hi},

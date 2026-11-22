@@ -13,7 +13,9 @@ from typing import Any, Dict, List, Optional, Tuple
 from datetime import date
 from .reference import (
     PLANETS, GRAHAS7, SIGNS, SIGN_LORD, EXALT, DEBIL, OWN, MOOLATRIKONA,
-    ASPECT_OFFSETS, HOUSE_DOMAIN, PLANET_KEYWORDS, ordinal
+    ASPECT_OFFSETS, HOUSE_DOMAIN, PLANET_KEYWORDS, ordinal,
+    format_houses_ruled, get_natural_friendship, to_bn_digits,
+    PLANETS_BN, PLANETS_HI, SIGNS_BN, SIGNS_HI
 )
 from .explain import PLANET_NAMES, HOUSE_NAMES
 
@@ -223,37 +225,37 @@ def generate_career_placement_explanation(
             f"Constructive development supported by the themes of {ruled_str_en}.",
         ]
         practical_outcomes_bn = [
-            f"{p_info['bn']}-এর অন্তর্নিহিত গুণাবলীকে {occ_rep_bn}-এর ক্ষেত্রে সফলভাবে কাজে লাগানোর সুযোগ।",
-            f"{ruled_str_bn}-এর ইতিবাচক ফলাফল কর্মজীবনে সহায়ক ভূমিকা পালন করে।",
+            f"{p_info['bn']} গ্রহের প্রভাব {occ_rep_bn}-এর ক্ষেত্রে কার্যকর ভূমিকা পালন করে।",
+            f"{ruled_str_bn}-এর ইতিবাচক প্রভাব কর্মজীবনে কার্যকর ভূমিকা রাখে।",
         ]
         practical_outcomes_hi = [
             f"{p_info['hi']} की स्वाभाविक क्षमताओं का {occ_rep_hi} के क्षेत्र में व्यावहारिक उपयोग।",
             f"{ruled_str_hi} से जुड़े सकारात्मक प्रभाव आजीविका में सहायक सिद्ध होते हैं।",
         ]
         challenges_en = [
-            "Requires consistent effort and patience across fluctuating cycles.",
+            f"Careful management of responsibilities connected with {h_occ_info['short_en']}.",
         ]
         challenges_bn = [
-            "ধৈর্য্যশীল মনোভাব ও নিয়মিত একাগ্রতা বজায় রাখা আবশ্যক।",
+            f"{h_occ_info['short_bn']}-এর দায়িত্ব পালনে সময়ানুবর্তিতা ও নিষ্ঠা প্রয়োজন।",
         ]
         challenges_hi = [
-            "सतत परिश्रम एवं धैर्य से कार्यक्षेत्र में प्रगति संभव होती है।",
+            f"{h_occ_info['short_hi']} से जुड़े उत्तरदायित्वों में सजगता आवश्यक है।",
         ]
 
     traditional_meaning_en = (
         f"The {ruled_str_en} represents {ruled_rep_en}, while the {h_occ_info['short_en']} represents {occ_rep_en}. "
         f"When the ruler of the {ruled_str_en} ({p_info['en']}) occupies the {h_occ_info['short_en']}, traditional Parashari principles "
-        f"connect the motivations of {ruled_str_en} with {occ_rep_en}."
+        f"channel the portfolio of {ruled_str_en} directly into {occ_rep_en}."
     )
     traditional_meaning_bn = (
         f"{ruled_str_bn} প্রতিনিধিত্ব করে {ruled_rep_bn}; অপরপক্ষে {h_occ_info['short_bn']} নির্দেশ করে {occ_rep_bn}। "
         f"যখন {ruled_str_bn}-এর অধিপতি ({p_info['bn']}) {h_occ_info['short_bn']}-এ অবস্থান করে, তখন প্রচলিত বৈদিক পরাশরী জ্যোতিষ মতে "
-        f"তা {ruled_str_bn}-এর সম্ভাবনার সাথে {h_occ_info['short_bn']}-এর জীবনক্ষেত্রের একটি প্রত্যক্ষ যোগসূত্র স্থাপন করে।"
+        f"তা {ruled_str_bn}-এর শক্তিকে {h_occ_info['short_bn']}-এর ক্ষেত্রে সরাসরি পরিচালিত করে।"
     )
     traditional_meaning_hi = (
         f"{ruled_str_hi} {ruled_rep_hi} का कारक है, जबकि {h_occ_info['short_hi']} {occ_rep_hi} को दर्शाता है। "
         f"जब {ruled_str_hi} का स्वामी ({p_info['hi']}) {h_occ_info['short_hi']} में स्थित होता है, तो पारंपरिक पराशरी सूत्रों के अनुसार "
-        f"यह {ruled_str_hi} की ऊर्जा को {h_occ_info['short_hi']} के क्षेत्र से जोड़ता है।"
+        f"यह {ruled_str_hi} की ऊर्जा को {h_occ_info['short_hi']} के क्षेत्र में सीधे सक्रिय करता है।"
     )
 
     non_fatalistic_en = "These are possible traditional indications, not guaranteed career outcomes."
@@ -395,42 +397,47 @@ def analyze_career_comprehensive(
         biz_factors_bn.append("বুধের শুভ স্থিতি বাণিজ্যিক বুদ্ধিমত্তা, মধ্যস্থতা ও ব্যবসায়িক যোগাযোগকে সমৃদ্ধ করে।")
         biz_factors_hi.append("बुध की स्थिति व्यावसायिक समझ, विपणन एवं बौद्धिक व्यापार को बल देती है।")
 
-    # Verdict
-    if biz_score > emp_score:
-        verdict_en = "Independent Business, Consultancy, and Professional Partnerships are more strongly supported than standard salaried employment."
-        verdict_bn = "সাধারণ নির্দিষ্ট বেতনের চাকরির চেয়ে স্বাধীন ব্যবসা, পরামর্শদান (Consultancy) এবং যৌথ অংশীদারি অধিক অনুকূল।"
-        verdict_hi = "पारंपरिक नौकरी की तुलना में स्वतंत्र व्यवसाय, परामर्श (कंसल्टेंसी) एवं साझेदारी अधिक समर्थित हैं।"
-    elif emp_score > biz_score:
-        verdict_en = "Structured Employment, Corporate Service, or Public Sector roles have stronger foundational support than risky ventures."
-        verdict_bn = "ঝুঁকিপূর্ণ বাণিজ্যের চেয়ে প্রাতিষ্ঠানিক চাকরি, করপোরেট সেবা বা সরকারি কর্মে ভিত্তি অধিক সুদৃঢ়।"
-        verdict_hi = "अनिश्चित व्यापार की अपेक्षा संस्थागत सेवा, कॉर्पोरेट नौकरी अथवा सरकारी क्षेत्र अधिक सुदृढ़ हैं।"
+    # Verdict: Show only if evidence on both sides; if mixed, state mixed. No fixed verdict or profession assignment.
+    if emp_factors_en and biz_factors_en:
+        verdict_en = "Mixed indications: The chart shows concurrent astrological factors supporting both structured institutional roles and independent commercial or advisory initiatives."
+        verdict_bn = "মিশ্র যোগ: কুণ্ডলীতে প্রাতিষ্ঠানিক কর্ম এবং স্বাধীন বাণিজ্যিক বা পরামর্শমূলক উদ্যোগ উভয়েরই সমন্বিত ইঙ্গিত বিদ্যমান।"
+        verdict_hi = "मिश्रित संकेत: जन्मपत्रिका में संस्थागत सेवा एवं स्वतंत्र व्यावसायिक या परामर्श आधारित कार्यों दोनों के संतुलित संकेत हैं।"
+        emp_vs_biz_data = {
+            "verdict": {"en": verdict_en, "bn": verdict_bn, "hi": verdict_hi},
+            "emp_factors": {"en": emp_factors_en, "bn": emp_factors_bn, "hi": emp_factors_hi},
+            "biz_factors": {"en": biz_factors_en, "bn": biz_factors_bn, "hi": biz_factors_hi},
+        }
     else:
-        verdict_en = "Balanced potential: Strong feasibility for initial employment transitioning into independent consulting or enterprise."
-        verdict_bn = "ভারসাম্যপূর্ণ যোগ: প্রাথমিক কর্মজীবনের অভিজ্ঞতার পর স্বাধীন পেশা বা পরামর্শমূলক উদ্যোগে উত্তরণ অত্যন্ত ফলপ্রসূ।"
-        verdict_hi = "संतुलित योग: प्रारंभिक नौकरी के अनुभव के पश्चात स्वतंत्र उद्यम अथवा परामर्श में प्रवेश उत्तम रहेगा।"
+        verdict_en = ""
+        verdict_bn = ""
+        verdict_hi = ""
+        emp_vs_biz_data = None
 
-    # 3. Personalized Career Overview (Answering the 6 specific questions)
+    # 3. Personalized Career Overview (Answering core questions without fixed profession assignment)
     h10_lord_name_bn = PLANET_NAMES.get(h10_lord, {}).get("bn", h10_lord)
     h10_lord_name_en = PLANET_NAMES.get(h10_lord, {}).get("en", h10_lord)
     h10_pos_h = chart_obj.house(h10_lord)
+    v_snippet_bn = f"{verdict_bn} " if verdict_bn else ""
+    v_snippet_en = f"{verdict_en} " if verdict_en else ""
+    v_snippet_hi = f"{verdict_hi} " if verdict_hi else ""
 
     overview_bn = (
-        f"আপনার জন্মকুণ্ডলীতে কর্মজীবন ও পেশার প্রধান চালিকাশক্তি ১০ম ভাবাধিপতি {h10_lord_name_bn}, যা {h10_pos_h}ম ভাবস্থ। "
+        f"আপনার জন্মকুণ্ডলীতে কর্মজীবন ও পেশার প্রধান চালিকাশক্তি ১০ম ভাবাধিপতি {h10_lord_name_bn}, যা {to_bn_digits(h10_pos_h)}ম ভাবস্থ। "
         f"এই অবস্থান নির্দেশ করে যে উচ্চশিক্ষা, নীতিগত সততা এবং বিশেষায়িত জ্ঞানের মাধ্যমেই আপনার পেশাগত বিকাশ ঘটবে। "
-        f"{verdict_bn} ব্যবসায়িক অংশীদারি ও যৌথ উদ্যোগের ক্ষেত্রে ৭ম পতির অনুকূলতা রয়েছে, তবে চুক্তির ক্ষেত্রে সম্যক সতর্কতা আবশ্যক। "
-        f"কুণ্ডলীতে প্রাথমিক চঞ্চলতা বা বহুমুখী কর্মচেষ্টার দ্বন্দ্ব দেখা গেলেও অভিজ্ঞ পরামর্শদাতাদের নির্দেশনা দীর্ঘমেয়াদী স্থায়িত্ব এনে দেবে।"
+        f"{v_snippet_bn}ব্যবসায়িক অংশীদারি ও যৌথ উদ্যোগের ক্ষেত্রে ৭ম পতির সংযোগ রয়েছে, তবে চুক্তি ও দলিলাদিতে স্বচ্ছতা রাখা বিধেয়। "
+        f"বহুমুখী কর্মচেষ্টার দ্বন্দ্ব কাটিয়ে সুনির্দিষ্ট ক্ষেত্রে অবিচল নিষ্ঠা বজায় রাখলে দীর্ঘমেয়াদী পেশাগত স্থায়িত্ব লাভ হবে।"
     )
     overview_en = (
         f"In your birth chart, vocational direction is anchored by the 10th house lord {h10_lord_name_en} placed in the {ordinal(h10_pos_h)} house. "
-        f"This alignment highlights specialized intellect, ethical leadership, and mentorship-driven growth as your core professional strengths. "
-        f"{verdict_en} Collaborative agreements are supported, though disciplined legal clarity is required. "
-        f"While multi-tasking and early restlessness present growth hurdles, steady dedication to one core domain assures long-term stature."
+        f"This alignment highlights specialized intellect, ethical leadership, and structured knowledge as foundational strengths. "
+        f"{v_snippet_en}Collaborative agreements are supported through the 7th lord, requiring diligent contractual clarity. "
+        f"Focusing deliberate energy on one core specialization ensures enduring professional stature."
     )
     overview_hi = (
         f"आपकी जन्मपत्रिका में आजीविका का मुख्य आधार दशमेश {h10_lord} का {h10_pos_h}वें भाव में स्थित होना है। "
         f"यह स्थिति उच्च ज्ञान, नैतिक आचरण एवं मार्गदर्शकों के सहयोग से करियर में प्रगति को दर्शाती है। "
-        f"{verdict_hi} व्यावसायिक साझेदारी के योग अनुकूल हैं, बशर्ते अनुबंधों में पूर्ण पारदर्शिता रहे। "
-        f"प्रारंभिक अधीरता पर नियंत्रण रखकर एक निश्चित लक्ष्य पर एकाग्र रहने से दीर्घकालिक सफलता सुनिश्चित होगी।"
+        f"{v_snippet_hi}व्यावसायिक साझेदारी के योग अनुकूल हैं, बशर्ते अनुबंधों में पूर्ण पारदर्शिता रहे। "
+        f"एक निश्चित लक्ष्य पर नियमित निष्ठा रखने से दीर्घकालिक व्यावसायिक सफलता प्राप्त होगी।"
     )
 
     # 4. Career Strengths
@@ -490,97 +497,140 @@ def analyze_career_comprehensive(
         },
     ]
 
-    # 7. Career Timeline using Real Calculated Dasha periods
+    # 7. Career Timeline: Current MD/AD + next 2 AD changes; collapsed past periods as "past".
+    # No speculative event labels, no age buckets. Houses formatted cleanly with format_houses_ruled.
     timeline_events: List[Dict[str, Any]] = []
-    # Search for dashas in chart_obj.dashas (full lifetime) or dasha_summary
+    today_str = date.today().isoformat()
+
     candidate_dashas = getattr(chart_obj, "dashas", []) or []
     if not candidate_dashas and dasha_summary:
         candidate_dashas = dasha_summary
 
-    # Filter for antardashas or mahadashas falling in the working age window (age 18-55) or current window
-    for d in candidate_dashas:
-        lord = d.get("lord", "")
-        start = d.get("start", "")
-        end = d.get("end", "")
-        level = d.get("level", "dasha")
+    md_list = [d for d in candidate_dashas if d.get("level") in ("MD", "mahadasha")]
+    ad_list = [d for d in candidate_dashas if d.get("level") in ("AD", "antardasha")]
 
-        # Age calculation
-        start_age = _calculate_age_at_date(client_dob, start)
-        end_age = _calculate_age_at_date(client_dob, end)
+    def _find_md_for_ad(ad_item):
+        ad_start = ad_item.get("start", "")
+        for m in md_list:
+            if m.get("start", "") <= ad_start < m.get("end", ""):
+                return m.get("lord", "")
+        return ad_item.get("mahadasha") or ad_item.get("lord", "")
 
-        if start_age is not None and (start_age < 18 or start_age > 60):
-            continue
+    # Identify past vs active/future periods
+    past_ads = [ad for ad in ad_list if ad.get("end", "") < today_str]
+    active_and_future_ads = [ad for ad in ad_list if ad.get("end", "") >= today_str]
 
-        age_str = f"{start_age}-{end_age} yrs" if (start_age is not None and end_age is not None) else "Active Phase"
-        lord_h = chart_obj.house(lord)
-        lorded = chart_obj.lorded(lord)
+    if past_ads:
+        earliest_start = past_ads[0].get("start", "")
+        latest_past_end = past_ads[-1].get("end", "")
+        past_lords = list(dict.fromkeys(ad.get("lord", "") for ad in past_ads))
+        timeline_events.append({
+            "event": {
+                "en": "Past Operating Periods",
+                "bn": "অতীত পর্যায়সমূহ",
+                "hi": "पूर्व दशा अवधियाँ",
+            },
+            "period_type": "past",
+            "period_dates": f"{earliest_start} to {latest_past_end}",
+            "start": earliest_start,
+            "end": latest_past_end,
+            "participating_lords": past_lords,
+            "explanation": {
+                "en": "Foundational life and vocational development across concluded planetary cycles.",
+                "bn": "সমাপ্ত গ্রহীয় দশাচক্রে প্রাথমিক জীবন ও কর্মক্ষেত্রের বিকাশ সাধন।",
+                "hi": "समाप्त ग्रह दशा चक्रों में प्रारंभिक जीवन एवं आजीविका का विकास।",
+            },
+        })
 
-        is_career_relevant = (lord in (h10_lord, h1_lord, h6_lord, h11_lord, h7_lord, h2_lord, "Sun", "Saturn", "Mercury"))
+    # Select current operating AD and next 2 AD changes (total 3 periods)
+    if not active_and_future_ads and ad_list:
+        selected_ads = ad_list[-3:]
+    else:
+        selected_ads = active_and_future_ads[:3]
 
-        if is_career_relevant or level in ("MD", "mahadasha") or len(timeline_events) < 5:
-            if start_age is not None and 18 <= start_age <= 25 and (lord in (h10_lord, h6_lord, h1_lord, "Sun", "Saturn", "Mercury")):
-                event_type_en = "Career Entry & Foundation Building (First Job / Initial Vocation)"
-                event_type_bn = "প্রথম কর্মে প্রবেশ ও পেশাগত ভিত্তি রচনা (প্রাথমিক চাকরি / উদ্যোগ)"
-                event_type_hi = "आजीविका में प्रवेश एवं प्रारंभिक आधार निर्माण (प्रथम नौकरी / कार्य)"
-            elif lord == h10_lord or 10 in lorded:
-                event_type_en = "Major Career Milestone & Leadership Recognition"
-                event_type_bn = "কর্মক্ষেত্রে শীর্ষ সাফল্য ও প্রশাসনিক মর্যাদা বৃদ্ধি"
-                event_type_hi = "करियर में प्रमुख उपलब्धि एवं उच्च पद प्राप्ति"
-            elif lord == h7_lord or 7 in lorded:
-                event_type_en = "Business Opportunity & Partnership Collaboration"
-                event_type_bn = "ব্যবসায়িক সুযোগ ও যৌথ অংশীদারির সূত্রপাত"
-                event_type_hi = "व्यावसायिक अवसर एवं नई साझेदारी का प्रारंभ"
-            elif lord == h6_lord or 6 in lorded:
-                event_type_en = "Competitive Breakthrough & Institutional Advancement"
-                event_type_bn = "প্রতিযোগিতা মোকাবিলা ও প্রাতিষ্ঠানিক দায়িত্ব বৃদ্ধি"
-                event_type_hi = "प्रतियोगिता में सफलता एवं संस्थागत प्रगति"
-            elif lord == h11_lord or 11 in lorded:
-                event_type_en = "Substantial Professional Gains & Network Expansion"
-                event_type_bn = "আর্থিক লাভ ও বৃহত্তর পরিচিতিমণ্ডলে প্রবেশ"
-                event_type_hi = "आर्थिक लाभ एवं व्यावसायिक संपर्कों का विस्तार"
-            elif lord in (h1_lord, h9_lord):
-                event_type_en = "Favorable Fortune Window & Skill Elevation"
-                event_type_bn = "ভাগ্যোন্নয়নের অনুকূল পর্যায় ও উচ্চতর দক্ষতা অর্জন"
-                event_type_hi = "भाग्योदय का अनुकूल समय एवं बौद्धिक विकास"
-            else:
-                event_type_en = "Job Transition & Vocational Restructuring"
-                event_type_bn = "কর্মক্ষেত্রে পরিবর্তন ও নতুন কর্মধারায় পদার্পণ"
-                event_type_hi = "कार्यक्षेत्र में परिवर्तन एवं नई दिशा की शुरुआत"
+    for idx, ad in enumerate(selected_ads):
+        ad_lord = ad.get("lord", "")
+        md_lord = _find_md_for_ad(ad)
+        start = ad.get("start", "")
+        end = ad.get("end", "")
 
-            lord_bn = PLANET_NAMES.get(lord, {}).get("bn", lord)
-            lord_hi = PLANET_NAMES.get(lord, {}).get("hi", lord)
-            lord_en = PLANET_NAMES.get(lord, {}).get("en", lord)
+        # Merge Mahadasha with its identical first Antardasha
+        is_same_lord = (md_lord == ad_lord)
+        if is_same_lord:
+            period_label_en = f"{md_lord} Mahadasha ({ad_lord} Opening Phase)"
+            period_label_bn = f"{PLANETS_BN.get(md_lord, md_lord)} মহাদশা ({PLANETS_BN.get(ad_lord, ad_lord)} সূচনা পর্ব)"
+            period_label_hi = f"{PLANETS_HI.get(md_lord, md_lord)} महादशा ({PLANETS_HI.get(ad_lord, ad_lord)} प्रारंभिक चरण)"
+        else:
+            period_label_en = f"{md_lord} MD — {ad_lord} AD"
+            period_label_bn = f"{PLANETS_BN.get(md_lord, md_lord)} মহাদশা — {PLANETS_BN.get(ad_lord, ad_lord)} অন্তর্দশা"
+            period_label_hi = f"{PLANETS_HI.get(md_lord, md_lord)} महादशा — {PLANETS_HI.get(ad_lord, ad_lord)} अंतर्दशा"
 
-            timeline_events.append({
-                "event": {"en": event_type_en, "bn": event_type_bn, "hi": event_type_hi},
-                "period_dates": f"{start} to {end}",
-                "start": start,
-                "end": end,
-                "age_range": age_str,
-                "mahadasha": lord if level in ("MD", "mahadasha") else "Operating Mahadasha",
-                "antardasha": f"{lord_en} ({level.capitalize()})",
-                "supporting_planets": [lord],
-                "supporting_houses": [lord_h] + lorded,
-                "explanation": {
-                    "en": f"Activates {lord_en} positioned in the {ordinal(lord_h)} house (ruling {lorded}), directing focus toward this vocational sector.",
-                    "bn": f"{lord_bn} গ্রহটি {lord_h}ম ভাবস্থ (অধিপতি: {lorded}), যার ফলে এই দশা চলাকালীন কর্মজীবনে বিশেষ গতি সঞ্চারিত হবে।",
-                    "hi": f"{lord_hi} {lord_h}वें भाव में स्थित होकर {lorded} का स्वामी है, जिससे इस अवधि में कार्यक्षेत्र में नई दिशा मिलेगी।",
-                },
-            })
+        ad_h = chart_obj.house(ad_lord)
+        ad_lorded = chart_obj.lorded(ad_lord)
+        md_h = chart_obj.house(md_lord)
+        md_lorded = chart_obj.lorded(md_lord)
 
-        if len(timeline_events) >= 6:
-            break
+        # Relationship and natural friendship (marked as pending astrologer review)
+        rel_info = get_natural_friendship(md_lord, ad_lord)
+        rel_label = rel_info.get("relationship", "neutral")
+        status_review = rel_info.get("status", "pending_astrologer_review")
+
+        # Themes of emphasis derived strictly from houses ruled & occupied
+        all_houses = sorted(list(set([md_h, ad_h] + md_lorded + ad_lorded)))
+        h_themes_en = [HOUSE_NAMES.get(h, {}).get("themes_en", f"House {h}") for h in all_houses if h in HOUSE_NAMES]
+        h_themes_bn = [HOUSE_NAMES.get(h, {}).get("themes_bn", f"{h}ম ভাব") for h in all_houses if h in HOUSE_NAMES]
+        h_themes_hi = [HOUSE_NAMES.get(h, {}).get("themes_hi", f"{h}वें भाव") for h in all_houses if h in HOUSE_NAMES]
+
+        themes_str_en = "; ".join(h_themes_en[:2]) if h_themes_en else "General vocational focus"
+        themes_str_bn = "; ".join(h_themes_bn[:2]) if h_themes_bn else "পেশাগত ও ব্যক্তিগত কর্মধারা"
+        themes_str_hi = "; ".join(h_themes_hi[:2]) if h_themes_hi else "आजीविका एवं व्यक्तिगत कार्यक्षेत्र"
+
+        ruled_ad_en = format_houses_ruled(ad_lorded, "en")
+        ruled_ad_bn = format_houses_ruled(ad_lorded, "bn")
+        ruled_ad_hi = format_houses_ruled(ad_lorded, "hi")
+
+        ruled_md_en = format_houses_ruled(md_lorded, "en")
+        ruled_md_bn = format_houses_ruled(md_lorded, "bn")
+        ruled_md_hi = format_houses_ruled(md_lorded, "hi")
+
+        timeline_events.append({
+            "event": {
+                "en": period_label_en,
+                "bn": period_label_bn,
+                "hi": period_label_hi,
+            },
+            "period_type": "current" if idx == 0 else "upcoming",
+            "period_dates": f"{start} to {end}",
+            "start": start,
+            "end": end,
+            "mahadasha_lord": md_lord,
+            "antardasha_lord": ad_lord,
+            "md_houses_ruled": md_lorded,
+            "ad_houses_ruled": ad_lorded,
+            "md_house_occupied": md_h,
+            "ad_house_occupied": ad_h,
+            "md_ad_relationship": {
+                "natural_friendship": rel_label,
+                "review_status": status_review,
+            },
+            "themes_of_emphasis": {
+                "en": themes_str_en,
+                "bn": themes_str_bn,
+                "hi": themes_str_hi,
+            },
+            "explanation": {
+                "en": f"MD lord {md_lord} ({ruled_md_en}, placed in {ordinal(md_h)} house) operates with AD lord {ad_lord} ({ruled_ad_en}, placed in {ordinal(ad_h)} house). Relationship: {rel_label} ({status_review}). Focus: {themes_str_en}.",
+                "bn": f"মহাদশা পতি {PLANETS_BN.get(md_lord, md_lord)} ({ruled_md_bn}, {to_bn_digits(md_h)}ম ভাবস্থ) এবং অন্তর্দশা পতি {PLANETS_BN.get(ad_lord, ad_lord)} ({ruled_ad_bn}, {to_bn_digits(ad_h)}ম ভাবস্থ)। সম্বন্ধ: {rel_label} ({status_review})। বিশেষ ক্ষেত্র: {themes_str_bn}।",
+                "hi": f"महादशा स्वामी {PLANETS_HI.get(md_lord, md_lord)} ({ruled_md_hi}, {md_h}वें भाव में स्थित) एवं अंतर्दशा स्वामी {PLANETS_HI.get(ad_lord, ad_lord)} ({ruled_ad_hi}, {ad_h}वें भाव में स्थित)। संबंध: {rel_label} ({status_review})। मुख्य विषय: {themes_str_hi}।",
+            },
+        })
 
     return {
         "overview": {"en": overview_en, "bn": overview_bn, "hi": overview_hi},
         "placement_cards": placement_cards,
         "strengths": {"en": strengths_en, "bn": strengths_bn, "hi": strengths_hi},
         "challenges": {"en": challenges_en, "bn": challenges_bn, "hi": challenges_hi},
-        "employment_vs_business": {
-            "verdict": {"en": verdict_en, "bn": verdict_bn, "hi": verdict_hi},
-            "emp_factors": {"en": emp_factors_en, "bn": emp_factors_bn, "hi": emp_factors_hi},
-            "biz_factors": {"en": biz_factors_en, "bn": biz_factors_bn, "hi": biz_factors_hi},
-        },
+        "employment_vs_business": emp_vs_biz_data,
         "possibilities": possibilities,
         "timeline": timeline_events,
     }

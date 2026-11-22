@@ -61,10 +61,8 @@ def relevant(items, topic, chart=None, group_usage=None):
                 is_primary = True
                 direct_primary = True
 
-        if is_primary:
-            role = "primary"
-        else:
-            is_supporting = False
+        is_supporting = False
+        if not is_primary:
             if chart is not None:
                 if (planets & sup_lords) or (facts.get("lord") in sup_lords) or (facts.get("house") in sup and e.get("kind") == "lord_placement"):
                     is_supporting = True
@@ -72,18 +70,41 @@ def relevant(items, topic, chart=None, group_usage=None):
                     is_supporting = True
                 elif planets & sup_aspected:
                     is_supporting = True
+                elif kar & planets and e.get("kind") in ("placement", "dignity"):
+                    is_supporting = True
             else:
                 if houses & sup:
                     is_supporting = True
+                elif kar & planets:
+                    is_supporting = True
 
-            if is_supporting:
-                role = "supporting"
-            elif kar & planets and e.get("kind") in ("placement", "dignity"):
-                role = "karaka"
-            else:
-                continue
+        # Tier 3: Indirect (include ONLY with a concrete link: conjunction, aspect or exchange with a primary lord/house)
+        is_indirect = False
+        if chart is not None and not is_primary and not is_supporting:
+            for p in planets:
+                for pl in pri_lords:
+                    if chart.sign(p) == chart.sign(pl):  # Conjunction with primary lord
+                        is_indirect = True
+                        break
+                    if chart.aspects(p, pl) or chart.aspects(pl, p):  # Aspect link with primary lord
+                        is_indirect = True
+                        break
+                if is_indirect:
+                    break
+                if any(h in pri for h in chart.aspected_houses(p)):  # Aspect to primary house
+                    is_indirect = True
+                    break
 
-        # Sub-priority: direct primary (0) > secondary primary (1) > supporting (2) > karaka (3)
+        if is_primary:
+            role = "primary"
+        elif is_supporting:
+            role = "supporting"
+        elif is_indirect:
+            role = "indirect"
+        else:
+            continue
+
+        # Sub-priority: direct primary (0) > secondary primary (1) > supporting (2) > indirect (3)
         p_rank = 0 if direct_primary else (1 if is_primary else (2 if role == "supporting" else 3))
         res.append(dict(e, role=role, priority_rank=p_rank))
 

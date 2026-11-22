@@ -1,5 +1,6 @@
 """Static reference tables. Dignity degrees and all classical conventions are
 DRAFT until verified against your chosen edition (see source.status in rules)."""
+from typing import Any, Dict, List, Optional
 SIGNS = ["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio",
          "Sagittarius","Capricorn","Aquarius","Pisces"]
 PLANETS = ["Sun","Moon","Mars","Mercury","Jupiter","Venus","Saturn","Rahu","Ketu"]
@@ -108,3 +109,96 @@ TOPIC_TITLES = {
 
 def ordinal(n):
     return f"{n}{'th' if 10<=n%100<=20 else {1:'st',2:'nd',3:'rd'}.get(n%10,'th')}"
+
+# Parashari Natural Friendship (Naisargika Mitra/Shatru/Sama)
+# Marked as pending astrologer review per rulebook specifications
+NATURAL_FRIENDSHIP = {
+    "Sun": {"friends": ["Moon", "Mars", "Jupiter"], "enemies": ["Venus", "Saturn"], "neutral": ["Mercury"]},
+    "Moon": {"friends": ["Sun", "Mercury"], "enemies": [], "neutral": ["Mars", "Jupiter", "Venus", "Saturn"]},
+    "Mars": {"friends": ["Sun", "Moon", "Jupiter"], "enemies": ["Mercury"], "neutral": ["Venus", "Saturn"]},
+    "Mercury": {"friends": ["Sun", "Venus"], "enemies": ["Moon"], "neutral": ["Mars", "Jupiter", "Saturn"]},
+    "Jupiter": {"friends": ["Sun", "Moon", "Mars"], "enemies": ["Mercury", "Venus"], "neutral": ["Saturn"]},
+    "Venus": {"friends": ["Mercury", "Saturn"], "enemies": ["Sun", "Moon"], "neutral": ["Mars", "Jupiter"]},
+    "Saturn": {"friends": ["Mercury", "Venus"], "enemies": ["Sun", "Moon", "Mars"], "neutral": ["Jupiter"]},
+    "Rahu": {"friends": ["Venus", "Saturn"], "enemies": ["Sun", "Moon", "Mars"], "neutral": ["Mercury", "Jupiter"]},
+    "Ketu": {"friends": ["Mars", "Venus"], "enemies": ["Sun", "Moon"], "neutral": ["Mercury", "Jupiter", "Saturn"]},
+}
+
+def get_natural_friendship(p1: str, p2: str) -> Dict[str, str]:
+    """Return relationship label for p1 toward p2.
+    Marked as pending astrologer review."""
+    p1_data = NATURAL_FRIENDSHIP.get(p1, {})
+    rel = "neutral"
+    if p2 in p1_data.get("friends", []):
+        rel = "friend"
+    elif p2 in p1_data.get("enemies", []):
+        rel = "enemy"
+    return {
+        "relationship": rel,
+        "status": "pending_astrologer_review"
+    }
+
+TOPIC_PRIMARY_HOUSE = {
+    "personality": 1,
+    "career": 10,
+    "finance": 2,
+    "education": 5,
+    "marriage": 7,
+    "children": 5,
+    "family_home": 4,
+    "property": 4,
+    "travel": 9,
+    "health": 1,
+    "spirituality": 9,
+    "communication": 3,
+    "disputes_service": 6,
+}
+
+CANONICAL_TOPIC_ORDER = [
+    "personality", "career", "finance", "education", "marriage",
+    "children", "family_home", "property", "travel", "health",
+    "spirituality", "communication", "disputes_service"
+]
+
+SIGNS_BN = {
+    "Aries": "মেষ", "Taurus": "বৃষ", "Gemini": "মিথুন", "Cancer": "কর্কট",
+    "Leo": "সিংহ", "Virgo": "কন্যা", "Libra": "তুলা", "Scorpio": "বৃশ্চিক",
+    "Sagittarius": "ধনু", "Capricorn": "মকর", "Aquarius": "কুম্ভ", "Pisces": "মীন"
+}
+
+SIGNS_HI = {
+    "Aries": "मेष", "Taurus": "वृषभ", "Gemini": "मिथुन", "Cancer": "कर्क",
+    "Leo": "सिंह", "Virgo": "कन्या", "Libra": "तुला", "Scorpio": "वृश्चिक",
+    "Sagittarius": "धनु", "Capricorn": "मकर", "Aquarius": "कुंभ", "Pisces": "मीन"
+}
+
+PLANETS_BN = {
+    "Sun": "রবি", "Moon": "চন্দ্র", "Mars": "মঙ্গল", "Mercury": "বুধ",
+    "Jupiter": "বৃহস্পতি", "Venus": "শুক্র", "Saturn": "শনি", "Rahu": "রাহু", "Ketu": "কেতু"
+}
+
+PLANETS_HI = {
+    "Sun": "सूर्य", "Moon": "चन्द्र", "Mars": "मंगल", "Mercury": "बुध",
+    "Jupiter": "गुरु", "Venus": "शुक्र", "Saturn": "शनि", "Rahu": "राहु", "Ketu": "केतु"
+}
+
+BN_DIGITS = {"0": "০", "1": "১", "2": "২", "3": "৩", "4": "৪", "5": "৫", "6": "৬", "7": "৭", "8": "৮", "9": "৯"}
+
+def to_bn_digits(n: Any) -> str:
+    return "".join(BN_DIGITS.get(ch, ch) for ch in str(n))
+
+def format_houses_ruled(houses: List[int], lang: str = "en") -> str:
+    """Format houses ruled without printing raw lists like [8] or []."""
+    if not houses:
+        if lang == "bn": return "কোনো রাশির অধিপতি নয় (ছায়া গ্রহ)"
+        if lang == "hi": return "किसी राशि का स्वामी नहीं (छाया ग्रह)"
+        return "rules no sign (Nodes)"
+    if lang == "bn":
+        h_strs = [f"{to_bn_digits(h)}ম" for h in sorted(houses)]
+        return f"{' ও '.join(h_strs)} ভাবের অধিপতি"
+    elif lang == "hi":
+        h_strs = [f"{h}वें" for h in sorted(houses)]
+        return f"{' एवं '.join(h_strs)} भाव का स्वामी"
+    else:
+        h_strs = [f"{ordinal(h)}" for h in sorted(houses)]
+        return f"ruling the {' and '.join(h_strs)} house{'s' if len(h_strs)>1 else ''}"

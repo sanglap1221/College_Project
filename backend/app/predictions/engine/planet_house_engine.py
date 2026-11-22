@@ -49,7 +49,7 @@ PLANET_SIGNIFICATORS = {
         "hi": "वैवाहिक सामंजस्य, कला, वाहन सुख, सौंदर्य बोध, कूटनीति एवं समृद्धि",
     },
     "Saturn": {
-        "en": "endurance, structured discipline, longevity, perseverance, and professional duty",
+        "en": "endurance, structured discipline, perseverance, and professional duty",
         "bn": "নিয়মনিষ্ঠা, ধৈর্য্য, দীর্ঘায়ু, কর্মশৃঙ্খল ও সেবামুখী দায়িত্ব",
         "hi": "धैर्य, अनुशासन, दीर्घायु, सतत परिश्रम एवं कर्मठता",
     },

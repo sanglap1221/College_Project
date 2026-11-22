@@ -20,7 +20,7 @@ from app.db import (
     update_prediction_section_record,
 )
 from .engine.pipeline import run_pipeline
-from .engine.reference import TOPICS, HOUSE_DOMAIN, PLANET_KEYWORDS, ordinal
+from .engine.reference import TOPICS, HOUSE_DOMAIN, PLANET_KEYWORDS, ordinal, CANONICAL_TOPIC_ORDER
 from .engine import ai_service
 
 logger = logging.getLogger("astro_app.predictions.service")
@@ -28,16 +28,7 @@ logger = logging.getLogger("astro_app.predictions.service")
 # In-memory prediction cache keyed by chart_hash + ruleset_version
 _PREDICTION_REPORT_CACHE: Dict[str, Dict[str, Any]] = {}
 
-CORE_LIFE_TOPICS = [
-    "career",
-    "finance",
-    "marriage",
-    "health",
-    "education",
-    "spirituality",
-    "family_home",
-    "travel",
-]
+CORE_LIFE_TOPICS = [t for t in CANONICAL_TOPIC_ORDER if t in TOPICS]
 
 
 def compute_chart_hash(input_data: Dict[str, Any]) -> str:
@@ -215,12 +206,32 @@ def generate_prediction_report(
     chart_facts["chart_id"] = report_id
 
     ruleset_version = "2.0.0"
-    cache_key = f"{chart_hash}_{ruleset_version}_{language}_{use_ai}_{provider}_{model}_{include_technical_appendix}"
+    cache_key = f"{chart_hash}_{ruleset_version}_{use_ai}_{provider}_{model}_{include_technical_appendix}"
 
     if not force_regenerate and cache_key in _PREDICTION_REPORT_CACHE:
         logger.info(f"Returning cached prediction report for cache key: {cache_key}")
-        cached_rep = dict(_PREDICTION_REPORT_CACHE[cache_key])
+        cached_rep = json.loads(json.dumps(_PREDICTION_REPORT_CACHE[cache_key]))
         cached_rep["report_id"] = report_id
+        if language in ("en", "bn", "hi"):
+            cached_rep["language"] = language
+            exec_tr = cached_rep.get("translations", {}).get("executive_overview", {})
+            if language in exec_tr:
+                cached_rep["executive_overview"] = exec_tr[language]
+            for sec in cached_rep.get("sections", []):
+                tr = sec.get("translations", {}).get(language)
+                if tr:
+                    sec["title"] = tr.get("title", sec["title"])
+                    sec["overview"] = tr.get("overview", sec["overview"])
+                    sec["summary"] = tr.get("summary", sec["summary"])
+                    sec["themes"] = tr.get("themes", sec["themes"])
+                    sec["challenges"] = tr.get("challenges", sec["challenges"])
+                    sec["prediction"] = tr.get("prediction", sec["prediction"])
+                if sec.get("topic") == "career" and sec.get("career_analysis"):
+                    ca = sec["career_analysis"]
+                    if ca.get("overview", {}).get(language):
+                        sec["overview"] = ca["overview"][language]
+                        sec["summary"] = ca["overview"][language]
+                        sec["prediction"] = ca["overview"][language]
         return cached_rep
 
     if not ref_date:
