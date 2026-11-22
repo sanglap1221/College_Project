@@ -194,16 +194,26 @@ def generate_prediction_report(
     model: Optional[str] = None,
     force_regenerate: bool = False,
     include_technical_appendix: bool = False,
+    language: str = "en",
 ) -> Dict[str, Any]:
     """Generate a complete prediction report with caching per chart_hash + ruleset_version."""
     if provider or model:
         ai_service.update_runtime_ai_config(provider=provider, model=model)
 
+    # Resolve language
+    if isinstance(payload, dict):
+        language = payload.get("language") or language
+    else:
+        language = getattr(payload, "language", None) or language
+    language = str(language).lower()
+    if language not in ("en", "bn", "hi"):
+        language = "en"
+
     chart_facts, chart, chart_hash = prepare_chart_facts_from_input(payload)
     chart_facts["chart_id"] = report_id
 
     ruleset_version = "2.0.0"
-    cache_key = f"{chart_hash}_{ruleset_version}_{use_ai}_{provider}_{model}_{include_technical_appendix}"
+    cache_key = f"{chart_hash}_{ruleset_version}_{language}_{use_ai}_{provider}_{model}_{include_technical_appendix}"
 
     if not force_regenerate and cache_key in _PREDICTION_REPORT_CACHE:
         logger.info(f"Returning cached prediction report for cache key: {cache_key}")
@@ -223,6 +233,7 @@ def generate_prediction_report(
         topics=requested_topics,
         ref_date=ref_date,
         use_ai=use_ai,
+        language=language,
     )
 
     report["report_id"] = report_id

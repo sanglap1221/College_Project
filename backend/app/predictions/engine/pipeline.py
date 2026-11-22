@@ -29,6 +29,7 @@ def run_pipeline(
     topics: Optional[List[str]] = None,
     ref_date: Optional[str] = None,
     use_ai: bool = False,
+    language: str = "en",
 ) -> Dict[str, Any]:
     """Execute the complete prediction pipeline on trusted chart facts."""
     rb = RuleBook()
@@ -69,7 +70,7 @@ def run_pipeline(
             "ayanamsa": rb.cfg.get("ayanamsa", "traditional_lahiri"),
         },
         "reference_date": ref_date,
-        "language": "en",
+        "language": language,
         "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "data_issues": chart.issues,
         "data_notes": chart.notes,
@@ -110,6 +111,7 @@ def run_pipeline(
             timing_items,
             chart_facts=chart.planets,
             max_items=rb.cfg.get("evidence", {}).get("max_items_per_side", 5),
+            language=language,
         )
 
         allowed_ids: Set[str] = {e["rule_id"] for e in used_items if "rule_id" in e}
