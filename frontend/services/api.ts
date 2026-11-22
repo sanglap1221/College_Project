@@ -68,7 +68,7 @@ export async function getCurrentUser() {
 
 // ── Report API Calls (Now with Auth) ──
 
-export async function calculateReport(data: ReportInput): Promise<ReportState> {
+export async function calculateReport(data: ReportInput, signal?: AbortSignal): Promise<ReportState> {
   const overrideMoonRaw = data.override_moon_longitude?.trim();
   const overrideMoon = overrideMoonRaw ? Number(overrideMoonRaw) : undefined;
   const payload = {
@@ -80,6 +80,7 @@ export async function calculateReport(data: ReportInput): Promise<ReportState> {
     method: "POST",
     headers: getAuthHeaders(),
     body: JSON.stringify(payload),
+    signal,
   });
 
   handleAuthError(response);
@@ -92,11 +93,12 @@ export async function calculateReport(data: ReportInput): Promise<ReportState> {
   return (await response.json()) as ReportState;
 }
 
-export async function renderPdf(state: ReportState): Promise<{ preview_url: string; compiled_pdf_url: string }> {
+export async function renderPdf(state: ReportState, signal?: AbortSignal): Promise<{ preview_url: string; compiled_pdf_url: string }> {
   const response = await fetch(`${API}/api/render-pdf`, {
     method: "POST",
     headers: getAuthHeaders(),
     body: JSON.stringify(state),
+    signal,
   });
 
   handleAuthError(response);

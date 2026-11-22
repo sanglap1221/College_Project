@@ -206,7 +206,7 @@ def generate_prediction_report(
     chart_facts["chart_id"] = report_id
 
     ruleset_version = "2.0.0"
-    cache_key = f"{chart_hash}_{ruleset_version}_{use_ai}_{provider}_{model}_{include_technical_appendix}"
+    cache_key = f"{chart_hash}_{ruleset_version}_{use_ai}_{provider}_{model}_{include_technical_appendix}_{language}"
 
     if not force_regenerate and cache_key in _PREDICTION_REPORT_CACHE:
         logger.info(f"Returning cached prediction report for cache key: {cache_key}")

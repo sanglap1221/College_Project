@@ -170,11 +170,61 @@ const UI_TEXT = {
   },
 };
 
+// Evidence Level and Lean Translation Dictionaries
+const EVIDENCE_LEVEL_MAP: Record<string, Record<string, string>> = {
+  bn: {
+    "Convergent": "সুসংহত",
+    "Moderate": "মধ্যম",
+    "Strong": "দৃঢ়",
+    "Divergent": "বৈচিত্র্যপূর্ণ",
+    "Emerging": "উদ্ীয়মান"
+  },
+  hi: {
+    "Convergent": "सुसंबद्ध",
+    "Moderate": "मध्यम",
+    "Strong": "प्रबल",
+    "Divergent": "विविध",
+    "Emerging": "उदीयमान"
+  },
+  en: {
+    "Convergent": "Convergent",
+    "Moderate": "Moderate",
+    "Strong": "Strong",
+    "Divergent": "Divergent",
+    "Emerging": "Emerging"
+  }
+};
+
+const LEAN_MAP: Record<string, Record<string, string>> = {
+  bn: {
+    "supportive": "অনুকূল",
+    "challenging": "চ্যালেঞ্জিং",
+    "mixed": "মিশ্র",
+    "favorable": "অনুকূল",
+    "cautious": "সতর্কতামূলক"
+  },
+  hi: {
+    "supportive": "अनुकूल",
+    "challenging": "चुनौतीपूर्ण",
+    "mixed": "मिश्रित",
+    "favorable": "अनुकूल",
+    "cautious": "सतर्क"
+  },
+  en: {
+    "supportive": "Supportive",
+    "challenging": "Challenging",
+    "mixed": "Mixed",
+    "favorable": "Favorable",
+    "cautious": "Cautious"
+  }
+};
+
 // Client-Side Rule Explainer and Sanitizer to ensure NO raw rule IDs leak in Simple Mode
 function cleanRuleText(text: string): string {
   if (!text) return "";
   return text
-    .replace(/\b(HL|PH|DG|YOGA)[\w\-]+/gi, "")
+    .replace(/\[\s*(HL|PH|DG|YOGA)[\w\-]+\s*\]/gi, "")
+    .replace(/\b(HL|PH|DG|YOGA)[\w\-]+\b/gi, "")
     .replace(/\[\s*\]/g, "")
     .replace(/\(\s*\)/g, "")
     .replace(/\s+/g, " ")
@@ -296,15 +346,23 @@ export default function PredictionsPage() {
   // ── 1. Load Kundli Chart Sheet ("জীবন জিজ্ঞাসা") ──
   const loadChartReport = useCallback(
     async (input: ReportInput, lang: string = "bn") => {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
       try {
         setChartLoading(true);
-        const calc = await calculateReport({ ...input, language: lang });
-        const pdfRes = await renderPdf(calc);
+        const calc = await calculateReport({ ...input, language: lang }, controller.signal);
+        const pdfRes = await renderPdf(calc, controller.signal);
         setChartPdfUrl(pdfRes.preview_url);
         setChartDownloadUrl(pdfRes.compiled_pdf_url);
       } catch (err: any) {
-        console.warn("Could not compile Kundli Chart preview:", err);
+        if (err.name === "AbortError") {
+          console.warn("Kundli Chart preview generation timed out after 30 seconds.");
+          setError("Kundli Chart preview generation timed out after 30 seconds.");
+        } else {
+          console.warn("Could not compile Kundli Chart preview:", err);
+        }
       } finally {
+        clearTimeout(timeoutId);
         setChartLoading(false);
       }
     },
@@ -384,11 +442,11 @@ export default function PredictionsPage() {
           setSelectedLang(lang);
           setChartLanguage(lang);
 
-          // Load Kundli Chart ("জীবন জিজ্ঞাসা") in Left Column
-          loadChartReport(parsed, lang);
-
-          // Generate Predictions in Right Column
-          handleGeneratePredictions(parsed, false, lang);
+          // Load Chart and Predictions truly in parallel
+          Promise.allSettled([
+            loadChartReport(parsed, lang),
+            handleGeneratePredictions(parsed, false, lang),
+          ]);
         } catch (e) {
           console.error("Error reading stored prediction details:", e);
         }
@@ -404,7 +462,13 @@ export default function PredictionsPage() {
     setChartLanguage(newLang);
     const updated = { ...formValue, language: newLang };
     setFormValue(updated);
+
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("pending_prediction_details", JSON.stringify(updated));
+    }
+
     loadChartReport(updated, newLang);
+    handleGeneratePredictions(updated, true, newLang);
   };
 
   // ── 5. Select Topic Handler ──
@@ -481,11 +545,32 @@ export default function PredictionsPage() {
   const localizedActiveSection = useMemo(() => {
     if (!activeSection) return null;
     const tr = activeSection.translations?.[selectedLang];
+    let overviewText = tr?.overview || activeSection.overview || activeSection.summary || "";
+
+    if (explanationMode === "simple") {
+      overviewText = cleanRuleText(overviewText);
+      if (selectedLang === "bn") {
+        overviewText = overviewText
+          .replace(/\bmixed\b/gi, "মিশ্র")
+          .replace(/\bmoderate\b/gi, "মধ্যম")
+          .replace(/\bsupportive\b/gi, "অনুকূল")
+          .replace(/mixed-/g, "মিশ্র প্রকৃতির ")
+          .replace(/mixed/g, "মিশ্র");
+      } else if (selectedLang === "hi") {
+        overviewText = overviewText
+          .replace(/\bmixed\b/gi, "मिश्रित")
+          .replace(/\bmoderate\b/gi, "मध्यम")
+          .replace(/\bsupportive\b/gi, "अनुकूल")
+          .replace(/mixed-/g, "मिश्रित प्रकृति का ")
+          .replace(/mixed/g, "मिश्रित");
+      }
+    }
+
     return {
       topic: activeSection.topic,
       career_analysis: activeSection.career_analysis,
       title: tr?.title || activeSection.title,
-      overview: tr?.overview || activeSection.overview || activeSection.summary,
+      overview: overviewText,
       themes: tr?.themes && tr.themes.length > 0 ? tr.themes : activeSection.themes || [],
       challenges: tr?.challenges && tr.challenges.length > 0 ? tr.challenges : activeSection.challenges || [],
       why_this: activeSection.why_this,
@@ -496,7 +581,7 @@ export default function PredictionsPage() {
       basis_ids: activeSection.basis_ids || activeSection.rule_ids || [],
       explanation: activeSection.explanation,
     };
-  }, [activeSection, selectedLang]);
+  }, [activeSection, selectedLang, explanationMode]);
 
   // Multilingual executive overview
   const localizedExecutiveOverview = useMemo(() => {
@@ -581,7 +666,7 @@ export default function PredictionsPage() {
             </div>
 
             <button
-              onClick={() => router.push("/create-report")}
+              onClick={() => router.push("/")}
               className="px-2.5 py-1.5 rounded-lg border border-[#ebdcb9] hover:bg-amber-50 text-amber-900 text-xs font-semibold hidden sm:flex items-center gap-1.5 transition-colors shadow-2xs"
             >
               <i className="fa-solid fa-chart-pie text-xs"></i> {ui.chartSheet}
@@ -978,7 +1063,7 @@ export default function PredictionsPage() {
                             : "bg-slate-100 text-slate-700 border border-slate-200"
                         }`}
                       >
-                        {localizedActiveSection.evidence_level} ({localizedActiveSection.lean})
+                        {EVIDENCE_LEVEL_MAP[selectedLang]?.[localizedActiveSection.evidence_level] || localizedActiveSection.evidence_level} ({LEAN_MAP[selectedLang]?.[localizedActiveSection.lean?.toLowerCase()] || localizedActiveSection.lean})
                       </span>
                     </div>
 

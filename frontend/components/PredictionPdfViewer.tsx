@@ -28,6 +28,23 @@ export function PredictionPdfViewer({
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const [useIframeFallback, setUseIframeFallback] = useState<boolean>(false);
+  const [elapsedSeconds, setElapsedSeconds] = useState<number>(0);
+
+  useEffect(() => {
+    let timer: any;
+    if (loading) {
+      setElapsedSeconds(0);
+      const startTime = Date.now();
+      timer = setInterval(() => {
+        setElapsedSeconds(Math.floor((Date.now() - startTime) / 1000));
+      }, 1000);
+    } else {
+      setElapsedSeconds(0);
+    }
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [loading]);
 
   // Load PDF.js from CDN if not already loaded
   useEffect(() => {
@@ -251,6 +268,9 @@ export function PredictionPdfViewer({
           <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex flex-col items-center justify-center gap-3 z-10 text-slate-600">
             <LoadingSpinner />
             <span className="text-xs font-medium">Loading report preview...</span>
+            <span className="text-[10px] text-slate-400">
+              This may take a few seconds on first load {elapsedSeconds > 0 ? `(${elapsedSeconds}s)` : ""}
+            </span>
           </div>
         )}
 
