@@ -749,27 +749,8 @@ export default function HomePage() {
       {/* Footer Section */}
       <footer className="relative w-full px-6 py-3.5 z-10 bg-gradient-to-t from-black/95 to-transparent">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
-
-          {/* Developer Card (highly compact to prevent vertical cutoff) */}
-          <div
-            onClick={() => window.open("https://sanglap-s-portfolio.vercel.app/", "_blank")}
-            className="cosmic-glass cosmic-glass-hover p-3 rounded-xl text-left w-full md:w-auto max-w-sm transition-all duration-300 shadow-md cursor-pointer"
-          >
-            <p className="text-amber-400 font-semibold tracking-wider uppercase mb-0.5 text-[9px]">Developed By</p>
-            <p className="text-xs font-bold text-gray-200 leading-tight">Sanglap Ghosh</p>
-            <p className="text-[9px] text-gray-500 uppercase tracking-widest mb-1.5">Full Stack Developer</p>
-            <div className="space-y-0.5 text-gray-400 font-light text-[10px]">
-              <p className="flex items-center space-x-1.5">
-                <i className="fa-solid fa-phone text-amber-400/70 text-[9px]"></i>
-                <span>+91 9883483390</span>
-              </p>
-              <p className="flex items-center space-x-1.5">
-                <i className="fa-solid fa-globe text-amber-400/70 text-[9px]"></i>
-                <span className="hover:text-amber-300 transition-colors underline decoration-amber-500/30">
-                  sanglap-s-portfolio.vercel.app
-                </span>
-              </p>
-            </div>
+          <div className="text-center md:text-left text-gray-500 max-w-xs">
+            <p className="text-[11px] text-gray-400">জীবন জিজ্ঞাসা — Jibon Jigyasa Astro Workspace</p>
           </div>
 
           {/* Mystical Quote / Status */}

@@ -642,7 +642,7 @@ export default function AdminPage() {
       </div>
 
       {/* Footer Branding */}
-      <footer 
+      <footer
         className="w-full py-4 px-4 sm:px-6 text-center border-t text-xs font-sans mt-auto"
         style={{ borderColor: "#ebdcb9", background: "#fdfcf7" }}
       >
@@ -650,23 +650,8 @@ export default function AdminPage() {
           <div>
             <strong>Version 1.0</strong>
           </div>
-          <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-4">
-            <span>
-              Software Developed By:{" "}
-              <span 
-                onClick={() => window.open("https://sanglap-s-portfolio.vercel.app/", "_blank")}
-                className="font-bold text-amber-800 hover:text-amber-950 hover:underline cursor-pointer"
-              >
-                Sanglap Ghosh
-              </span>
-            </span>
-            <span className="hidden sm:inline">|</span>
-            <span>
-              Contact:{" "}
-              <a href="tel:+919883483390" className="font-semibold text-slate-700 hover:text-amber-800">
-                +91 9883483390
-              </a>
-            </span>
+          <div>
+            <span>জীবন জিজ্ঞাসা — Jibon Jigyasa Astro Workspace</span>
           </div>
         </div>
       </footer>
