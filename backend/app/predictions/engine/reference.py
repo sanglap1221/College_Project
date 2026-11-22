@@ -1,6 +1,6 @@
 """Static reference tables. Dignity degrees and all classical conventions are
 DRAFT until verified against your chosen edition (see source.status in rules)."""
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 SIGNS = ["Aries","Taurus","Gemini","Cancer","Leo","Virgo","Libra","Scorpio",
          "Sagittarius","Capricorn","Aquarius","Pisces"]
 PLANETS = ["Sun","Moon","Mars","Mercury","Jupiter","Venus","Saturn","Rahu","Ketu"]

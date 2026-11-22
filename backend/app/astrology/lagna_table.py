@@ -25,19 +25,7 @@ def load_lagna_table() -> dict:
                 merged = {}
                 
     # Merge PM Bagchi lagna table (giving it precedence)
-    # p_path = Path(__file__).resolve().parent / "data" / "traditional_rules" / "pm_bagchi_lagna_table.json"
-    # if p_path.exists():
-    #     with open(p_path, "r", encoding="utf-8") as f:
-    #         try:
-    #             pm_data = json.load(f)
-    #             for month, days in pm_data.items():
-    #                 if month not in merged:
-    #                     merged[month] = {}
-    #                 for day, day_data in days.items():
-    #                     merged[month][day] = day_data
-    #         except Exception:
-    #             pass
-                
+
     return merged
 
 def lookup_table_lagna(month_name: str, day_num: int, birth_time: time, use_sidereal: bool = True) -> int:

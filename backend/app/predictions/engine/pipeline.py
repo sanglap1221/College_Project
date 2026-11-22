@@ -175,6 +175,7 @@ def run_pipeline(
             ai_results, ai_notes = ai_service.ai_generate_and_audit_all_topics(
                 topics_packages=topics_packages,
                 dasha_summary=dasha_summary,
+                language=language,
             )
         except Exception as exc:
             logger.warning(f"Batched AI generation failed: {exc}")
@@ -214,6 +215,7 @@ def run_pipeline(
                 allowed_planets,
                 allowed_dates,
                 rb.forbidden,
+                basis_ids=ai_topic.get("basis_ids", []),
             )
 
             if not gate_probs:

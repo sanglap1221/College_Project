@@ -320,10 +320,6 @@ function createWindow() {
     }
   }, 6000);
 
-  // if (!app.isPackaged) {
-  //   mainWindow.webContents.openDevTools();
-  // }
-
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     if (handleExternalLinks(url)) {
       return { action: 'deny' };

@@ -249,12 +249,14 @@ Output STRICTLY valid JSON:
 def ai_generate_and_audit_all_topics(
     topics_packages: Dict[str, Any],
     dasha_summary: List[Dict[str, Any]],
+    language: str = "en",
 ) -> Tuple[Dict[str, Dict[str, Any]], List[str]]:
     """Generate all topics in ONE AI call and audit all topics in ONE call (free-tier rate limits).
     Returns (topic_results_map, audit_notes).
     """
     notes: List[str] = []
     compact_input = {
+        "target_language": language,
         "active_dashas": dasha_summary,
         "topics": {},
     }
@@ -273,9 +275,17 @@ def ai_generate_and_audit_all_topics(
             "allowed_ids": sorted(list(pkg["allowed_ids"]))[:8],
         }
 
+    lang_instruction = "Write all text strictly in clear, professional English."
+    if language == "bn":
+        lang_instruction = "CRITICAL REQUIREMENT: Write all 'overview', 'themes', and 'challenges' strictly in fluent, dignified Bengali (বাংলা). Do NOT output English prose for the content."
+    elif language == "hi":
+        lang_instruction = "CRITICAL REQUIREMENT: Write all 'overview', 'themes', and 'challenges' strictly in fluent, dignified Hindi (हिन्दी). Do NOT output English prose for the content."
+
+    batch_gen_prompt = BATCH_GEN_PROMPT + f"\n\n{lang_instruction}\n"
+
     # Call 1: Generate all topics in one call
     gen_messages = [
-        {"role": "system", "content": BATCH_GEN_PROMPT},
+        {"role": "system", "content": batch_gen_prompt},
         {"role": "user", "content": json.dumps(compact_input, ensure_ascii=False)},
     ]
 

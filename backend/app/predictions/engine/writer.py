@@ -10,7 +10,7 @@ from .reference import (
     SIGNS, TOPIC_PRIMARY_HOUSE, SIGNS_BN, SIGNS_HI, PLANETS_BN, PLANETS_HI,
     format_houses_ruled, to_bn_digits
 )
-from .explain import explain_rule, build_why_this_prediction, HOUSE_NAMES, PLANET_NAMES
+from .explain import explain_rule, build_why_this_prediction
 
 CAVEATS = {
     "en": "This interpretation reflects traditional Parashari Vedic Jyotish principles as symbolic indicators. It is not an empirical certainty or a substitute for professional legal, medical, or financial counsel.",

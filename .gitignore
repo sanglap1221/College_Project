@@ -10,3 +10,4 @@ venv/
 Complete_Jyotish_Prediction_Engine_Rulebook.docx
 jyotish_rulebook_v2
 backend/generated
+backend/app/predictions/engine/__pycache__/

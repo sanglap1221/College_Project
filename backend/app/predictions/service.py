@@ -20,7 +20,7 @@ from app.db import (
     update_prediction_section_record,
 )
 from .engine.pipeline import run_pipeline
-from .engine.reference import TOPICS, HOUSE_DOMAIN, PLANET_KEYWORDS, ordinal, CANONICAL_TOPIC_ORDER
+from .engine.reference import TOPICS, CANONICAL_TOPIC_ORDER
 from .engine import ai_service
 
 logger = logging.getLogger("astro_app.predictions.service")

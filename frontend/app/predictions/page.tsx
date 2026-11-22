@@ -15,7 +15,6 @@ import {
   savePredictionSection,
   getAiConfig,
   updateAiConfig,
-  API,
 } from "../../services/api";
 import type { ReportInput, ReportState } from "../../types/report";
 import type {
@@ -415,6 +414,17 @@ export default function PredictionsPage() {
     [predictionReport?.report_id, selectedLang, selectedModel, selectedProvider, useAi]
   );
 
+  useEffect(() => {
+    if (predictionReport && typeof window !== "undefined") {
+      try {
+        sessionStorage.setItem("last_report_state", JSON.stringify(predictionReport));
+        window.dispatchEvent(new Event("kundli_report_updated"));
+      } catch (e) {
+        // ignore
+      }
+    }
+  }, [predictionReport]);
+
   // ── 3. Initial Load from Session Storage or History ──
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -673,13 +683,6 @@ export default function PredictionsPage() {
             </button>
 
             <button
-              onClick={() => setAiSettingsOpen(true)}
-              className="px-2.5 py-1.5 rounded-lg bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 text-indigo-900 text-xs font-semibold flex items-center gap-1.5 transition-colors"
-            >
-              <i className="fa-solid fa-microchip text-xs"></i> {ui.aiSettings}
-            </button>
-
-            <button
               onClick={() => setIsAboutOpen(true)}
               className="px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium hidden md:flex items-center gap-1"
             >
@@ -927,18 +930,6 @@ export default function PredictionsPage() {
             </div>
 
             <div className="flex items-center gap-2">
-              {/* AI Provider & Model Controls */}
-              <select
-                value={selectedProvider}
-                onChange={(e) => setSelectedProvider(e.target.value)}
-                className="text-xs py-1 px-1.5 border border-slate-200 rounded-md bg-slate-50 focus:bg-white text-slate-700"
-              >
-                <option value="groq">Groq (Ultra-Fast Free)</option>
-                <option value="gemini">Google Gemini</option>
-                <option value="openrouter">OpenRouter</option>
-                <option value="custom">Custom Endpoint</option>
-              </select>
-
               <button
                 onClick={() => handleGeneratePredictions(formValue, true, selectedLang)}
                 disabled={loading}
@@ -1963,94 +1954,6 @@ export default function PredictionsPage() {
               >
                 {savingSection ? <LoadingSpinner /> : <i className="fa-solid fa-floppy-disk"></i>}
                 Save Manual Edits
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ── AI Settings Modal ── */}
-      {aiSettingsOpen && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-fade-in">
-          <div className="bg-white border-2 border-[#ebdcb9] rounded-2xl w-full max-w-md p-5 shadow-2xl flex flex-col gap-4 animate-scale-up">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
-              <div className="flex items-center gap-2">
-                <span className="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center text-sm">
-                  <i className="fa-solid fa-microchip"></i>
-                </span>
-                <div>
-                  <h3 className="font-serif font-bold text-sm text-slate-800">AI Consistency Engine Settings</h3>
-                  <p className="text-[10px] text-slate-500">Select free tier provider or custom API endpoint</p>
-                </div>
-              </div>
-              <button
-                onClick={() => setAiSettingsOpen(false)}
-                className="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center text-xs"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="space-y-3 text-xs">
-              <div>
-                <label className="font-semibold text-slate-700 block mb-1">AI Provider</label>
-                <select
-                  value={selectedProvider}
-                  onChange={(e) => {
-                    const p = e.target.value;
-                    setSelectedProvider(p);
-                    if (p === "groq") setSelectedModel("llama-3.3-70b-versatile");
-                    else if (p === "gemini") setSelectedModel("gemini-1.5-flash");
-                    else if (p === "openrouter") setSelectedModel("meta-llama/llama-3.3-70b-instruct:free");
-                  }}
-                  className="w-full p-2 border border-slate-200 rounded-lg text-xs bg-slate-50 focus:bg-white"
-                >
-                  <option value="groq">Groq Cloud (Free Tier - Ultra Fast LLaMA 3.3)</option>
-                  <option value="gemini">Google Gemini (Free Tier - gemini-1.5-flash)</option>
-                  <option value="openrouter">OpenRouter (Free Tier Models)</option>
-                  <option value="custom">Custom / Local OpenAI-Compatible</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="font-semibold text-slate-700 block mb-1">Model Selection</label>
-                <input
-                  type="text"
-                  value={selectedModel}
-                  onChange={(e) => setSelectedModel(e.target.value)}
-                  className="w-full p-2 border border-slate-200 rounded-lg text-xs"
-                  placeholder="e.g. llama-3.3-70b-versatile"
-                />
-              </div>
-
-              <div>
-                <label className="font-semibold text-slate-700 block mb-1">API Key (Optional override)</label>
-                <input
-                  type="password"
-                  value={apiKeyInput}
-                  onChange={(e) => setApiKeyInput(e.target.value)}
-                  className="w-full p-2 border border-slate-200 rounded-lg text-xs font-mono"
-                  placeholder="Leave empty to use server environment key"
-                />
-              </div>
-
-              <div className="p-2.5 rounded bg-amber-50 text-[11px] text-amber-900 border border-amber-200">
-                <strong>Privacy Guarantee:</strong> Only anonymized astrological factors and rule IDs are audited. No client name, coordinates, or birth specifics are transmitted.
-              </div>
-            </div>
-
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
-              <button
-                onClick={() => setAiSettingsOpen(false)}
-                className="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleSaveAiSettings}
-                className="px-4 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-700 shadow-sm"
-              >
-                Save Settings
               </button>
             </div>
           </div>

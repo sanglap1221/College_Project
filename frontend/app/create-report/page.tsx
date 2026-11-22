@@ -10,7 +10,6 @@ import { ReportForm } from "../../components/ReportForm";
 import { BengaliDatePicker } from "../../components/BengaliDatePicker";
 import { useAuth } from "../../components/AuthProvider";
 import AboutModal from "../../components/AboutModal";
-import FloatingAiAssistant from "../../components/FloatingAiAssistant";
 import { calculateReport, renderPdf, getPdfStatus, API } from "../../services/api";
 import type { ReportInput, ReportState, CustomerState, AstrologyState, DashaRow } from "../../types/report";
 
@@ -593,6 +592,17 @@ export default function CreateReportPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [selectedDoshaInput, setSelectedDoshaInput] = useState("");
+
+  useEffect(() => {
+    if (reportState && typeof window !== "undefined") {
+      try {
+        sessionStorage.setItem("last_report_state", JSON.stringify(reportState));
+        window.dispatchEvent(new Event("kundli_report_updated"));
+      } catch (e) {
+        // ignore
+      }
+    }
+  }, [reportState]);
 
   // Nudge the selected planet position
   const nudgeSelectedPlanet = (dx: number, dy: number) => {
@@ -2447,7 +2457,6 @@ export default function CreateReportPage() {
         </div>
       )}
       <AboutModal isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
-      <FloatingAiAssistant reportState={reportState} />
     </div>
   )
 }

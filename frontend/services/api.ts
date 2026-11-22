@@ -30,19 +30,6 @@ function handleAuthError(response: Response): void {
 
 // ── Auth API Calls ──
 
-export async function loginUser(username: string, password: string) {
-  const response = await fetch(`${API}/api/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, password }),
-  });
-  if (!response.ok) {
-    const data = (await response.json().catch(() => null)) as { detail?: string } | null;
-    throw new Error(data?.detail ?? "Login failed");
-  }
-  return response.json();
-}
-
 export async function changePassword(currentPassword: string, newPassword: string) {
   const response = await fetch(`${API}/api/auth/change-password`, {
     method: "POST",
@@ -54,15 +41,6 @@ export async function changePassword(currentPassword: string, newPassword: strin
     const data = (await response.json().catch(() => null)) as { detail?: string } | null;
     throw new Error(data?.detail ?? "Password change failed");
   }
-  return response.json();
-}
-
-export async function getCurrentUser() {
-  const response = await fetch(`${API}/api/auth/me`, {
-    headers: getAuthHeaders(),
-  });
-  handleAuthError(response);
-  if (!response.ok) throw new Error("Failed to get user info");
   return response.json();
 }
 
@@ -265,56 +243,6 @@ export async function generatePredictions(payload: {
   return response.json();
 }
 
-export async function getPredictions(reportId: string, chartHash?: string): Promise<PredictionReport> {
-  const url = new URL(`${API}/api/predictions/${reportId}`);
-  if (chartHash) {
-    url.searchParams.set("chart_hash", chartHash);
-  }
-
-  const response = await fetch(url.toString(), {
-    headers: getAuthHeaders(),
-  });
-
-  handleAuthError(response);
-
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.detail || `Failed to fetch predictions: ${response.statusText}`);
-  }
-
-  return response.json();
-}
-
-export async function regeneratePredictionSection(
-  reportId: string,
-  topic: string,
-  useAi: boolean = false,
-  provider?: string,
-  model?: string,
-  customerData?: any
-): Promise<PredictionReport> {
-  const response = await fetch(`${API}/api/predictions/${reportId}/regenerate-section`, {
-    method: "POST",
-    headers: getAuthHeaders(),
-    body: JSON.stringify({
-      topic,
-      use_ai: useAi,
-      provider,
-      model,
-      customer_data: customerData,
-    }),
-  });
-
-  handleAuthError(response);
-
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.detail || `Failed to regenerate section: ${response.statusText}`);
-  }
-
-  return response.json();
-}
-
 export async function savePredictionSection(
   reportId: string,
   topic: string,
@@ -371,23 +299,6 @@ export async function updateAiConfig(config: {
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
     throw new Error(errorData.detail || `Failed to update AI configuration: ${response.statusText}`);
-  }
-
-  return response.json();
-}
-
-export async function renderPredictionPdf(payload: any): Promise<{ html: string; pdf_url: string; report_id: string }> {
-  const response = await fetch(`${API}/api/predictions/render-pdf`, {
-    method: "POST",
-    headers: getAuthHeaders(),
-    body: JSON.stringify(payload),
-  });
-
-  handleAuthError(response);
-
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.detail || `Failed to render prediction PDF: ${response.statusText}`);
   }
 
   return response.json();

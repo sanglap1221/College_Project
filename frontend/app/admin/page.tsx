@@ -14,7 +14,6 @@ import {
   renderPdf,
   deleteAllHistory,
   deleteReport,
-  API,
 } from "../../services/api";
 
 interface Report {

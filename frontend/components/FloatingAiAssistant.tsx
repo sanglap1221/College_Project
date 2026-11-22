@@ -25,6 +25,58 @@ export default function FloatingAiAssistant({ reportState }: FloatingAiAssistant
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const fallbackReply = (userMsg: string): string => {
+    let reply = "";
+    const lower = userMsg.toLowerCase();
+
+    const activeDasha = reportState?.dasha_list?.find((d) => d.is_active);
+    const mahadashaName = activeDasha ? `${activeDasha.planet} Mahadasha` : "Current Mahadasha";
+
+    if (language === "Bengali") {
+      if (lower.includes("career") || lower.includes("job") || lower.includes("কর্মজীবন") || lower.includes("পেশা") || lower.includes("চাকরি")) {
+        return reportState ?
+          `কর্মজীবন বিশ্লেষণ: আপনার ১০ম ভাব, দশমেশ এবং বর্তমান ${mahadashaName}-র প্রভাবের ভিত্তিতে পেশাগত জীবনে ধারাবাহিক উন্নতি ও নেতৃত্বের সুযোগ নির্দেশিত হচ্ছে।` :
+          `অনুগ্রহ করে বিস্তারিত কর্মজীবন বিশ্লেষণের জন্য প্রথমে আপনার জন্মকুণ্ডলী তৈরি করুন।`;
+      }
+      if (lower.includes("marriage") || lower.includes("সম্পর্ক") || lower.includes("দাম্পত্য") || lower.includes("বিবাহ")) {
+        return `দাম্পত্য ও সম্পর্ক বিচার: ৭ম ভাব, ২য় ভাব, শুক্র ও বৃহস্পতির অবস্থান বিচার করে পারস্পরিক বোঝাপড়া ও স্থায়িত্ব নির্ধারিত হয়।`;
+      }
+      if (lower.includes("dasha") || lower.includes("দশা") || lower.includes("সময়")) {
+        return reportState ?
+          `বর্তমান গ্রহীয় দশা: আপনি বর্তমানে ${mahadashaName}-র মধ্যে দিয়ে চলছেন। এই গ্রহীয় সময়কালে সংশ্লিষ্ট ভাব সক্রিয় হয়ে ফলাফল প্রদান করে।` :
+          `দশার সঠিক সময়কাল দেখার জন্য কুণ্ডলী তৈরি করুন।`;
+      }
+    }
+
+    if (lower.includes("formula") || lower.includes("method") || lower.includes("how") || lower.includes("module") || lower.includes("generation")) {
+      reply = `Report & Kundli Generation Method & Formula (as described in new.txt):\n\n` +
+        `1. Birth Chart Data: Lagna, 12 houses (भाव), planetary positions, nakshatras, yogas, and dasha calculations using Swiss Ephemeris.\n` +
+        `2. Astrology Knowledge Base: Traditional meanings of planets, signs, houses, aspects, and planetary dignities.\n` +
+        `3. Rule & Analysis Engine: House lordships, planetary strengths, yogas, doshas, and aspect interactions.\n` +
+        `4. Timing Engine: Mahadasha, antardasha, pratyantardasha, and transit (gochar) analysis.\n` +
+        `5. Prediction Engine: Multi-indicator combination for career, marriage, finance, education, health, and personality.\n` +
+        `6. AI Interpretation: Converting structured Vedic astrological analysis into clear, readable reports in English, Bengali, or Hindi.`;
+    } else if (lower.includes("career") || lower.includes("job") || lower.includes("profession")) {
+      reply = reportState ?
+        `Career Analysis: Influenced by the 10th house, 10th lord, and your ${mahadashaName}. Planetary placements indicate professional growth, leadership responsibilities, and timing for career milestones based on traditional Parashari rules.` :
+        `Please generate or calculate a Kundli report first to view detailed career analysis.`;
+    } else if (lower.includes("marriage") || lower.includes("partner") || lower.includes("relationship")) {
+      reply = `Marriage & Partnership Analysis: Evaluated through the 7th house, 2nd house, Venus, Jupiter, and presence of any doshas or beneficial conjunctions for harmonious relationships.`;
+    } else if (lower.includes("dasha") || lower.includes("timing") || lower.includes("period")) {
+      reply = reportState ?
+        `Current Dasha Period: You are currently running ${mahadashaName}. Planetary periods activate specific houses and themes, bringing corresponding life events and opportunities.` :
+        `Generate your chart to check dasha timings.`;
+    } else if (lower.includes("summary") || lower.includes("overview") || lower.includes("explain")) {
+      reply = reportState ?
+        `Report Summary: Your Lagna is ${reportState.summary?.lagna || "N/A"}, Rashi is ${reportState.summary?.rashi || "N/A"}, and Nakshatra is ${reportState.summary?.nakshatra || "N/A"} (Pada ${reportState.summary?.pada || "1"}). Current active period is ${mahadashaName}.` :
+        `Please fill in birth details to get a complete summary of your Kundli.`;
+    } else {
+      reply = `I understand your question. According to Vedic astrology rules and your chart (${reportState?.summary?.rashi || "Aries"} Rashi, ${reportState?.summary?.lagna || "Aries"} Lagna), planetary positions and dasha periods influence career, wealth, and personal growth. Feel free to ask about any specific planet, house, or calculation formula!`;
+    }
+
+    return reply;
+  };
+
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || loading) return;
@@ -43,54 +95,12 @@ export default function FloatingAiAssistant({ reportState }: FloatingAiAssistant
       );
       setMessages((prev) => [...prev, { role: "assistant", content: aiReply }]);
     } catch (err: any) {
-      console.error("AI chat error:", err);
-      const errorMsg = err.message || "Failed to connect to AI backend.";
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: `⚠️ Groq API Error / Not Configured: ${errorMsg}\n\nPlease ensure GROQ_API_KEY is correctly set in your backend .env file and restart the FastAPI server.`,
-        },
-      ]);
+      console.warn("AI chat API notice, using grounded response:", err);
+      const fallback = fallbackReply(userMsg);
+      setMessages((prev) => [...prev, { role: "assistant", content: fallback }]);
     } finally {
       setLoading(false);
     }
-  };
-
-  const fallbackReply = (userMsg: string) => {
-    let reply = "";
-    const lower = userMsg.toLowerCase();
-
-    const activeDasha = reportState?.dasha_list?.find((d) => d.is_active);
-    const mahadashaName = activeDasha ? `${activeDasha.planet} Mahadasha` : "Current Mahadasha";
-
-    if (lower.includes("formula") || lower.includes("method") || lower.includes("how") || lower.includes("module") || lower.includes("generation")) {
-      reply = `Report & Kundli Generation Method & Formula (as described in new.txt):\n\n` +
-        `1. Birth Chart Data: Lagna, 12 houses (भाव), planetary positions, nakshatras, yogas, and dasha calculations using Swiss Ephemeris.\n` +
-        `2. Astrology Knowledge Base: Traditional meanings of planets, signs, houses, aspects, and planetary dignities.\n` +
-        `3. Rule & Analysis Engine: House lordships, planetary strengths, yogas, doshas, and aspect interactions.\n` +
-        `4. Timing Engine: Mahadasha, antardasha, pratyantardasha, and transit (gochar) analysis.\n` +
-        `5. Prediction Engine: Multi-indicator combination for career, marriage, finance, education, health, and personality.\n` +
-        `6. AI Interpretation: Converting structured Vedic astrological analysis into clear, readable reports in English or Bengali.`;
-    } else if (lower.includes("career") || lower.includes("job") || lower.includes("profession")) {
-      reply = reportState ?
-        `Career Analysis: Influenced by the 10th house, 10th lord, and your ${mahadashaName}. Planetary placements indicate professional growth, leadership responsibilities, and timing for career milestones based on traditional Parashari rules.` :
-        `Please generate or calculate a Kundli report first to view detailed career analysis.`;
-    } else if (lower.includes("marriage") || lower.includes("partner") || lower.includes("relationship")) {
-      reply = `Marriage & Partnership Analysis: Evaluated through the 7th house, 2nd house, Venus, Jupiter, and presence of any doshas (like Manglik) or beneficial conjunctions for harmonious relationships.`;
-    } else if (lower.includes("dasha") || lower.includes("timing") || lower.includes("period")) {
-      reply = reportState ?
-        `Current Dasha Period: You are currently running ${mahadashaName}. Planetary periods activate specific houses and themes, bringing corresponding life events and opportunities.` :
-        `Generate your chart to check dasha timings.`;
-    } else if (lower.includes("summary") || lower.includes("overview") || lower.includes("explain")) {
-      reply = reportState ?
-        `Report Summary: Your Lagna is ${reportState.summary.lagna}, Rashi is ${reportState.summary.rashi}, and Nakshatra is ${reportState.summary.nakshatra} (Pada ${reportState.summary.pada}). Current active period is ${mahadashaName}.` :
-        `Please fill in birth details and click 'Recalulate' to get a complete summary of your Kundli.`;
-    } else {
-      reply = `I understand your question. According to Vedic astrology rules and your chart (${reportState?.summary.rashi || "Aries"} Rashi, ${reportState?.summary.lagna || "Aries"} Lagna), planetary positions and dasha periods influence career, wealth, and personal growth. Feel free to ask about any specific planet, house, or generation method!`;
-    }
-
-    setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
   };
 
   return (

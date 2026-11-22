@@ -7,8 +7,8 @@ while preserving internal rule IDs and conditions for the Advanced Astrologer vi
 """
 
 import re
-from typing import Any, Dict, List, Optional, Tuple
-from .reference import PLANETS, ordinal
+from typing import Any, Dict, List, Optional
+from .reference import PLANETS
 
 PLANET_NAMES = {
     "Sun": {"en": "Sun", "bn": "রবি (সূর্য)", "hi": "सूर्य"},

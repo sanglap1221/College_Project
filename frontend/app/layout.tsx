@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { AuthProvider } from "../components/AuthProvider";
+import GlobalAiAssistant from "../components/GlobalAiAssistant";
 
 import "./globals.css";
 
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="min-h-screen" style={{ fontFamily: "'Inter', 'Hind Siliguri', sans-serif", background: "#f7f5f0" }}>
         <AuthProvider>
           {children}
+          <GlobalAiAssistant />
         </AuthProvider>
       </body>
     </html>
