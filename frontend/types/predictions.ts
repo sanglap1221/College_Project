@@ -2,6 +2,11 @@ export interface PredictionFactor {
   factor: string;
   interpretation: string;
   rule_id: string;
+  simple_explanation?: Record<string, string>;
+  advanced_explanation?: Record<string, string>;
+  why_matters?: Record<string, string>;
+  example?: Record<string, string>;
+  limitations?: Record<string, string>;
 }
 
 export interface PredictionValidation {
@@ -34,6 +39,31 @@ export interface PredictionSection {
   original_draft?: string;
   supporting_factors?: PredictionFactor[];
   challenging_factors?: PredictionFactor[];
+  why_this?: {
+    placement_meaning?: Record<string, string>;
+    involved_factors?: Record<string, string>;
+    life_themes?: Record<string, string>;
+    relevance?: Record<string, string>;
+    modifying_factors?: Record<string, string>;
+    synthesis?: Record<string, string>;
+    explained_factors?: any[];
+  };
+  translations?: Record<string, {
+    title: string;
+    overview: string;
+    themes: string[];
+    challenges: string[];
+    summary: string;
+    prediction: string;
+    why_this?: {
+      placement_meaning?: string;
+      involved_factors?: string;
+      life_themes?: string;
+      relevance?: string;
+      modifying_factors?: string;
+      synthesis?: string;
+    };
+  }>;
   timing?: any[];
   status: "reviewed" | "ai_rewritten_audited" | "templated" | "templated_fallback" | "manual_edited" | string;
   review_status?: string;

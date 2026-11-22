@@ -6,6 +6,7 @@ and professional English, Bengali, and Hindi report interpretations.
 import re
 from typing import Any, Dict, List, Set, Tuple
 from .reference import TOPICS, TOPIC_TITLES, HOUSE_DOMAIN, PLANET_KEYWORDS, ordinal
+from .explain import explain_rule, build_why_this_prediction
 
 CAVEATS = {
     "en": "This interpretation reflects traditional Parashari Vedic Jyotish principles as symbolic indicators. It is not an empirical certainty or a substitute for professional legal, medical, or financial counsel.",
@@ -269,7 +270,9 @@ def generate_topic_narrative(
     max_items: int = 5,
     language: str = "en",
 ) -> Tuple[str, List[Dict[str, Any]], Dict[str, Any]]:
-    """Generate structured topic representation and clean narrative."""
+    """Generate structured topic representation, complete multilingual translations,
+    and Section 20 human-readable rule explanations.
+    """
     t_titles = TOPIC_TITLES.get(language, TOPIC_TITLES["en"])
     title = t_titles.get(topic, TOPICS.get(topic, {}).get("title", topic.replace("_", " ").title()))
 
@@ -282,6 +285,94 @@ def generate_topic_narrative(
     explanation = agg.get("explanation", "")
     caveat = CAVEATS.get(language, CAVEATS["en"])
 
+    # Build Section 20.B 'Why this prediction?' 6-point breakdown
+    why_this = build_why_this_prediction(topic, agg, used_items, chart_facts)
+
+    # Process supporting factors with human explanations
+    supporting_factors = []
+    for e in used_items:
+        if e.get("direction") == "supportive":
+            rid = e.get("rule_id", "")
+            raw_text = e.get("text", "")
+            clean_text = re.sub(r'\b(HL|PH|DG|YOGA)-[A-Z0-9\-_]+\b', '', raw_text).replace("first house's themes", "that house's themes").strip()
+            if clean_text.endswith((".", "!", "?")):
+                pass
+            elif clean_text:
+                clean_text += "."
+
+            exp = explain_rule(rid, factor_data=e, chart_facts=chart_facts)
+            supporting_factors.append({
+                "factor": e.get("group", ""),
+                "rule_id": rid,
+                "interpretation": clean_text,
+                "simple_explanation": exp["simple_explanation"],
+                "advanced_explanation": exp["advanced_explanation"],
+                "why_matters": exp["why_matters"],
+                "example": exp["example"],
+                "limitations": exp["limitations"],
+            })
+
+    # Process challenging factors with human explanations
+    challenging_factors = []
+    for e in used_items:
+        if e.get("direction") in ("challenging", "mixed"):
+            rid = e.get("rule_id", "")
+            raw_text = e.get("text", "")
+            clean_text = re.sub(r'\b(HL|PH|DG|YOGA)-[A-Z0-9\-_]+\b', '', raw_text).replace("first house's themes", "that house's themes").strip()
+            if clean_text.endswith((".", "!", "?")):
+                pass
+            elif clean_text:
+                clean_text += "."
+
+            exp = explain_rule(rid, factor_data=e, chart_facts=chart_facts)
+            challenging_factors.append({
+                "factor": e.get("group", ""),
+                "rule_id": rid,
+                "interpretation": clean_text,
+                "simple_explanation": exp["simple_explanation"],
+                "advanced_explanation": exp["advanced_explanation"],
+                "why_matters": exp["why_matters"],
+                "example": exp["example"],
+                "limitations": exp["limitations"],
+            })
+
+    # Generate multilingual dictionary for instantaneous language switching (en, bn, hi)
+    translations: Dict[str, Dict[str, Any]] = {}
+    for lang_code in ("en", "bn", "hi"):
+        l_titles = TOPIC_TITLES.get(lang_code, TOPIC_TITLES["en"])
+        l_title = l_titles.get(topic, title)
+        l_json, _ = generate_topic_json_draft(
+            topic, agg, timing_items, chart_facts, max_items, language=lang_code
+        )
+        l_prose_lines = [
+            f"## {l_title}",
+            "",
+            l_json["overview"],
+            "",
+            "Key Themes:" if lang_code == "en" else "মূল বৈশিষ্ট্য:" if lang_code == "bn" else "प्रमुख सूत्र:",
+            "\n".join(f"- {th}" for th in l_json["themes"]),
+            "",
+            "Areas for Mindful Growth:" if lang_code == "en" else "সতর্কতা ও আত্মউন্নয়ন:" if lang_code == "bn" else "सावधानी एवं आत्मविकास:",
+            "\n".join(f"- {ch}" for ch in l_json["challenges"]),
+        ]
+        translations[lang_code] = {
+            "title": l_title,
+            "overview": l_json["overview"],
+            "themes": l_json["themes"],
+            "challenges": l_json["challenges"],
+            "summary": l_json["overview"],
+            "prediction": "\n".join(l_prose_lines),
+            "caveat": CAVEATS.get(lang_code, CAVEATS["en"]),
+            "why_this": {
+                "placement_meaning": why_this["placement_meaning"].get(lang_code, why_this["placement_meaning"]["en"]),
+                "involved_factors": why_this["involved_factors"].get(lang_code, why_this["involved_factors"]["en"]),
+                "life_themes": why_this["life_themes"].get(lang_code, why_this["life_themes"]["en"]),
+                "relevance": why_this["relevance"].get(lang_code, why_this["relevance"]["en"]),
+                "modifying_factors": why_this["modifying_factors"].get(lang_code, why_this["modifying_factors"]["en"]),
+                "synthesis": why_this["synthesis"].get(lang_code, why_this["synthesis"]["en"]),
+            },
+        }
+
     prose_lines = [
         f"## {title}",
         "",
@@ -293,7 +384,6 @@ def generate_topic_narrative(
         "Areas for Mindful Growth:" if language == "en" else "সতর্কতা ও আত্মউন্নয়ন:" if language == "bn" else "सावधानी एवं आत्मविकास:",
         "\n".join(f"- {ch}" for ch in topic_json["challenges"]),
     ]
-
     clean_prose = "\n".join(prose_lines)
 
     structured_data = {
@@ -307,14 +397,10 @@ def generate_topic_narrative(
         "themes": topic_json["themes"],
         "challenges": topic_json["challenges"],
         "basis_ids": topic_json["basis_ids"],
-        "supporting_factors": [
-            {"factor": e.get("group", ""), "interpretation": e.get("text", ""), "rule_id": e.get("rule_id", "")}
-            for e in used_items if e.get("direction") == "supportive"
-        ],
-        "challenging_factors": [
-            {"factor": e.get("group", ""), "interpretation": e.get("text", ""), "rule_id": e.get("rule_id", "")}
-            for e in used_items if e.get("direction") in ("challenging", "mixed")
-        ],
+        "supporting_factors": supporting_factors,
+        "challenging_factors": challenging_factors,
+        "why_this": why_this,
+        "translations": translations,
         "timing": [t.get("timing") for t in timing_items if "timing" in t],
         "summary": topic_json["overview"],
         "prediction": clean_prose,

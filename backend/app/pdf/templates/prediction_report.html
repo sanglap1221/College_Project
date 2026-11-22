@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <title>{{ customer.name or 'Client' }} — Vedic Jyotish Natal Prediction Report</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
 
     @page {
       size: A4;
       margin: 12mm 12mm 12mm 12mm;
       @bottom-right {
         content: "Page " counter(page) " of " counter(pages);
-        font-family: 'Inter', sans-serif;
+        font-family: 'Inter', 'Hind Siliguri', 'Noto Sans Devanagari', sans-serif;
         font-size: 8pt;
         color: #78350f;
       }
@@ -26,7 +26,7 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', 'Hind Siliguri', 'Noto Sans Devanagari', sans-serif;
       background-color: #fcfbf7;
       color: #1e293b;
       font-size: 9pt;

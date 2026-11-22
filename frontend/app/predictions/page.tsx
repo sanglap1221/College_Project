@@ -37,6 +37,193 @@ const initialFormValue: ReportInput = {
   override_ascendant_longitude: "",
 };
 
+// Multilingual UI Dictionary for Complete Multilingual Experience (Section 21)
+const UI_TEXT = {
+  en: {
+    chartSheet: "Chart Sheet",
+    aiSettings: "AI Settings",
+    about: "About",
+    admin: "Admin",
+    logout: "Logout",
+    kundliTitle: "জীবন জিজ্ঞাসা — Kundli Birth Chart",
+    predictionsTitle: "Predictions Workspace",
+    simpleMode: "Simple Explanation",
+    advancedMode: "Advanced Mode",
+    lifeAreas: "Life Areas",
+    overview: "Overview",
+    currentPeriod: "Current Period",
+    advanced: "Advanced",
+    editClient: "Edit Client",
+    hideDetails: "Hide Details",
+    regenerate: "Regenerate",
+    whyThisPrediction: "Why this prediction? (6-Point Parashari Basis)",
+    coreThemes: "Core Symbolic Themes",
+    growthChallenges: "Mindful Growth Challenges",
+    supportingFactors: "Supporting Astrological Factors",
+    modifyingFactors: "Modifying / Growth Factors",
+    domainOverview: "Domain Synthesis & Overview",
+    clickToView: "Click to view full details",
+    executiveOverview: "Executive Natal Overview",
+    activePeriods: "Active Vimshottari Dasha Periods",
+    allLifeDomains: "All Life Domain Cards (Click Any Heading to View Details)",
+    point1: "1. Planetary Placement Meaning",
+    point2: "2. Specific Houses & Grahas Involved",
+    point3: "3. Life Themes Connected",
+    point4: "4. Astrological Relevance to this Prediction",
+    point5: "5. Modifying Factors (Aspects, Dignity, Retrograde)",
+    point6: "6. Synthesis of Supporting vs Modifying Factors",
+    mahadasha: "Major Period (Mahadasha)",
+    antardasha: "Sub-Period (Antardasha)",
+    pratyantardasha: "Show Sub-Periods (Pratyantardasha)",
+    hidePratyantardasha: "Hide Sub-Periods",
+    evidenceLevel: "Evidence Level",
+    lean: "Lean",
+    parashariSystem: "Natal Astrological Analysis • Whole Sign Vedic Parashari",
+    activeView: "Active View",
+    verifiedBasis: "Verified Basis Rule IDs",
+  },
+  bn: {
+    chartSheet: "ছক পত্র",
+    aiSettings: "AI সেটিংস",
+    about: "পরিচিতি",
+    admin: "অ্যাডমিন",
+    logout: "লগআউট",
+    kundliTitle: "জীবন জিজ্ঞাসা — জন্মকুণ্ডলী ছক",
+    predictionsTitle: "জ্যোতিষ ফলাফল কক্ষ",
+    simpleMode: "সহজ বিশ্লেষণ (সাধারণ)",
+    advancedMode: "উচ্চতর জ্যোতিষ বিচার",
+    lifeAreas: "জীবনের বিভিন্ন ক্ষেত্র",
+    overview: "সারসংক্ষেপ",
+    currentPeriod: "বর্তমান দশা কাল",
+    advanced: "উচ্চতর বিচার",
+    editClient: "জন্ম বিবরণী সম্পাদন",
+    hideDetails: "বিবরণী লুকান",
+    regenerate: "পুনরায় গণনা",
+    whyThisPrediction: "এই পূর্বাভাসের কারণ কী? (৬ দফা পরাশরী ভিত্তি)",
+    coreThemes: "মূল চারিত্রিক ও গ্রহীয় সূত্র",
+    growthChallenges: "সতর্কতা ও আত্মউন্নয়নের ক্ষেত্র",
+    supportingFactors: "অনুকূল গ্রহীয় প্রভাব ও ভাবাধিপতি",
+    modifyingFactors: "সংশোধনকারী ও আত্মউন্নয়ন প্রভাব",
+    domainOverview: "ক্ষেত্রের সার্বিক তাৎপর্য",
+    clickToView: "সম্পূর্ণ বিবরণ দেখতে ক্লিক করুন",
+    executiveOverview: "সার্বিক কুণ্ডলী মূল্যায়ন",
+    activePeriods: "সক্রিয় বিংশোত্তরী দশা চক্র",
+    allLifeDomains: "জীবনের বিভিন্ন ক্ষেত্রের তালিকা (যেকোনো শিরোনামে ক্লিক করুন)",
+    point1: "১. গ্রহাবস্থানের মূল তাৎপর্য",
+    point2: "২. সংশ্লিষ্ট ভাব ও গ্রহসমূহ",
+    point3: "৩. সংযুক্ত জীবনক্ষেত্র ও চারিত্রিক বৈশিষ্ট্য",
+    point4: "৪. এই পূর্বাভাসের ক্ষেত্রে জ্যোতিষীয় প্রাসঙ্গিকতা",
+    point5: "৫. সংশোধনকারী প্রভাব (দৃষ্টি, স্থানবল ও শুভাশুভ সম্বন্ধ)",
+    point6: "৬. অনুকূল বনাম সতর্কতামূলক প্রভাবের সমন্বয়",
+    mahadasha: "মহাদশা কাল",
+    antardasha: "অন্তর্দশা কাল",
+    pratyantardasha: "প্রত্যন্তর্দশা দেখুন",
+    hidePratyantardasha: "প্রত্যন্তর্দশা লুকান",
+    evidenceLevel: "প্রমাণ মাত্রা",
+    lean: "ঝোঁক",
+    parashariSystem: "বৈদিক পরাশরী জন্মকুণ্ডলী বিচার • সমগ্র রাশিচক্র",
+    activeView: "সক্রিয় প্রদর্শন",
+    verifiedBasis: "শাস্ত্রীয় সূত্রের পরিচিতি",
+  },
+  hi: {
+    chartSheet: "कुंडली पत्र",
+    aiSettings: "AI सेटिंग्स",
+    about: "परिचय",
+    admin: "व्यवस्थापक",
+    logout: "लॉगआउट",
+    kundliTitle: "जीवन जिज्ञासा — जन्मपत्रिका",
+    predictionsTitle: "ज्योतिषीय भविष्यवाणी कक्ष",
+    simpleMode: "सरल व्याख्या (सुबोध)",
+    advancedMode: "विस्तृत ज्योतिष विश्लेषण",
+    lifeAreas: "जीवन के विविध आयाम",
+    overview: "संक्षिप्त परिचय",
+    currentPeriod: "वर्तमान दशा काल",
+    advanced: "उन्नत विश्लेषण",
+    editClient: "जन्म विवरण बदलें",
+    hideDetails: "विवरण छिपाएं",
+    regenerate: "पुनः गणना",
+    whyThisPrediction: "इस फलादेश का आधार क्या है? (६ सूत्रीय पराशरी प्रमाण)",
+    coreThemes: "मुख्य सांकेतिक सूत्र",
+    growthChallenges: "सावधानी एवं आत्मविकास के क्षेत्र",
+    supportingFactors: "अनुकूल ग्रह स्थितियां एवं भावेश",
+    modifyingFactors: "परिमार्जक एवं आत्मविकास प्रभाव",
+    domainOverview: "क्षेत्र का समग्र फलादेश",
+    clickToView: "पूर्ण विवरण देखने हेतु क्लिक करें",
+    executiveOverview: "समग्र पत्रिका मूल्यांकन",
+    activePeriods: "सक्रिय विंशोत्तरी दशा चक्र",
+    allLifeDomains: "जीवन के समस्त आयाम (विवरण देखने हेतु क्लिक करें)",
+    point1: "१. ग्रह स्थिति का मूल अभिप्राय",
+    point2: "२. संबद्ध भाव एवं सक्रिय ग्रह",
+    point3: "३. जुड़े हुए जीवन क्षेत्र एवं स्वभाव",
+    point4: "४. इस फलादेश हेतु ज्योतिषीय प्रासंगिकता",
+    point5: "५. परिमार्जक घटक (दृष्टि, बल एवं युति प्रभाव)",
+    point6: "६. सकारात्मक बनाम परिमार्जक प्रभावों का समन्वय",
+    mahadasha: "महादशा काल",
+    antardasha: "अंतर्दशा काल",
+    pratyantardasha: "प्रत्यंतर्दशा देखें",
+    hidePratyantardasha: "प्रत्यंतर्दशा छिपाएं",
+    evidenceLevel: "प्रमाण स्तर",
+    lean: "प्रवृत्ति",
+    parashariSystem: "वैदिक पराशरी जन्मपत्रिका फलादेश • संपूर्ण राशि चक्र",
+    activeView: "सक्रिय दृश्य",
+    verifiedBasis: "प्रमाणित शास्त्रीय सूत्र",
+  },
+};
+
+// Client-Side Rule Explainer and Sanitizer to ensure NO raw rule IDs leak in Simple Mode
+function cleanRuleText(text: string): string {
+  if (!text) return "";
+  return text
+    .replace(/\b(HL|PH|DG|YOGA)[\w\-]+/gi, "")
+    .replace(/\[\s*\]/g, "")
+    .replace(/\(\s*\)/g, "")
+    .replace(/\s+/g, " ")
+    .replace(/\s+\./g, ".")
+    .replace(/\.\s*\./g, ".")
+    .trim();
+}
+
+function explainRuleClient(ruleId: string, lang: "en" | "bn" | "hi"): string {
+  const cleanId = String(ruleId || "").trim();
+  const hlMatch = cleanId.match(/^HL-H(\d+)-IN-H(\d+)$/i);
+  if (hlMatch) {
+    const h1 = parseInt(hlMatch[1], 10);
+    const h2 = parseInt(hlMatch[2], 10);
+    if (lang === "bn") {
+      return `আপনার ${h1}ম ভাবাধিপতি ${h2}ম ভাবে অবস্থান করছে। প্রচলিত বৈদিক জ্যোতিষ মতে, এটি উভয় ভাবের মধ্যে পারস্পরিক শক্তি ও শুভ সংযোগ নির্দেশ করে।`;
+    } else if (lang === "hi") {
+      return `आपके ${h1}वें भाव का स्वामी ${h2}वें भाव में स्थित है, जो दोनों भावों के मध्य सकारात्मक तालमेल स्थापित करता है।`;
+    } else {
+      return `The ruler of your ${h1}th house is placed in your ${h2}th house, connecting their core themes in your natal chart.`;
+    }
+  }
+
+  const phMatch = cleanId.match(/^PH-([A-Z]+)-H(\d+)$/i);
+  if (phMatch) {
+    const p = phMatch[1];
+    const h = parseInt(phMatch[2], 10);
+    if (lang === "bn") {
+      return `${p} গ্রহ আপনার ${h}ম ভাবে অবস্থান করছে, যা জীবনের এই ক্ষেত্রে স্বাভাবিক কর্মক্ষমতা বৃদ্ধি করে।`;
+    } else if (lang === "hi") {
+      return `${p} ग्रह आपके ${h}वें भाव में स्थित है, जो इस क्षेत्र में स्वाभाविक ऊर्जा प्रदान करता है।`;
+    } else {
+      return `${p} is positioned in your ${h}th house, directing focused planetary vitality into this domain.`;
+    }
+  }
+
+  if (cleanId.startsWith("YOGA-")) {
+    if (lang === "bn") {
+      return `আপনার জন্মকুণ্ডলীতে শাস্ত্রীয় শুভ গ্রহ সমাবেশ এই ক্ষেত্রে বিশেষ উন্নতি সাধনে সহায়ক।`;
+    } else if (lang === "hi") {
+      return `आपकी जन्मपत्रिका में शास्त्रीय ग्रह योग इस क्षेत्र में उल्लेखनीय सफलता का संकेत देता है।`;
+    } else {
+      return `A classical planetary yoga creates an auspicious alignment for steady accomplishment here.`;
+    }
+  }
+
+  return "";
+}
+
 export default function PredictionsPage() {
   const router = useRouter();
   const { user, isAdmin, logout } = useAuth();
@@ -46,12 +233,18 @@ export default function PredictionsPage() {
   const [showBirthForm, setShowBirthForm] = useState(false);
   const [predictionReport, setPredictionReport] = useState<PredictionReport | null>(null);
 
+  // Section 20 & 21 States: Explanation Mode & Multilingual Language
+  const [explanationMode, setExplanationMode] = useState<"simple" | "advanced">("simple");
+  const [selectedLang, setSelectedLang] = useState<"en" | "bn" | "hi">("bn");
+
   // Left Column: "জীবন জিজ্ঞাসা" Kundli Chart PDF & Preview States
   const [chartPdfUrl, setChartPdfUrl] = useState<string>("");
   const [chartDownloadUrl, setChartDownloadUrl] = useState<string>("");
   const [chartLanguage, setChartLanguage] = useState<string>("bn");
   const [chartLoading, setChartLoading] = useState<boolean>(false);
+  const [chartZoom, setChartZoom] = useState<number>(0.8);
   const chartIframeRef = useRef<HTMLIFrameElement | null>(null);
+  const leftColContainerRef = useRef<HTMLDivElement | null>(null);
 
   // Right Column: Predictions Navigation & Details
   const [activeTab, setActiveTab] = useState<"life_areas" | "overview" | "current_period" | "advanced">("life_areas");
@@ -81,6 +274,25 @@ export default function PredictionsPage() {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const detailsContainerRef = useRef<HTMLDivElement | null>(null);
 
+  // Active UI dictionary
+  const ui = UI_TEXT[selectedLang] || UI_TEXT["en"];
+
+  // ── Auto-Fit Kundli Sheet Zoom on Resize ──
+  useEffect(() => {
+    function computeZoom() {
+      if (leftColContainerRef.current) {
+        const availableW = leftColContainerRef.current.clientWidth - 28;
+        if (availableW > 200) {
+          const fit = Math.min(1.0, Math.max(0.55, availableW / 794));
+          setChartZoom(Number(fit.toFixed(2)));
+        }
+      }
+    }
+    computeZoom();
+    window.addEventListener("resize", computeZoom);
+    return () => window.removeEventListener("resize", computeZoom);
+  }, []);
+
   // ── 1. Load Kundli Chart Sheet ("জীবন জিজ্ঞাসা") ──
   const loadChartReport = useCallback(
     async (input: ReportInput, lang: string = "bn") => {
@@ -101,7 +313,7 @@ export default function PredictionsPage() {
 
   // ── 2. Generate Natal Predictions ──
   const handleGeneratePredictions = useCallback(
-    async (input: ReportInput, force: boolean = false) => {
+    async (input: ReportInput, force: boolean = false, langOverride?: string) => {
       if (!input.name || !input.dob || !input.time || !input.place) {
         setShowBirthForm(true);
         return;
@@ -110,6 +322,8 @@ export default function PredictionsPage() {
       setLoading(true);
       setError("");
       setSuccessMessage("");
+
+      const activeLang = langOverride || selectedLang || input.language || "bn";
 
       try {
         const reportId = predictionReport?.report_id || `pred-${Date.now().toString(36)}`;
@@ -120,12 +334,18 @@ export default function PredictionsPage() {
           provider: selectedProvider,
           model: selectedModel,
           force_regenerate: force,
-          language: input.language || chartLanguage || "en",
+          language: activeLang,
         });
 
         setPredictionReport(report);
         setShowBirthForm(false);
-        setSuccessMessage("Predictions generated successfully with Jyotish Rulebook v2.0!");
+        setSuccessMessage(
+          activeLang === "bn"
+            ? "পরাশরী জ্যোতিষ সূত্রানুযায়ী সম্পূর্ণ পূর্বাভাস প্রস্তুত হয়েছে!"
+            : activeLang === "hi"
+            ? "पराशरी ज्योतिष सूत्रों के आधार पर फलादेश सफलतापूर्वक तैयार किया गया!"
+            : "Predictions generated successfully with Jyotish Rulebook v2.0!"
+        );
         setTimeout(() => setSuccessMessage(""), 4000);
       } catch (err: any) {
         console.error("Prediction generation error:", err);
@@ -134,7 +354,7 @@ export default function PredictionsPage() {
         setLoading(false);
       }
     },
-    [chartLanguage, predictionReport?.report_id, selectedModel, selectedProvider, useAi]
+    [predictionReport?.report_id, selectedLang, selectedModel, selectedProvider, useAi]
   );
 
   // ── 3. Initial Load from Session Storage or History ──
@@ -160,14 +380,15 @@ export default function PredictionsPage() {
         try {
           const parsed = JSON.parse(activeData) as ReportInput;
           setFormValue(parsed);
-          const lang = parsed.language || "bn";
+          const lang = (parsed.language || "bn") as "en" | "bn" | "hi";
+          setSelectedLang(lang);
           setChartLanguage(lang);
 
           // Load Kundli Chart ("জীবন জিজ্ঞাসা") in Left Column
           loadChartReport(parsed, lang);
 
           // Generate Predictions in Right Column
-          handleGeneratePredictions(parsed, false);
+          handleGeneratePredictions(parsed, false, lang);
         } catch (e) {
           console.error("Error reading stored prediction details:", e);
         }
@@ -177,15 +398,13 @@ export default function PredictionsPage() {
     }
   }, [handleGeneratePredictions, loadChartReport]);
 
-  // ── 4. Switch Chart Language (বাংলা / English / हिंदी) ──
-  const handleChartLanguageChange = (newLang: string) => {
+  // ── 4. Global Language Selector Handler ──
+  const handleLanguageChange = (newLang: "en" | "bn" | "hi") => {
+    setSelectedLang(newLang);
     setChartLanguage(newLang);
     const updated = { ...formValue, language: newLang };
     setFormValue(updated);
     loadChartReport(updated, newLang);
-    if (predictionReport) {
-      handleGeneratePredictions(updated, true);
-    }
   };
 
   // ── 5. Select Topic Handler ──
@@ -258,6 +477,36 @@ export default function PredictionsPage() {
     return found || predictionReport.sections[0] || null;
   }, [predictionReport, selectedTopic]);
 
+  // Multilingual active section data
+  const localizedActiveSection = useMemo(() => {
+    if (!activeSection) return null;
+    const tr = activeSection.translations?.[selectedLang];
+    return {
+      title: tr?.title || activeSection.title,
+      overview: tr?.overview || activeSection.overview || activeSection.summary,
+      themes: tr?.themes && tr.themes.length > 0 ? tr.themes : activeSection.themes || [],
+      challenges: tr?.challenges && tr.challenges.length > 0 ? tr.challenges : activeSection.challenges || [],
+      why_this: activeSection.why_this,
+      supporting_factors: activeSection.supporting_factors || [],
+      challenging_factors: activeSection.challenging_factors || [],
+      evidence_level: activeSection.evidence_level,
+      lean: activeSection.lean,
+      basis_ids: activeSection.basis_ids || activeSection.rule_ids || [],
+      explanation: activeSection.explanation,
+    };
+  }, [activeSection, selectedLang]);
+
+  // Multilingual executive overview
+  const localizedExecutiveOverview = useMemo(() => {
+    if (!predictionReport) return "";
+    const tr = (predictionReport as any).translations?.executive_overview;
+    if (tr && tr[selectedLang]) return tr[selectedLang];
+    return (
+      predictionReport.executive_overview ||
+      "Your natal chart reveals purposeful planetary vigor across foundational houses. Parashari principles indicate steady progressive cultivation when natural talents are paired with structured discipline."
+    );
+  }, [predictionReport, selectedLang]);
+
   const toggleWhyThis = (key: string) => {
     setExpandedWhyThis((prev) => ({ ...prev, [key]: !prev[key] }));
   };
@@ -270,14 +519,14 @@ export default function PredictionsPage() {
   }, [predictionReport]);
 
   return (
-    <div className="h-screen w-full flex flex-col font-sans bg-[#fcfbf7] text-slate-800 overflow-hidden">
-      {/* ── Top Header Navigation Bar ── */}
-      <header className="h-14 shrink-0 bg-white/95 backdrop-blur-md border-b border-[#ebdcb9] z-30 shadow-2xs flex items-center px-4">
-        <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
-          <div className="flex items-center gap-3">
+    <div className="h-screen w-full flex flex-col font-sans bg-[#f7f5f0] text-slate-800 overflow-hidden">
+      {/* ── Top Header Navigation Bar (Styled cleanly matching first page) ── */}
+      <header className="h-[60px] shrink-0 bg-[#fdfcf7] border-b border-[#ebdcb9] z-30 shadow-xs flex items-center px-3 sm:px-5">
+        <div className="w-full flex items-center justify-between">
+          <div className="flex items-center gap-2.5 sm:gap-3">
             <button
               onClick={() => router.push("/create-report")}
-              className="w-8 h-8 rounded-full bg-amber-50 hover:bg-amber-100 flex items-center justify-center text-amber-900 transition-colors"
+              className="w-8 h-8 rounded-lg bg-[#fffbeb] hover:bg-amber-100 flex items-center justify-center text-[#92400e] border border-amber-200 shadow-xs transition-colors"
               title="Return to Visual Editor Sheet"
             >
               <i className="fa-solid fa-arrow-left text-xs"></i>
@@ -298,25 +547,56 @@ export default function PredictionsPage() {
           </div>
 
           <div className="flex items-center gap-2">
+            {/* Global Language Selector (English | বাংলা | हिन्दी) */}
+            <div className="flex items-center bg-white p-0.5 rounded-lg border border-amber-200 shadow-2xs">
+              <button
+                onClick={() => handleLanguageChange("bn")}
+                className={`px-2 py-0.5 text-xs font-bold rounded transition-colors ${
+                  selectedLang === "bn" ? "bg-[#800020] text-white shadow-2xs" : "text-amber-900 hover:bg-amber-50"
+                }`}
+                title="বাংলা ভাষায় দেখুন"
+              >
+                বাংলা
+              </button>
+              <button
+                onClick={() => handleLanguageChange("en")}
+                className={`px-2 py-0.5 text-xs font-bold rounded transition-colors ${
+                  selectedLang === "en" ? "bg-[#800020] text-white shadow-2xs" : "text-amber-900 hover:bg-amber-50"
+                }`}
+                title="View in English"
+              >
+                English
+              </button>
+              <button
+                onClick={() => handleLanguageChange("hi")}
+                className={`px-2 py-0.5 text-xs font-bold rounded transition-colors ${
+                  selectedLang === "hi" ? "bg-[#800020] text-white shadow-2xs" : "text-amber-900 hover:bg-amber-50"
+                }`}
+                title="हिन्दी में देखें"
+              >
+                हिन्दी
+              </button>
+            </div>
+
             <button
               onClick={() => router.push("/create-report")}
-              className="px-3 py-1.5 rounded-lg border border-[#ebdcb9] hover:bg-amber-50 text-amber-900 text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-2xs"
+              className="px-2.5 py-1.5 rounded-lg border border-[#ebdcb9] hover:bg-amber-50 text-amber-900 text-xs font-semibold hidden sm:flex items-center gap-1.5 transition-colors shadow-2xs"
             >
-              <i className="fa-solid fa-chart-pie text-xs"></i> Chart Sheet
+              <i className="fa-solid fa-chart-pie text-xs"></i> {ui.chartSheet}
             </button>
 
             <button
               onClick={() => setAiSettingsOpen(true)}
-              className="px-3 py-1.5 rounded-lg bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 text-indigo-900 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+              className="px-2.5 py-1.5 rounded-lg bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 text-indigo-900 text-xs font-semibold flex items-center gap-1.5 transition-colors"
             >
-              <i className="fa-solid fa-microchip text-xs"></i> AI Settings
+              <i className="fa-solid fa-microchip text-xs"></i> {ui.aiSettings}
             </button>
 
             <button
               onClick={() => setIsAboutOpen(true)}
-              className="px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium hidden sm:flex items-center gap-1"
+              className="px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium hidden md:flex items-center gap-1"
             >
-              <i className="fa-solid fa-circle-info text-xs"></i> About
+              <i className="fa-solid fa-circle-info text-xs"></i> {ui.about}
             </button>
 
             {isAdmin && (
@@ -324,7 +604,7 @@ export default function PredictionsPage() {
                 href="/admin"
                 className="px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium flex items-center gap-1"
               >
-                <i className="fa-solid fa-shield text-xs"></i> Admin
+                <i className="fa-solid fa-shield text-xs"></i> {ui.admin}
               </Link>
             )}
 
@@ -332,7 +612,7 @@ export default function PredictionsPage() {
               onClick={logout}
               className="px-2.5 py-1.5 rounded-lg border border-red-200 text-red-700 hover:bg-red-50 text-xs font-medium flex items-center gap-1 transition-colors"
             >
-              <i className="fa-solid fa-arrow-right-from-bracket text-xs"></i> Logout
+              <i className="fa-solid fa-arrow-right-from-bracket text-xs"></i> {ui.logout}
             </button>
           </div>
         </div>
@@ -340,7 +620,7 @@ export default function PredictionsPage() {
 
       {/* ── Status Alerts ── */}
       {error && (
-        <div className="shrink-0 max-w-7xl mx-auto w-full px-4 pt-2">
+        <div className="shrink-0 w-full px-4 pt-2">
           <div className="bg-red-50 border border-red-200 rounded-lg p-2 text-red-800 text-xs flex items-center justify-between">
             <div className="flex items-center gap-2">
               <i className="fa-solid fa-triangle-exclamation text-red-600"></i>
@@ -354,7 +634,7 @@ export default function PredictionsPage() {
       )}
 
       {successMessage && (
-        <div className="shrink-0 max-w-7xl mx-auto w-full px-4 pt-2">
+        <div className="shrink-0 w-full px-4 pt-2">
           <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-2 text-emerald-800 text-xs flex items-center justify-between">
             <div className="flex items-center gap-2">
               <i className="fa-solid fa-circle-check text-emerald-600"></i>
@@ -367,34 +647,64 @@ export default function PredictionsPage() {
         </div>
       )}
 
-      {/* ── Main Workspace: 2 Equal, Responsive, Contained Columns ── */}
-      <main className="flex-1 max-w-7xl mx-auto w-full p-3 grid grid-cols-12 gap-4 min-h-0 overflow-hidden">
+      {/* ── Main Workspace: Full Width Responsive Grid matching First Page ── */}
+      <main className="flex-1 w-full px-2 sm:px-4 py-2.5 grid grid-cols-12 gap-3 min-h-0 overflow-hidden">
         {/* ════════════ LEFT COLUMN: "জীবন জিজ্ঞাসা" KUNDLI CHART PDF PREVIEW (6 Cols) ════════════ */}
-        <section className="col-span-12 lg:col-span-6 h-full flex flex-col min-h-0 overflow-hidden bg-white border border-[#ebdcb9] rounded-xl shadow-2xs">
-          {/* Header Bar for Kundli Chart */}
-          <div className="shrink-0 px-3 py-2 bg-[#fffdfa] border-b border-[#ebdcb9] flex items-center justify-between">
+        <section className="col-span-12 lg:col-span-6 h-full flex flex-col min-h-0 overflow-hidden bg-white border border-[#ebdcb9] rounded-xl shadow-xs">
+          {/* Header Bar matching first page */}
+          <div className="shrink-0 px-3 py-2 bg-[#fdfcf7] border-b border-[#ebdcb9] flex items-center justify-between">
             <div className="flex items-center gap-2">
               <i className="fa-solid fa-file-pdf text-[#800020] text-sm"></i>
               <span className="font-serif font-bold text-xs text-slate-800">
-                জীবন জিজ্ঞাসা — Kundli Birth Chart
+                {ui.kundliTitle}
               </span>
             </div>
 
-            <div className="flex items-center gap-2">
-              {/* Language Selector */}
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              {/* Language Selector matching first page */}
               <div className="relative">
                 <select
                   value={chartLanguage}
-                  onChange={(e) => handleChartLanguageChange(e.target.value)}
+                  onChange={(e) => handleLanguageChange(e.target.value as any)}
                   className="rounded-lg pl-2.5 pr-6 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 appearance-none cursor-pointer outline-none shadow-2xs"
                 >
                   <option value="bn">বাংলা (Bengali)</option>
-                  <option value="en">English</option>
+                  <option value="en">English (English)</option>
                   <option value="hi">हिंदी (Hindi)</option>
                 </select>
                 <span className="absolute inset-y-0 right-2 flex items-center pointer-events-none text-slate-400 text-[9px]">
                   <i className="fa-solid fa-chevron-down"></i>
                 </span>
+              </div>
+
+              {/* Responsive Zoom Controls */}
+              <div className="flex items-center bg-slate-100 rounded-lg p-0.5 text-xs text-slate-700 border border-slate-200">
+                <button
+                  onClick={() => setChartZoom((z) => Math.max(0.55, Number((z - 0.08).toFixed(2))))}
+                  className="w-5 h-5 flex items-center justify-center hover:bg-white rounded font-bold"
+                  title="Zoom Out"
+                >
+                  -
+                </button>
+                <button
+                  onClick={() => {
+                    if (leftColContainerRef.current) {
+                      const w = leftColContainerRef.current.clientWidth - 28;
+                      setChartZoom(Number(Math.min(1.0, Math.max(0.55, w / 794)).toFixed(2)));
+                    }
+                  }}
+                  className="px-1 text-[10px] font-mono font-semibold hover:bg-white rounded"
+                  title="Fit Width"
+                >
+                  {Math.round(chartZoom * 100)}%
+                </button>
+                <button
+                  onClick={() => setChartZoom((z) => Math.min(1.3, Number((z + 0.08).toFixed(2))))}
+                  className="w-5 h-5 flex items-center justify-center hover:bg-white rounded font-bold"
+                  title="Zoom In"
+                >
+                  +
+                </button>
               </div>
 
               {/* Open in new tab */}
@@ -403,7 +713,7 @@ export default function PredictionsPage() {
                   href={chartDownloadUrl || chartPdfUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg flex items-center gap-1 shadow-2xs transition-colors"
+                  className="px-2 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg flex items-center gap-1 shadow-2xs transition-colors"
                   title="Open Chart in New Tab"
                 >
                   <i className="fa-solid fa-up-right-from-square text-[10px]"></i> Open
@@ -433,24 +743,39 @@ export default function PredictionsPage() {
             </div>
           </div>
 
-          {/* Kundli Chart Preview Frame */}
-          <div className="flex-1 min-h-0 bg-[#f8fafc] relative overflow-hidden flex items-center justify-center">
+          {/* Kundli Chart Preview Frame with Responsive Auto-Fit (Zero Clipping) */}
+          <div
+            ref={leftColContainerRef}
+            className="flex-1 min-h-0 bg-[#f1f5f9] relative overflow-y-auto overflow-x-hidden p-3 flex justify-center items-start"
+          >
             {chartLoading && (
-              <div className="absolute inset-0 bg-white/80 backdrop-blur-xs flex flex-col items-center justify-center gap-2 z-10 text-slate-600">
+              <div className="absolute inset-0 bg-white/85 backdrop-blur-xs flex flex-col items-center justify-center gap-2 z-10 text-slate-600">
                 <LoadingSpinner />
                 <span className="text-xs font-medium">Rendering Kundli Birth Chart...</span>
               </div>
             )}
 
             {chartPdfUrl ? (
-              <iframe
-                ref={chartIframeRef}
-                src={chartPdfUrl}
-                className="w-full h-full border-0 bg-white"
-                title="Kundli Birth Chart — জীবন জিজ্ঞাসা"
-              />
+              <div
+                style={{
+                  width: "210mm",
+                  maxWidth: "794px",
+                  transform: `scale(${chartZoom})`,
+                  transformOrigin: "top center",
+                  marginBottom: chartZoom < 1 ? `${(1 - chartZoom) * -1120}px` : "16px",
+                  transition: "transform 0.15s ease",
+                }}
+                className="flex justify-center"
+              >
+                <iframe
+                  ref={chartIframeRef}
+                  src={chartPdfUrl}
+                  className="w-[210mm] h-[297mm] min-h-[1050px] border border-slate-300 rounded-lg shadow-md bg-white"
+                  title="Kundli Birth Chart — জীবন জিজ্ঞাসা"
+                />
+              </div>
             ) : (
-              <div className="p-8 text-center text-slate-400 flex flex-col items-center gap-2">
+              <div className="p-8 text-center text-slate-400 flex flex-col items-center gap-2 my-auto">
                 <div className="w-12 h-12 rounded-full bg-amber-50 text-amber-800 flex items-center justify-center text-xl">
                   📜
                 </div>
@@ -470,18 +795,47 @@ export default function PredictionsPage() {
         </section>
 
         {/* ════════════ RIGHT COLUMN: INTERACTIVE PREDICTIONS WORKSPACE (6 Cols) ════════════ */}
-        <section className="col-span-12 lg:col-span-6 h-full flex flex-col min-h-0 overflow-hidden bg-white border border-[#ebdcb9] rounded-xl shadow-2xs">
+        <section className="col-span-12 lg:col-span-6 h-full flex flex-col min-h-0 overflow-hidden bg-white border border-[#ebdcb9] rounded-xl shadow-xs">
           {/* Top Prediction Controls Toolbar */}
-          <div className="shrink-0 px-3 py-2 bg-[#fffdfa] border-b border-[#ebdcb9] flex flex-wrap items-center justify-between gap-2">
+          <div className="shrink-0 px-3 py-2 bg-[#fdfcf7] border-b border-[#ebdcb9] flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-2">
               <span className="font-serif font-bold text-xs text-[#800020] flex items-center gap-1.5">
-                <i className="fa-solid fa-wand-magic-sparkles"></i> Predictions Workspace
+                <i className="fa-solid fa-wand-magic-sparkles"></i> {ui.predictionsTitle}
               </span>
+
+              {/* Mode Toggle: Simple Explanation vs Advanced Mode (Section 20.C) */}
+              <div className="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200">
+                <button
+                  onClick={() => setExplanationMode("simple")}
+                  className={`px-2 py-0.5 text-[11px] font-semibold rounded transition-colors ${
+                    explanationMode === "simple"
+                      ? "bg-white text-emerald-800 shadow-2xs border border-emerald-300"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                  title="Human-friendly explanation without raw rule IDs"
+                >
+                  <i className="fa-solid fa-user text-[10px] mr-1"></i>
+                  {ui.simpleMode}
+                </button>
+                <button
+                  onClick={() => setExplanationMode("advanced")}
+                  className={`px-2 py-0.5 text-[11px] font-semibold rounded transition-colors ${
+                    explanationMode === "advanced"
+                      ? "bg-white text-indigo-900 shadow-2xs border border-indigo-300"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                  title="Astrological mode with rule IDs, dignity, and conditions"
+                >
+                  <i className="fa-solid fa-microscope text-[10px] mr-1"></i>
+                  {ui.advancedMode}
+                </button>
+              </div>
+
               <button
                 onClick={() => setShowBirthForm(!showBirthForm)}
-                className="text-[11px] text-amber-800 hover:underline flex items-center gap-1 font-sans"
+                className="text-[11px] text-amber-800 hover:underline flex items-center gap-1 font-sans ml-1"
               >
-                <i className="fa-solid fa-id-card"></i> {showBirthForm ? "Hide Details" : "Edit Client"}
+                <i className="fa-solid fa-id-card"></i> {showBirthForm ? ui.hideDetails : ui.editClient}
               </button>
             </div>
 
@@ -499,7 +853,7 @@ export default function PredictionsPage() {
               </select>
 
               <button
-                onClick={() => handleGeneratePredictions(formValue, true)}
+                onClick={() => handleGeneratePredictions(formValue, true, selectedLang)}
                 disabled={loading}
                 className="px-3 py-1 rounded-lg bg-[#800020] hover:bg-[#600018] text-white text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-2xs disabled:opacity-50"
               >
@@ -509,7 +863,7 @@ export default function PredictionsPage() {
                   </>
                 ) : (
                   <>
-                    <i className="fa-solid fa-rotate text-xs"></i> Regenerate
+                    <i className="fa-solid fa-rotate text-xs"></i> {ui.regenerate}
                   </>
                 )}
               </button>
@@ -524,7 +878,7 @@ export default function PredictionsPage() {
                 onChange={setFormValue}
                 onSubmit={() => {
                   loadChartReport(formValue, chartLanguage);
-                  handleGeneratePredictions(formValue, true);
+                  handleGeneratePredictions(formValue, true, selectedLang);
                 }}
                 loading={loading}
               />
@@ -535,10 +889,10 @@ export default function PredictionsPage() {
           <div className="shrink-0 flex items-center justify-between border-b border-slate-200 bg-white px-3 pt-1.5">
             <div className="flex items-center gap-1">
               {[
-                { id: "life_areas", label: "Life Areas", icon: "fa-layer-group" },
-                { id: "overview", label: "Overview", icon: "fa-compass" },
-                { id: "current_period", label: "Current Period", icon: "fa-clock" },
-                { id: "advanced", label: "Advanced", icon: "fa-code-branch" },
+                { id: "life_areas", label: ui.lifeAreas, icon: "fa-layer-group" },
+                { id: "overview", label: ui.overview, icon: "fa-compass" },
+                { id: "current_period", label: ui.currentPeriod, icon: "fa-clock" },
+                { id: "advanced", label: ui.advanced, icon: "fa-code-branch" },
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -569,6 +923,7 @@ export default function PredictionsPage() {
                 const isSelected =
                   sec.topic.toLowerCase() === selectedTopic.toLowerCase() ||
                   sec.title.toLowerCase().includes(selectedTopic.toLowerCase());
+                const trTitle = sec.translations?.[selectedLang]?.title || sec.title;
 
                 return (
                   <button
@@ -580,7 +935,7 @@ export default function PredictionsPage() {
                         : "bg-white hover:bg-amber-50 text-slate-700 border border-slate-200"
                     }`}
                   >
-                    <span>{sec.title}</span>
+                    <span>{trTitle}</span>
                     <span
                       className={`text-[9px] px-1 py-0.2 rounded font-bold uppercase ${
                         isSelected ? "bg-amber-200/40 text-amber-100" : "bg-slate-100 text-slate-500"
@@ -600,76 +955,142 @@ export default function PredictionsPage() {
             {activeTab === "life_areas" && (
               <div className="space-y-4 animate-fade-in" ref={detailsContainerRef}>
                 {/* 1. Active Section Detailed Card */}
-                {activeSection ? (
+                {localizedActiveSection ? (
                   <div className="p-4 sm:p-5 rounded-xl bg-white border border-[#ebdcb9] shadow-xs space-y-4">
                     {/* Header with Title and Evidence Badge */}
                     <div className="flex items-start justify-between border-b border-slate-100 pb-3">
                       <div>
                         <h2 className="font-serif font-bold text-base sm:text-lg text-[#800020]">
-                          {activeSection.title}
+                          {localizedActiveSection.title}
                         </h2>
                         <span className="text-[11px] text-slate-500 font-medium">
-                          Natal Astrological Analysis &bull; Whole Sign Vedic Parashari
+                          {ui.parashariSystem}
                         </span>
                       </div>
                       <span
                         className={`text-xs font-bold uppercase px-2.5 py-1 rounded-full ${
-                          activeSection.evidence_level === "Convergent"
+                          localizedActiveSection.evidence_level === "Convergent"
                             ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
-                            : activeSection.evidence_level === "Moderate"
+                            : localizedActiveSection.evidence_level === "Moderate"
                             ? "bg-amber-100 text-amber-800 border border-amber-200"
                             : "bg-slate-100 text-slate-700 border border-slate-200"
                         }`}
                       >
-                        {activeSection.evidence_level} ({activeSection.lean})
+                        {localizedActiveSection.evidence_level} ({localizedActiveSection.lean})
                       </span>
                     </div>
 
-                    {/* Astrological Grounding Facts Box */}
-                    {(activeSection.supporting_factors?.length || activeSection.challenging_factors?.length) ? (
-                      <div className="p-3 rounded-lg bg-amber-50/40 border border-amber-200 text-xs space-y-2">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-amber-900 block">
-                          Astrological Grounding Facts &amp; Lord Placements
-                        </span>
+                    {/* Astrological Grounding Facts Box: Simple vs Advanced Mode (Section 20) */}
+                    {(localizedActiveSection.supporting_factors?.length ||
+                      localizedActiveSection.challenging_factors?.length) ? (
+                      <div className="p-3 rounded-lg bg-amber-50/40 border border-amber-200 text-xs space-y-3">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-900 block">
+                            {explanationMode === "simple"
+                              ? (selectedLang === "bn" ? "অনুকূল ও পরিমার্জক গ্রহীয় সূত্র (সহজ বিশ্লেষণ)" : selectedLang === "hi" ? "अनुकूल एवं परिमार्जक ग्रह योग (सरल व्याख्या)" : "Astrological Factors & Symbolic Indications")
+                              : "Astrological Grounding Facts & Lord Placements"}
+                          </span>
+                          <span className="text-[10px] text-slate-500 font-medium italic">
+                            {explanationMode === "simple"
+                              ? selectedLang === "bn" ? "সহজ বিশ্লেষণ (সাধারণ)" : selectedLang === "hi" ? "सरल व्याख्या" : "Layperson Mode"
+                              : "Astrologer Technical Mode"}
+                          </span>
+                        </div>
 
-                        {activeSection.supporting_factors && activeSection.supporting_factors.length > 0 && (
+                        {/* Supporting Factors */}
+                        {localizedActiveSection.supporting_factors.length > 0 && (
                           <div>
-                            <span className="font-semibold text-emerald-800 block text-[11px] mb-0.5">
-                              Supporting Factors:
+                            <span className="font-semibold text-emerald-800 block text-[11px] mb-1">
+                              {ui.supportingFactors}:
                             </span>
-                            <ul className="space-y-1 text-slate-700">
-                              {activeSection.supporting_factors.slice(0, 3).map((sf, idx) => (
-                                <li key={idx} className="flex items-start gap-1.5">
-                                  <span className="text-emerald-700 font-bold">•</span>
-                                  <span>
-                                    {sf.interpretation}{" "}
-                                    <span className="font-mono text-[10px] bg-white border border-amber-300 px-1 rounded text-amber-950 font-semibold">
-                                      {sf.rule_id}
-                                    </span>
-                                  </span>
-                                </li>
-                              ))}
+                            <ul className="space-y-1.5 text-slate-700">
+                              {localizedActiveSection.supporting_factors.slice(0, 3).map((sf, idx) => {
+                                const simpleText =
+                                  sf.simple_explanation?.[selectedLang] ||
+                                  explainRuleClient(sf.rule_id, selectedLang) ||
+                                  cleanRuleText(sf.interpretation);
+
+                                return (
+                                  <li key={idx} className="flex items-start gap-2 bg-white/80 p-2 rounded-lg border border-emerald-100 shadow-2xs">
+                                    <span className="text-emerald-700 font-bold mt-0.5">•</span>
+                                    <div className="flex-1 space-y-1">
+                                      {explanationMode === "simple" ? (
+                                        <p className="text-xs text-slate-800 leading-relaxed font-sans">
+                                          {simpleText}
+                                        </p>
+                                      ) : (
+                                        <>
+                                          <div className="flex items-center gap-1.5 flex-wrap">
+                                            <span className="font-mono text-[10px] bg-white border border-amber-300 px-1.5 py-0.2 rounded text-amber-950 font-bold">
+                                              {sf.rule_id}
+                                            </span>
+                                            <span className="text-[11px] font-semibold text-slate-800">
+                                              {sf.factor || sf.rule_id}
+                                            </span>
+                                          </div>
+                                          <p className="text-[11px] text-slate-700 leading-relaxed">
+                                            {sf.advanced_explanation?.[selectedLang] || sf.interpretation}
+                                          </p>
+                                          {sf.why_matters?.[selectedLang] && (
+                                            <p className="text-[10px] text-amber-900 italic">
+                                              <strong>Significance:</strong> {sf.why_matters[selectedLang]}
+                                            </p>
+                                          )}
+                                        </>
+                                      )}
+                                    </div>
+                                  </li>
+                                );
+                              })}
                             </ul>
                           </div>
                         )}
 
-                        {activeSection.challenging_factors && activeSection.challenging_factors.length > 0 && (
-                          <div className="pt-1 border-t border-amber-200/50">
-                            <span className="font-semibold text-amber-900 block text-[11px] mb-0.5">
-                              Modifying / Challenging Factors:
+                        {/* Challenging / Modifying Factors */}
+                        {localizedActiveSection.challenging_factors.length > 0 && (
+                          <div className="pt-2 border-t border-amber-200/50">
+                            <span className="font-semibold text-amber-900 block text-[11px] mb-1">
+                              {ui.modifyingFactors}:
                             </span>
-                            <ul className="space-y-1 text-slate-700">
-                              {activeSection.challenging_factors.slice(0, 2).map((cf, idx) => (
-                                <li key={idx} className="flex items-start gap-1.5">
-                                  <span className="text-amber-800 font-bold">•</span>
-                                  <span>
-                                    {cf.interpretation}{" "}
-                                    <span className="font-mono text-[10px] bg-white border border-amber-300 px-1 rounded text-amber-950 font-semibold">
-                                      {cf.rule_id}
-                                    </span>
-                                  </span>
-                                </li>
-                              ))}
+                            <ul className="space-y-1.5 text-slate-700">
+                              {localizedActiveSection.challenging_factors.slice(0, 2).map((cf, idx) => {
+                                const simpleText =
+                                  cf.simple_explanation?.[selectedLang] ||
+                                  explainRuleClient(cf.rule_id, selectedLang) ||
+                                  cleanRuleText(cf.interpretation);
+
+                                return (
+                                  <li key={idx} className="flex items-start gap-2 bg-white/80 p-2 rounded-lg border border-amber-200/70 shadow-2xs">
+                                    <span className="text-amber-800 font-bold mt-0.5">•</span>
+                                    <div className="flex-1 space-y-1">
+                                      {explanationMode === "simple" ? (
+                                        <p className="text-xs text-slate-800 leading-relaxed font-sans">
+                                          {simpleText}
+                                        </p>
+                                      ) : (
+                                        <>
+                                          <div className="flex items-center gap-1.5 flex-wrap">
+                                            <span className="font-mono text-[10px] bg-white border border-amber-300 px-1.5 py-0.2 rounded text-amber-950 font-bold">
+                                              {cf.rule_id}
+                                            </span>
+                                            <span className="text-[11px] font-semibold text-slate-800">
+                                              {cf.factor || cf.rule_id}
+                                            </span>
+                                          </div>
+                                          <p className="text-[11px] text-slate-700 leading-relaxed">
+                                            {cf.advanced_explanation?.[selectedLang] || cf.interpretation}
+                                          </p>
+                                          {cf.why_matters?.[selectedLang] && (
+                                            <p className="text-[10px] text-amber-900 italic">
+                                              <strong>Significance:</strong> {cf.why_matters[selectedLang]}
+                                            </p>
+                                          )}
+                                        </>
+                                      )}
+                                    </div>
+                                  </li>
+                                );
+                              })}
                             </ul>
                           </div>
                         )}
@@ -679,21 +1100,21 @@ export default function PredictionsPage() {
                     {/* Domain Overview (40-70 words) */}
                     <div>
                       <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
-                        Domain Synthesis &amp; Overview
+                        {ui.domainOverview}
                       </h4>
                       <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-sans">
-                        {activeSection.overview || activeSection.summary}
+                        {localizedActiveSection.overview}
                       </p>
                     </div>
 
                     {/* Core Themes (3 items) */}
-                    {activeSection.themes && activeSection.themes.length > 0 && (
+                    {localizedActiveSection.themes && localizedActiveSection.themes.length > 0 && (
                       <div>
                         <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-800 mb-1.5 flex items-center gap-1.5">
-                          <i className="fa-solid fa-sparkles text-emerald-600"></i> Core Symbolic Themes
+                          <i className="fa-solid fa-sparkles text-emerald-600"></i> {ui.coreThemes}
                         </h4>
                         <ul className="space-y-1.5">
-                          {activeSection.themes.slice(0, 3).map((th, idx) => (
+                          {localizedActiveSection.themes.slice(0, 3).map((th, idx) => (
                             <li key={idx} className="flex items-start gap-2 text-xs text-slate-700">
                               <span className="text-emerald-700 font-bold">•</span>
                               <span>{th}</span>
@@ -704,13 +1125,13 @@ export default function PredictionsPage() {
                     )}
 
                     {/* Mindful Growth Challenges (2 items) */}
-                    {activeSection.challenges && activeSection.challenges.length > 0 && (
+                    {localizedActiveSection.challenges && localizedActiveSection.challenges.length > 0 && (
                       <div>
                         <h4 className="text-xs font-bold uppercase tracking-wider text-amber-900 mb-1.5 flex items-center gap-1.5">
-                          <i className="fa-solid fa-shield-halved text-amber-700"></i> Mindful Growth Challenges
+                          <i className="fa-solid fa-shield-halved text-amber-700"></i> {ui.growthChallenges}
                         </h4>
                         <ul className="space-y-1.5">
-                          {activeSection.challenges.slice(0, 2).map((ch, idx) => (
+                          {localizedActiveSection.challenges.slice(0, 2).map((ch, idx) => (
                             <li key={idx} className="flex items-start gap-2 text-xs text-slate-700">
                               <span className="text-amber-700 font-bold">•</span>
                               <span>{ch}</span>
@@ -720,49 +1141,113 @@ export default function PredictionsPage() {
                       </div>
                     )}
 
-                    {/* Collapsible Why This Accordion */}
+                    {/* Collapsible 6-Point "Why this prediction?" Accordion (Section 20.B) */}
                     <div className="pt-2 border-t border-slate-100">
                       <button
-                        onClick={() => toggleWhyThis(`topic-${activeSection.topic}`)}
-                        className="w-full flex items-center justify-between text-xs font-semibold text-slate-700 p-2 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors"
+                        onClick={() => toggleWhyThis(`topic-${activeSection?.topic || selectedTopic}`)}
+                        className="w-full flex items-center justify-between text-xs font-semibold text-slate-700 p-2.5 rounded-lg bg-amber-50/60 hover:bg-amber-100/60 border border-amber-200 transition-colors"
                       >
-                        <span className="flex items-center gap-1.5">
-                          <i className="fa-solid fa-circle-info text-amber-800"></i>
-                          Why this? (Parashari Evidence &amp; Rule Basis)
+                        <span className="flex items-center gap-2">
+                          <i className="fa-solid fa-circle-question text-[#800020] text-sm"></i>
+                          <span className="font-bold text-[#800020]">{ui.whyThisPrediction}</span>
                         </span>
                         <i
                           className={`fa-solid fa-chevron-down text-[11px] transition-transform ${
-                            expandedWhyThis[`topic-${activeSection.topic}`] ? "rotate-180" : ""
+                            expandedWhyThis[`topic-${activeSection?.topic || selectedTopic}`] ? "rotate-180" : ""
                           }`}
                         ></i>
                       </button>
 
-                      {expandedWhyThis[`topic-${activeSection.topic}`] && (
-                        <div className="mt-2 p-3 bg-amber-50/50 rounded-lg text-xs text-slate-700 border border-amber-200/60 space-y-2 animate-fade-in">
-                          <div className="flex items-center justify-between">
-                            <span>
-                              <strong>Evidence Level:</strong> {activeSection.evidence_level}
-                            </span>
-                            <span>
-                              <strong>Lean:</strong> {activeSection.lean}
-                            </span>
-                          </div>
-                          <p className="text-[11px] text-slate-600">{activeSection.explanation}</p>
-                          <div>
-                            <span className="font-semibold block text-[11px] text-slate-700 mb-1">
-                              Verified Basis Rule IDs:
-                            </span>
-                            <div className="flex flex-wrap gap-1">
-                              {(activeSection.basis_ids || activeSection.rule_ids || []).map((id) => (
-                                <span
-                                  key={id}
-                                  className="px-1.5 py-0.5 rounded bg-white border border-amber-300 font-mono text-[10px] text-amber-950 font-semibold"
-                                >
-                                  {id}
-                                </span>
-                              ))}
+                      {expandedWhyThis[`topic-${activeSection?.topic || selectedTopic}`] && (
+                        <div className="mt-2.5 p-3.5 bg-[#fffdfa] rounded-xl text-xs text-slate-700 border border-amber-200 shadow-2xs space-y-3 animate-fade-in">
+                          {/* 6 Structured Breakdown Points */}
+                          <div className="space-y-2">
+                            {/* Point 1: Placement Meaning */}
+                            <div className="p-2 rounded bg-amber-50/50 border border-amber-100">
+                              <span className="font-bold text-[#800020] block text-[11px] mb-0.5">
+                                {ui.point1}
+                              </span>
+                              <p className="text-[11px] text-slate-700 leading-relaxed">
+                                {localizedActiveSection.why_this?.placement_meaning?.[selectedLang] ||
+                                  localizedActiveSection.why_this?.placement_meaning?.["en"] ||
+                                  "Natal planetary alignments establish foundational strengths across pivotal houses."}
+                              </p>
+                            </div>
+
+                            {/* Point 2: Specific Houses & Planets Involved */}
+                            <div className="p-2 rounded bg-amber-50/50 border border-amber-100">
+                              <span className="font-bold text-[#800020] block text-[11px] mb-0.5">
+                                {ui.point2}
+                              </span>
+                              <p className="text-[11px] text-slate-700 leading-relaxed font-mono text-[10px]">
+                                {localizedActiveSection.why_this?.involved_factors?.[selectedLang] ||
+                                  localizedActiveSection.why_this?.involved_factors?.["en"]}
+                              </p>
+                            </div>
+
+                            {/* Point 3: Life Themes Connected */}
+                            <div className="p-2 rounded bg-amber-50/50 border border-amber-100">
+                              <span className="font-bold text-[#800020] block text-[11px] mb-0.5">
+                                {ui.point3}
+                              </span>
+                              <p className="text-[11px] text-slate-700 leading-relaxed">
+                                {localizedActiveSection.why_this?.life_themes?.[selectedLang] ||
+                                  localizedActiveSection.why_this?.life_themes?.["en"]}
+                              </p>
+                            </div>
+
+                            {/* Point 4: Relevance to this Specific Prediction */}
+                            <div className="p-2 rounded bg-amber-50/50 border border-amber-100">
+                              <span className="font-bold text-[#800020] block text-[11px] mb-0.5">
+                                {ui.point4}
+                              </span>
+                              <p className="text-[11px] text-slate-700 leading-relaxed">
+                                {localizedActiveSection.why_this?.relevance?.[selectedLang] ||
+                                  localizedActiveSection.why_this?.relevance?.["en"]}
+                              </p>
+                            </div>
+
+                            {/* Point 5: Modifying Factors */}
+                            <div className="p-2 rounded bg-amber-50/50 border border-amber-100">
+                              <span className="font-bold text-[#800020] block text-[11px] mb-0.5">
+                                {ui.point5}
+                              </span>
+                              <p className="text-[11px] text-slate-700 leading-relaxed">
+                                {localizedActiveSection.why_this?.modifying_factors?.[selectedLang] ||
+                                  localizedActiveSection.why_this?.modifying_factors?.["en"]}
+                              </p>
+                            </div>
+
+                            {/* Point 6: Synthesis */}
+                            <div className="p-2 rounded bg-amber-50/50 border border-amber-100">
+                              <span className="font-bold text-[#800020] block text-[11px] mb-0.5">
+                                {ui.point6}
+                              </span>
+                              <p className="text-[11px] text-slate-700 leading-relaxed font-semibold text-emerald-900">
+                                {localizedActiveSection.why_this?.synthesis?.[selectedLang] ||
+                                  localizedActiveSection.why_this?.synthesis?.["en"]}
+                              </p>
                             </div>
                           </div>
+
+                          {/* Rule IDs (shown only in Advanced Mode or collapsed) */}
+                          {explanationMode === "advanced" && (
+                            <div className="pt-2 border-t border-amber-200/60">
+                              <span className="font-semibold block text-[11px] text-slate-700 mb-1">
+                                {ui.verifiedBasis}:
+                              </span>
+                              <div className="flex flex-wrap gap-1">
+                                {localizedActiveSection.basis_ids.map((id) => (
+                                  <span
+                                    key={id}
+                                    className="px-1.5 py-0.5 rounded bg-white border border-amber-300 font-mono text-[10px] text-amber-950 font-semibold"
+                                  >
+                                    {id}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>
@@ -776,13 +1261,16 @@ export default function PredictionsPage() {
                 {/* 2. Grid of other Life Area Cards (Clicking any card heading switches to it) */}
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                    All Life Domain Cards (Click Any Heading to View Details)
+                    {ui.allLifeDomains}
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {(predictionReport?.sections || []).map((sec) => {
                       const isSelected =
                         sec.topic.toLowerCase() === selectedTopic.toLowerCase() ||
                         sec.title.toLowerCase().includes(selectedTopic.toLowerCase());
+                      const tr = sec.translations?.[selectedLang];
+                      const cardTitle = tr?.title || sec.title;
+                      const cardOverview = tr?.overview || sec.overview || sec.summary;
 
                       return (
                         <div
@@ -791,13 +1279,13 @@ export default function PredictionsPage() {
                           className={`p-3 rounded-xl border cursor-pointer transition-all flex flex-col justify-between ${
                             isSelected
                               ? "bg-amber-50/60 border-[#800020] shadow-xs ring-1 ring-[#800020]"
-                              : "bg-white hover:border-amber-300 border-slate-200"
+                              : "bg-white hover:border-amber-300 border-slate-200 shadow-2xs"
                           }`}
                         >
                           <div>
                             <div className="flex items-center justify-between mb-1.5">
                               <h4 className="font-serif font-bold text-xs text-[#800020] hover:underline">
-                                {sec.title}
+                                {cardTitle}
                               </h4>
                               <span
                                 className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded ${
@@ -812,12 +1300,12 @@ export default function PredictionsPage() {
                               </span>
                             </div>
                             <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                              {sec.overview || sec.summary}
+                              {cardOverview}
                             </p>
                           </div>
 
                           <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-[#800020] font-semibold">
-                            <span>{isSelected ? "Active View" : "Click to view details"}</span>
+                            <span>{isSelected ? ui.activeView : ui.clickToView}</span>
                             <span>&rarr;</span>
                           </div>
                         </div>
@@ -835,7 +1323,7 @@ export default function PredictionsPage() {
                 <div className="p-4 rounded-xl bg-gradient-to-br from-[#fffdfa] to-[#fcf7ee] border border-[#ebdcb9]">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-bold uppercase tracking-wider text-[#800020] flex items-center gap-1.5">
-                      <i className="fa-solid fa-scroll"></i> Executive Natal Overview
+                      <i className="fa-solid fa-scroll"></i> {ui.executiveOverview}
                     </span>
                     {predictionReport?.chart_overview && (
                       <span className="text-[11px] font-semibold text-slate-600">
@@ -845,8 +1333,7 @@ export default function PredictionsPage() {
                     )}
                   </div>
                   <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-sans">
-                    {predictionReport?.executive_overview ||
-                      "Your natal chart reveals purposeful planetary vigor across pivotal angular and trinal houses. Parashari principles indicate steady progressive cultivation when natural talents are paired with structured discipline and conscious dharma."}
+                    {localizedExecutiveOverview}
                   </p>
                 </div>
 
@@ -858,10 +1345,10 @@ export default function PredictionsPage() {
                         ⏳
                       </span>
                       <div>
-                        <span className="font-bold text-amber-950">Active Planetary Cycles: </span>
+                        <span className="font-bold text-amber-950">{ui.activePeriods}: </span>
                         <span className="text-slate-700">
-                          <strong>Mahadasha:</strong> {currentDasha.md.lord} (until {currentDasha.md.end}) &bull;{" "}
-                          <strong>Antardasha:</strong> {currentDasha.ad?.lord || "Active"}
+                          <strong>{ui.mahadasha}:</strong> {currentDasha.md.lord} (until {currentDasha.md.end}) &bull;{" "}
+                          <strong>{ui.antardasha}:</strong> {currentDasha.ad?.lord || "Active"}
                         </span>
                       </div>
                     </div>
@@ -877,34 +1364,40 @@ export default function PredictionsPage() {
                 {/* Insight Chips */}
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                    Core Insights &amp; Life Areas (Click Any Heading to Open)
+                    {ui.allLifeDomains}
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {(predictionReport?.sections || []).map((sec) => (
-                      <div
-                        key={sec.topic}
-                        onClick={() => handleSelectTopic(sec.topic)}
-                        className="p-3 rounded-lg bg-white border border-slate-200 hover:border-amber-400 cursor-pointer transition-colors shadow-2xs flex flex-col justify-between"
-                      >
-                        <div>
-                          <div className="flex items-center justify-between mb-1">
-                            <h4 className="font-serif font-bold text-xs text-[#800020] hover:underline">
-                              {sec.title}
-                            </h4>
-                            <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded bg-slate-100 text-slate-700">
-                              {sec.evidence_level}
-                            </span>
+                    {(predictionReport?.sections || []).map((sec) => {
+                      const tr = sec.translations?.[selectedLang];
+                      const cardTitle = tr?.title || sec.title;
+                      const cardOverview = tr?.overview || sec.overview || sec.summary;
+
+                      return (
+                        <div
+                          key={sec.topic}
+                          onClick={() => handleSelectTopic(sec.topic)}
+                          className="p-3 rounded-lg bg-white border border-slate-200 hover:border-amber-400 cursor-pointer transition-colors shadow-2xs flex flex-col justify-between"
+                        >
+                          <div>
+                            <div className="flex items-center justify-between mb-1">
+                              <h4 className="font-serif font-bold text-xs text-[#800020] hover:underline">
+                                {cardTitle}
+                              </h4>
+                              <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded bg-slate-100 text-slate-700">
+                                {sec.evidence_level}
+                              </span>
+                            </div>
+                            <p className="text-xs text-slate-600 line-clamp-2 leading-snug">
+                              {cardOverview}
+                            </p>
                           </div>
-                          <p className="text-xs text-slate-600 line-clamp-2 leading-snug">
-                            {sec.overview || sec.summary}
-                          </p>
+                          <div className="mt-2 pt-2 border-t border-slate-100 text-[11px] text-amber-800 font-semibold flex items-center justify-between">
+                            <span>{ui.clickToView}</span>
+                            <span>&rarr;</span>
+                          </div>
                         </div>
-                        <div className="mt-2 pt-2 border-t border-slate-100 text-[11px] text-amber-800 font-semibold flex items-center justify-between">
-                          <span>View Full Details</span>
-                          <span>&rarr;</span>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -915,7 +1408,7 @@ export default function PredictionsPage() {
               <div className="space-y-4 animate-fade-in">
                 <div className="p-4 rounded-xl bg-gradient-to-br from-amber-50 to-orange-50/40 border border-amber-200">
                   <h3 className="font-serif font-bold text-base text-amber-950 mb-1 flex items-center gap-2">
-                    <span>⏳</span> Active Vimshottari Dasha Periods
+                    <span>⏳</span> {ui.activePeriods}
                   </h3>
                   <p className="text-xs text-slate-600 mb-3">
                     Planetary timing modulates natal potential into concrete life experiences across specific cycles.
@@ -925,7 +1418,7 @@ export default function PredictionsPage() {
                     {currentDasha?.md && (
                       <div className="p-3 rounded-lg bg-white border border-amber-200 shadow-2xs">
                         <span className="text-[10px] font-bold uppercase text-amber-800 tracking-wider block">
-                          Major Life Period (Mahadasha)
+                          {ui.mahadasha}
                         </span>
                         <span className="font-serif font-bold text-base text-slate-800 block my-0.5">
                           {currentDasha.md.lord} Mahadasha
@@ -939,7 +1432,7 @@ export default function PredictionsPage() {
                     {currentDasha?.ad && (
                       <div className="p-3 rounded-lg bg-white border border-amber-200 shadow-2xs">
                         <span className="text-[10px] font-bold uppercase text-amber-800 tracking-wider block">
-                          Sub-Period (Antardasha)
+                          {ui.antardasha}
                         </span>
                         <span className="font-serif font-bold text-base text-slate-800 block my-0.5">
                           {currentDasha.ad.lord} Antardasha
@@ -995,7 +1488,7 @@ export default function PredictionsPage() {
                     className="text-xs font-semibold text-slate-600 hover:text-slate-900 flex items-center gap-1.5"
                   >
                     <i className={`fa-solid ${showPratyantardasha ? "fa-eye-slash" : "fa-eye"}`}></i>
-                    {showPratyantardasha ? "Hide Pratyantardasha" : "Show Sub-Periods (Pratyantardasha)"}
+                    {showPratyantardasha ? ui.hidePratyantardasha : ui.pratyantardasha}
                   </button>
 
                   {showPratyantardasha && (
@@ -1179,11 +1672,14 @@ export default function PredictionsPage() {
                 <span className="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center text-sm">
                   <i className="fa-solid fa-microchip"></i>
                 </span>
-                <h3 className="font-serif font-bold text-base text-slate-900">AI Engine Settings</h3>
+                <div>
+                  <h3 className="font-serif font-bold text-sm text-slate-800">AI Consistency Engine Settings</h3>
+                  <p className="text-[10px] text-slate-500">Select free tier provider or custom API endpoint</p>
+                </div>
               </div>
               <button
                 onClick={() => setAiSettingsOpen(false)}
-                className="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center text-xs"
+                className="w-6 h-6 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center text-xs"
               >
                 ✕
               </button>
@@ -1191,16 +1687,22 @@ export default function PredictionsPage() {
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="font-semibold text-slate-700 block mb-1">Provider</label>
+                <label className="font-semibold text-slate-700 block mb-1">AI Provider</label>
                 <select
                   value={selectedProvider}
-                  onChange={(e) => setSelectedProvider(e.target.value)}
-                  className="w-full py-1.5 px-3 border border-slate-200 rounded-lg text-xs"
+                  onChange={(e) => {
+                    const p = e.target.value;
+                    setSelectedProvider(p);
+                    if (p === "groq") setSelectedModel("llama-3.3-70b-versatile");
+                    else if (p === "gemini") setSelectedModel("gemini-1.5-flash");
+                    else if (p === "openrouter") setSelectedModel("meta-llama/llama-3.3-70b-instruct:free");
+                  }}
+                  className="w-full p-2 border border-slate-200 rounded-lg text-xs bg-slate-50 focus:bg-white"
                 >
-                  <option value="groq">Groq Cloud (Fast &amp; Free)</option>
-                  <option value="gemini">Google Gemini (Free Tier)</option>
-                  <option value="openrouter">OpenRouter</option>
-                  <option value="custom">Custom Endpoint</option>
+                  <option value="groq">Groq Cloud (Free Tier - Ultra Fast LLaMA 3.3)</option>
+                  <option value="gemini">Google Gemini (Free Tier - gemini-1.5-flash)</option>
+                  <option value="openrouter">OpenRouter (Free Tier Models)</option>
+                  <option value="custom">Custom / Local OpenAI-Compatible</option>
                 </select>
               </div>
 
@@ -1210,8 +1712,8 @@ export default function PredictionsPage() {
                   type="text"
                   value={selectedModel}
                   onChange={(e) => setSelectedModel(e.target.value)}
+                  className="w-full p-2 border border-slate-200 rounded-lg text-xs"
                   placeholder="e.g. llama-3.3-70b-versatile"
-                  className="w-full py-1.5 px-3 border border-slate-200 rounded-lg text-xs font-mono"
                 />
               </div>
 
@@ -1221,9 +1723,13 @@ export default function PredictionsPage() {
                   type="password"
                   value={apiKeyInput}
                   onChange={(e) => setApiKeyInput(e.target.value)}
-                  placeholder="Enter API key or leave blank to use server environment"
-                  className="w-full py-1.5 px-3 border border-slate-200 rounded-lg text-xs"
+                  className="w-full p-2 border border-slate-200 rounded-lg text-xs font-mono"
+                  placeholder="Leave empty to use server environment key"
                 />
+              </div>
+
+              <div className="p-2.5 rounded bg-amber-50 text-[11px] text-amber-900 border border-amber-200">
+                <strong>Privacy Guarantee:</strong> Only anonymized astrological factors and rule IDs are audited. No client name, coordinates, or birth specifics are transmitted.
               </div>
             </div>
 
@@ -1236,16 +1742,16 @@ export default function PredictionsPage() {
               </button>
               <button
                 onClick={handleSaveAiSettings}
-                className="px-4 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-700 shadow-sm transition-colors"
+                className="px-4 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-700 shadow-sm"
               >
-                Save AI Settings
+                Save Settings
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* About Modal */}
+      {/* ── About Modal ── */}
       <AboutModal isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
     </div>
   );

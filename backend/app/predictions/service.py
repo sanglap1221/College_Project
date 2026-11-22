@@ -259,14 +259,31 @@ def generate_prediction_report(
         "varna": chart.varna,
     }
 
-    # Generate an executive overview <= 120 words
-    overview_sentences = [
-        f"This natal chart analysis is established with {chart.lagna_sign} Lagna and {chart.rashi_sign} Moon.",
-        "Planetary placements show purposeful vitality across foundational life areas.",
-        "Parashari rules highlight steady development when personal initiative is aligned with disciplined ethical conduct.",
-        "Current planetary periods indicate a pivotal chapter for consolidating skills and expanding professional agency."
-    ]
-    report["executive_overview"] = " ".join(overview_sentences)
+    # Generate multilingual executive overview <= 120 words
+    exec_overviews = {
+        "en": (
+            f"This natal chart analysis is established with {chart.lagna_sign} Lagna and {chart.rashi_sign} Moon. "
+            "Planetary placements show purposeful vitality across foundational life areas. "
+            "Parashari rules highlight steady development when personal initiative is aligned with disciplined ethical conduct. "
+            "Current planetary periods indicate a pivotal chapter for consolidating skills and expanding professional agency."
+        ),
+        "bn": (
+            f"আপনার জন্মকুণ্ডলীটি {chart.lagna_sign} লগ্ন এবং {chart.rashi_sign} রাশির ভিত্তিতে প্রতিষ্ঠিত। "
+            "কুণ্ডলীর মূল ভাবগুলিতে গ্রহাবস্থান শুভ ও সংহত কর্মক্ষমতা নির্দেশ করছে। "
+            "পরাশরী নীতি অনুযায়ী, নিয়মিত প্রচেষ্টা এবং নীতিনিষ্ঠ আচরণের মাধ্যমে জীবনের বিভিন্ন ক্ষেত্রে ইতিবাচক উন্নতি সাধিত হবে। "
+            "বর্তমান গ্রহীয় দশা ব্যক্তিগত দক্ষতা বৃদ্ধি ও সার্বিক অগ্রগতি অর্জনে একটি বিশেষ সহায়ক সময়।"
+        ),
+        "hi": (
+            f"आपकी जन्मपत्रिका {chart.lagna_sign} लग्न एवं {chart.rashi_sign} चंद्र राशि के आधार पर निर्मित है। "
+            "प्रमुख भावों में ग्रहीय स्थिति संतुलित एवं उद्देश्यपूर्ण जीवन ऊर्जा को दर्शाती है। "
+            "पराशरी सिद्धांतों के अनुसार, जब व्यक्तिगत पुरुषार्थ नैतिक आचरण से जुड़ता है, तो निरंतर प्रगति सुनिश्चित होती है। "
+            "वर्तमान ग्रह दशाएं ज्ञानवर्धन एवं जीवन में सुदृढ़ता प्राप्त करने के लिए अत्यंत अनुकूल हैं।"
+        ),
+    }
+    report["executive_overview"] = exec_overviews.get(language, exec_overviews["en"])
+    report["translations"] = {
+        "executive_overview": exec_overviews,
+    }
 
     ai_status = ai_service.get_ai_config()
     report["ai_meta"] = {
