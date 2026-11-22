@@ -468,7 +468,7 @@ export default function PredictionsPage() {
     }
 
     loadChartReport(updated, newLang);
-    handleGeneratePredictions(updated, true, newLang);
+    handleGeneratePredictions(updated, false, newLang);
   };
 
   // ── 5. Select Topic Handler ──
