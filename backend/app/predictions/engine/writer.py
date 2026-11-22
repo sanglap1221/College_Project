@@ -402,6 +402,7 @@ def generate_topic_narrative(
         "why_this": why_this,
         "translations": translations,
         "timing": [t.get("timing") for t in timing_items if "timing" in t],
+        "current_period": _build_current_period(timing_items, chart_facts),
         "summary": topic_json["overview"],
         "prediction": clean_prose,
         "status": "templated",

@@ -20,6 +20,7 @@ from . import evidence as E
 from . import gate
 from . import ai_service
 from . import writer
+from .planet_house_engine import generate_all_planetary_interpretations
 
 logger = logging.getLogger("astro_app.predictions.pipeline")
 
@@ -61,6 +62,16 @@ def run_pipeline(
         for d in active_dashas
     ]
 
+    # Current dasha (MD + AD) for the reference date
+    current = D.current_dasha(chart, ref_date)
+    current_dasha_info = {
+        "mahadasha": current["mahadasha"],
+        "antardasha": current["antardasha"],
+    }
+
+    # Upcoming Antardasha periods (future windows)
+    upcoming_ads = D.upcoming_antardashas(chart, ref_date, limit=12)
+
     report: Dict[str, Any] = {
         "chart_id": chart.id,
         "ruleset": {
@@ -78,6 +89,12 @@ def run_pipeline(
         "yoga_trace": [y for y in yoga_trace if y.get("passed")],
         "all_yogas_checked": len(yoga_trace),
         "dasha_summary": dasha_summary,
+        "current_dasha": current_dasha_info,
+        "upcoming_antardashas": upcoming_ads,
+        "planetary_interpretations": generate_all_planetary_interpretations(
+            chart_obj=chart,
+            dasha_summary=dasha_summary,
+        ),
         "limitations": [
             "Vedic Jyotish interpretations are traditional, non-deterministic symbolic indications.",
             "Predictions are based on Parashari principles and do not replace legal, financial, or medical advice.",
@@ -135,6 +152,7 @@ def run_pipeline(
             "allowed_houses": allowed_houses,
             "allowed_planets": allowed_planets,
             "allowed_dates": allowed_dates,
+            "timing_windows": D.event_timing_windows(chart, ref_date, topic),
         }
 
     # Stage 3 & 4: Optional Batched AI Generation & Audit
@@ -205,6 +223,7 @@ def run_pipeline(
         section_data["status"] = status
         section_data["notes"] = notes
         section_data["rule_ids"] = sorted(list(allowed_ids))
+        section_data["timing_windows"] = pkg["timing_windows"]
 
         report["sections"].append(section_data)
 

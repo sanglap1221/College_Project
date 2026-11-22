@@ -1,3 +1,44 @@
+export interface PlanetInterpretation {
+  planet: string;
+  planet_name: Record<string, string>;
+  house: number;
+  house_name: Record<string, string>;
+  sign_name: string;
+  sign_index: number;
+  dignity: string;
+  is_retrograde: boolean;
+  is_combust: boolean;
+  lorded_houses: number[];
+  conjunct_planets: string[];
+  aspecting_planets: string[];
+  traditional: {
+    title: Record<string, string>;
+    simple_explanation: Record<string, string>;
+    positive_results: Record<string, string[]>;
+    possible_challenges: Record<string, string[]>;
+    life_areas: Record<string, Record<string, string>>;
+  };
+  personalized: {
+    explanation: Record<string, string>;
+    lorded_str: Record<string, string>;
+    sign_and_dignity: string;
+    conjunctions_str: Record<string, string>;
+    aspects_str: Record<string, string>;
+  };
+  timing: {
+    activation_periods: Record<string, string[]>;
+    planet_lord: string;
+  };
+  advanced: {
+    rule_id: string;
+    basis_rule_ids: string[];
+    bhava_sambandha: string;
+    dignity_status: string;
+    retrograde: boolean;
+    combust: boolean;
+  };
+}
+
 export interface PredictionFactor {
   factor: string;
   interpretation: string;
@@ -109,6 +150,7 @@ export interface PredictionReport {
     varna?: string;
   };
   sections: PredictionSection[];
+  planetary_interpretations?: PlanetInterpretation[];
   yoga_trace?: any[];
   all_yogas_checked?: number;
   dasha_summary?: Array<{
