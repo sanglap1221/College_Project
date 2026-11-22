@@ -151,8 +151,9 @@ def prepare_chart_facts_from_input(payload: Any) -> Tuple[Dict[str, Any], Any, s
 
     # Extract Vimshottari dasha periods
     dashas_list = []
-    if hasattr(chart, "dashas") and chart.dashas:
-        for md in chart.dashas:
+    raw_md_list = getattr(chart, "mahadasha_list", None) or getattr(chart, "dashas", None)
+    if raw_md_list:
+        for md in raw_md_list:
             md_lord = getattr(md, "lord_en", getattr(md, "planet", ""))
             md_start = str(md.start_date)
             md_end = str(md.end_date)
@@ -179,6 +180,7 @@ def prepare_chart_facts_from_input(payload: Any) -> Tuple[Dict[str, Any], Any, s
         "lagna_sign": chart.lagna_sign_index + 1,
         "planets": planets_dict,
         "dashas": dashas_list,
+        "dob": str(dob),
     }
 
     return chart_facts, chart, chart_hash

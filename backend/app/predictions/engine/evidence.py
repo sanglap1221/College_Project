@@ -43,17 +43,23 @@ def relevant(items, topic, chart=None, group_usage=None):
         houses = set(e.get("houses", []))
         facts = e.get("facts", {})
 
+        direct_primary = False
         is_primary = False
         if chart is not None:
-            if (planets & pri_lords) or (facts.get("lord") in pri_lords) or (facts.get("house") in pri and e.get("kind") == "lord_placement"):
+            # Direct Primary: specifically the primary house lord or occupying the primary house
+            if (facts.get("house") in pri and e.get("kind") == "lord_placement") or \
+               (facts.get("house") in pri and e.get("kind") == "placement") or \
+               (facts.get("placed_in") in pri):
+                direct_primary = True
                 is_primary = True
-            elif (planets & pri_occupants) or (facts.get("house") in pri and e.get("kind") == "placement") or (facts.get("placed_in") in pri):
+            elif (planets & pri_lords) or (facts.get("lord") in pri_lords):
                 is_primary = True
-            elif planets & pri_aspected:
+            elif (planets & pri_occupants) or (planets & pri_aspected):
                 is_primary = True
         else:
             if houses & pri:
                 is_primary = True
+                direct_primary = True
 
         if is_primary:
             role = "primary"
@@ -77,10 +83,11 @@ def relevant(items, topic, chart=None, group_usage=None):
             else:
                 continue
 
-        res.append(dict(e, role=role))
+        # Sub-priority: direct primary (0) > secondary primary (1) > supporting (2) > karaka (3)
+        p_rank = 0 if direct_primary else (1 if is_primary else (2 if role == "supporting" else 3))
+        res.append(dict(e, role=role, priority_rank=p_rank))
 
-    order = {"primary": 0, "supporting": 1, "karaka": 2}
-    return sorted(res, key=lambda x: (order.get(x["role"], 9), x.get("rule_id", "")))
+    return sorted(res, key=lambda x: (x.get("priority_rank", 9), x.get("rule_id", "")))
 
 
 def aggregate(items, topic, issues, chart=None, group_usage=None):

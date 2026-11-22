@@ -21,6 +21,7 @@ from . import gate
 from . import ai_service
 from . import writer
 from .planet_house_engine import generate_all_planetary_interpretations
+from . import career_engine
 
 logger = logging.getLogger("astro_app.predictions.pipeline")
 
@@ -224,6 +225,26 @@ def run_pipeline(
         section_data["notes"] = notes
         section_data["rule_ids"] = sorted(list(allowed_ids))
         section_data["timing_windows"] = pkg["timing_windows"]
+
+        if topic == "career":
+            try:
+                c_analysis = career_engine.analyze_career_comprehensive(
+                    chart_obj=chart,
+                    client_dob=chart_data.get("dob"),
+                    dasha_summary=dasha_summary,
+                    language=language,
+                )
+                section_data["career_analysis"] = c_analysis
+                if status != "reviewed" and c_analysis.get("overview", {}).get(language):
+                    section_data["overview"] = c_analysis["overview"][language]
+                    section_data["summary"] = c_analysis["overview"][language]
+                    section_data["prediction"] = c_analysis["overview"][language]
+                    for l_code in ("en", "bn", "hi"):
+                        if l_code in section_data.get("translations", {}):
+                            section_data["translations"][l_code]["overview"] = c_analysis["overview"].get(l_code, "")
+                            section_data["translations"][l_code]["summary"] = c_analysis["overview"].get(l_code, "")
+            except Exception as c_exc:
+                logger.warning(f"Career comprehensive analysis failed: {c_exc}")
 
         report["sections"].append(section_data)
 

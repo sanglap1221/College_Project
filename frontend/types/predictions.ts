@@ -106,6 +106,50 @@ export interface PredictionSection {
     };
   }>;
   timing?: any[];
+  career_analysis?: {
+    overview: Record<string, string>;
+    placement_cards: Array<{
+      planet: string;
+      planet_name: Record<string, string>;
+      house_occupied: number;
+      house_occupied_name: Record<string, string>;
+      houses_ruled: number[];
+      role_type: string;
+      dignity: string;
+      sign_name: string;
+      title: Record<string, string>;
+      ruled_representation: Record<string, string>;
+      occupied_representation: Record<string, string>;
+      traditional_meaning: Record<string, string>;
+      practical_outcomes: Record<string, string[]>;
+      challenges: Record<string, string[]>;
+      modifying_factors: Record<string, string>;
+      non_fatalistic_note: Record<string, string>;
+    }>;
+    strengths: Record<string, string[]>;
+    challenges: Record<string, string[]>;
+    employment_vs_business: {
+      verdict: Record<string, string>;
+      emp_factors: Record<string, string[]>;
+      biz_factors: Record<string, string[]>;
+    };
+    possibilities: Array<{
+      category: Record<string, string>;
+      description: Record<string, string>;
+    }>;
+    timeline: Array<{
+      event: Record<string, string>;
+      period_dates: string;
+      start: string;
+      end: string;
+      age_range: string;
+      mahadasha: string;
+      antardasha: string;
+      supporting_planets: string[];
+      supporting_houses: number[];
+      explanation: Record<string, string>;
+    }>;
+  };
   status: "reviewed" | "ai_rewritten_audited" | "templated" | "templated_fallback" | "manual_edited" | string;
   review_status?: string;
   notes?: string[];

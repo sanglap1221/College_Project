@@ -15,6 +15,18 @@ CAVEATS = {
 }
 
 
+def _build_current_period(timing_items: List[Dict[str, Any]], chart_facts: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Construct current active dasha period summary for the topic."""
+    if not timing_items:
+        return None
+    md = next((t for t in timing_items if t.get("timing", {}).get("level") in ("MD", "mahadasha")), None)
+    ad = next((t for t in timing_items if t.get("timing", {}).get("level") in ("AD", "antardasha")), None)
+    return {
+        "mahadasha": md.get("timing") if md else None,
+        "antardasha": ad.get("timing") if ad else None,
+    }
+
+
 def _dedupe_by_group(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     seen = set()
     out = []

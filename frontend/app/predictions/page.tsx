@@ -482,6 +482,8 @@ export default function PredictionsPage() {
     if (!activeSection) return null;
     const tr = activeSection.translations?.[selectedLang];
     return {
+      topic: activeSection.topic,
+      career_analysis: activeSection.career_analysis,
       title: tr?.title || activeSection.title,
       overview: tr?.overview || activeSection.overview || activeSection.summary,
       themes: tr?.themes && tr.themes.length > 0 ? tr.themes : activeSection.themes || [],
@@ -980,17 +982,17 @@ export default function PredictionsPage() {
                       </span>
                     </div>
 
-                    {/* Astrological Grounding Facts Box: Simple vs Advanced Mode (Section 20) */}
+                    {/* Astrological Grounding Facts Box: Simple vs Advanced Mode (Section 20) with ENLARGED FONT SIZE */}
                     {(localizedActiveSection.supporting_factors?.length ||
                       localizedActiveSection.challenging_factors?.length) ? (
-                      <div className="p-3 rounded-lg bg-amber-50/40 border border-amber-200 text-xs space-y-3">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-900 block">
+                      <div className="p-4 sm:p-5 rounded-xl bg-amber-50/60 border border-amber-200/90 text-sm space-y-4 shadow-2xs">
+                        <div className="flex items-center justify-between border-b border-amber-200/60 pb-2.5">
+                          <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-amber-950 block">
                             {explanationMode === "simple"
                               ? (selectedLang === "bn" ? "অনুকূল ও পরিমার্জক গ্রহীয় সূত্র (সহজ বিশ্লেষণ)" : selectedLang === "hi" ? "अनुकूल एवं परिमार्जक ग्रह योग (सरल व्याख्या)" : "Astrological Factors & Symbolic Indications")
                               : "Astrological Grounding Facts & Lord Placements"}
                           </span>
-                          <span className="text-[10px] text-slate-500 font-medium italic">
+                          <span className="text-xs text-slate-600 font-medium italic">
                             {explanationMode === "simple"
                               ? selectedLang === "bn" ? "সহজ বিশ্লেষণ (সাধারণ)" : selectedLang === "hi" ? "सरल व्याख्या" : "Layperson Mode"
                               : "Astrologer Technical Mode"}
@@ -1000,10 +1002,10 @@ export default function PredictionsPage() {
                         {/* Supporting Factors */}
                         {localizedActiveSection.supporting_factors.length > 0 && (
                           <div>
-                            <span className="font-semibold text-emerald-800 block text-[11px] mb-1">
+                            <span className="font-bold text-emerald-900 block text-xs sm:text-sm mb-2">
                               {ui.supportingFactors}:
                             </span>
-                            <ul className="space-y-1.5 text-slate-700">
+                            <ul className="space-y-2 text-slate-800">
                               {localizedActiveSection.supporting_factors.slice(0, 3).map((sf, idx) => {
                                 const simpleText =
                                   sf.simple_explanation?.[selectedLang] ||
@@ -1011,28 +1013,28 @@ export default function PredictionsPage() {
                                   cleanRuleText(sf.interpretation);
 
                                 return (
-                                  <li key={idx} className="flex items-start gap-2 bg-white/80 p-2 rounded-lg border border-emerald-100 shadow-2xs">
-                                    <span className="text-emerald-700 font-bold mt-0.5">•</span>
+                                  <li key={idx} className="flex items-start gap-2.5 bg-white/95 p-3 sm:p-3.5 rounded-xl border border-emerald-100/90 shadow-2xs">
+                                    <span className="text-emerald-700 font-bold mt-0.5 text-base">•</span>
                                     <div className="flex-1 space-y-1">
                                       {explanationMode === "simple" ? (
-                                        <p className="text-xs text-slate-800 leading-relaxed font-sans">
+                                        <p className="text-sm sm:text-base text-slate-850 leading-relaxed font-sans">
                                           {simpleText}
                                         </p>
                                       ) : (
                                         <>
-                                          <div className="flex items-center gap-1.5 flex-wrap">
-                                            <span className="font-mono text-[10px] bg-white border border-amber-300 px-1.5 py-0.2 rounded text-amber-950 font-bold">
+                                          <div className="flex items-center gap-2 flex-wrap">
+                                            <span className="font-mono text-xs bg-white border border-amber-300 px-2 py-0.5 rounded text-amber-950 font-bold">
                                               {sf.rule_id}
                                             </span>
-                                            <span className="text-[11px] font-semibold text-slate-800">
+                                            <span className="text-xs sm:text-sm font-semibold text-slate-850">
                                               {sf.factor || sf.rule_id}
                                             </span>
                                           </div>
-                                          <p className="text-[11px] text-slate-700 leading-relaxed">
+                                          <p className="text-xs sm:text-sm text-slate-750 leading-relaxed">
                                             {sf.advanced_explanation?.[selectedLang] || sf.interpretation}
                                           </p>
                                           {sf.why_matters?.[selectedLang] && (
-                                            <p className="text-[10px] text-amber-900 italic">
+                                            <p className="text-xs text-amber-900 italic">
                                               <strong>Significance:</strong> {sf.why_matters[selectedLang]}
                                             </p>
                                           )}
@@ -1048,11 +1050,11 @@ export default function PredictionsPage() {
 
                         {/* Challenging / Modifying Factors */}
                         {localizedActiveSection.challenging_factors.length > 0 && (
-                          <div className="pt-2 border-t border-amber-200/50">
-                            <span className="font-semibold text-amber-900 block text-[11px] mb-1">
+                          <div className="pt-3 border-t border-amber-200/60">
+                            <span className="font-bold text-amber-950 block text-xs sm:text-sm mb-2">
                               {ui.modifyingFactors}:
                             </span>
-                            <ul className="space-y-1.5 text-slate-700">
+                            <ul className="space-y-2 text-slate-800">
                               {localizedActiveSection.challenging_factors.slice(0, 2).map((cf, idx) => {
                                 const simpleText =
                                   cf.simple_explanation?.[selectedLang] ||
@@ -1060,28 +1062,28 @@ export default function PredictionsPage() {
                                   cleanRuleText(cf.interpretation);
 
                                 return (
-                                  <li key={idx} className="flex items-start gap-2 bg-white/80 p-2 rounded-lg border border-amber-200/70 shadow-2xs">
-                                    <span className="text-amber-800 font-bold mt-0.5">•</span>
+                                  <li key={idx} className="flex items-start gap-2.5 bg-white/95 p-3 sm:p-3.5 rounded-xl border border-amber-200/80 shadow-2xs">
+                                    <span className="text-amber-800 font-bold mt-0.5 text-base">•</span>
                                     <div className="flex-1 space-y-1">
                                       {explanationMode === "simple" ? (
-                                        <p className="text-xs text-slate-800 leading-relaxed font-sans">
+                                        <p className="text-sm sm:text-base text-slate-850 leading-relaxed font-sans">
                                           {simpleText}
                                         </p>
                                       ) : (
                                         <>
-                                          <div className="flex items-center gap-1.5 flex-wrap">
-                                            <span className="font-mono text-[10px] bg-white border border-amber-300 px-1.5 py-0.2 rounded text-amber-950 font-bold">
+                                          <div className="flex items-center gap-2 flex-wrap">
+                                            <span className="font-mono text-xs bg-white border border-amber-300 px-2 py-0.5 rounded text-amber-950 font-bold">
                                               {cf.rule_id}
                                             </span>
-                                            <span className="text-[11px] font-semibold text-slate-800">
+                                            <span className="text-xs sm:text-sm font-semibold text-slate-850">
                                               {cf.factor || cf.rule_id}
                                             </span>
                                           </div>
-                                          <p className="text-[11px] text-slate-700 leading-relaxed">
+                                          <p className="text-xs sm:text-sm text-slate-750 leading-relaxed">
                                             {cf.advanced_explanation?.[selectedLang] || cf.interpretation}
                                           </p>
                                           {cf.why_matters?.[selectedLang] && (
-                                            <p className="text-[10px] text-amber-900 italic">
+                                            <p className="text-xs text-amber-900 italic">
                                               <strong>Significance:</strong> {cf.why_matters[selectedLang]}
                                             </p>
                                           )}
@@ -1097,48 +1099,267 @@ export default function PredictionsPage() {
                       </div>
                     ) : null}
 
-                    {/* Domain Overview (40-70 words) */}
-                    <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
-                        {ui.domainOverview}
-                      </h4>
-                      <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-sans">
-                        {localizedActiveSection.overview}
-                      </p>
-                    </div>
+                    {/* ── SPECIALIZED UPGRADED CAREER REPORT LAYOUT ── */}
+                    {localizedActiveSection.topic === "career" && localizedActiveSection.career_analysis ? (
+                      <div className="space-y-6 pt-2">
+                        {/* A. Career Overview */}
+                        <div className="p-4 sm:p-5 rounded-xl bg-gradient-to-br from-amber-50/80 to-rose-50/50 border border-amber-200/90 shadow-2xs space-y-2.5">
+                          <h3 className="text-sm sm:text-base font-bold text-[#800020] flex items-center gap-2">
+                            <i className="fa-solid fa-briefcase"></i>
+                            {selectedLang === "bn" ? "ক. কর্মজীবন ও পেশা — সার্বিক মূল্যায়ন" : selectedLang === "hi" ? "क. आजीविका एवं करियर — समग्र मूल्यांकन" : "A. Career Overview & Vocational Trajectory"}
+                          </h3>
+                          <p className="text-sm sm:text-base text-slate-800 leading-relaxed font-sans">
+                            {localizedActiveSection.career_analysis.overview?.[selectedLang] ||
+                              localizedActiveSection.career_analysis.overview?.["en"] ||
+                              localizedActiveSection.overview}
+                          </p>
+                        </div>
 
-                    {/* Core Themes (3 items) */}
-                    {localizedActiveSection.themes && localizedActiveSection.themes.length > 0 && (
-                      <div>
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-800 mb-1.5 flex items-center gap-1.5">
-                          <i className="fa-solid fa-sparkles text-emerald-600"></i> {ui.coreThemes}
-                        </h4>
-                        <ul className="space-y-1.5">
-                          {localizedActiveSection.themes.slice(0, 3).map((th, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-xs text-slate-700">
-                              <span className="text-emerald-700 font-bold">•</span>
-                              <span>{th}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+                        {/* B. Planetary Placements and Their Practical Meaning */}
+                        {localizedActiveSection.career_analysis.placement_cards && (
+                          <div className="space-y-3">
+                            <h3 className="text-sm sm:text-base font-bold text-[#800020] flex items-center gap-2">
+                              <i className="fa-solid fa-compass"></i>
+                              {selectedLang === "bn" ? "খ. গ্রহাবস্থান ও ব্যবহারিক পেশাগত তাৎপর্য" : selectedLang === "hi" ? "ख. ग्रह स्थिति एवं व्यावहारिक आजीविका फल" : "B. Planetary Placements & Practical Career Meaning"}
+                            </h3>
+                            <div className="space-y-3.5">
+                              {localizedActiveSection.career_analysis.placement_cards.map((pc, idx) => (
+                                <div key={idx} className="p-4 sm:p-5 rounded-xl bg-white border border-[#ebdcb9] shadow-xs space-y-3">
+                                  <div className="flex items-center justify-between flex-wrap gap-2 border-b border-slate-100 pb-2">
+                                    <h4 className="font-bold text-sm sm:text-base text-[#800020]">
+                                      {pc.title?.[selectedLang] || pc.title?.["en"]}
+                                    </h4>
+                                    <span className={`text-xs px-2.5 py-0.5 rounded-full font-semibold ${
+                                      pc.role_type === "direct" ? "bg-emerald-100 text-emerald-800 border border-emerald-200" : "bg-amber-100 text-amber-800 border border-amber-200"
+                                    }`}>
+                                      {pc.role_type === "direct"
+                                        ? (selectedLang === "bn" ? "প্রত্যক্ষ কর্মকারক" : selectedLang === "hi" ? "प्रत्यक्ष आजीविका कारक" : "Direct Career Factor")
+                                        : (selectedLang === "bn" ? "সহায়ক/সংশোধনকারী" : selectedLang === "hi" ? "सहायक प्रभाव" : "Supporting Factor")}
+                                    </span>
+                                  </div>
 
-                    {/* Mindful Growth Challenges (2 items) */}
-                    {localizedActiveSection.challenges && localizedActiveSection.challenges.length > 0 && (
-                      <div>
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-amber-900 mb-1.5 flex items-center gap-1.5">
-                          <i className="fa-solid fa-shield-halved text-amber-700"></i> {ui.growthChallenges}
-                        </h4>
-                        <ul className="space-y-1.5">
-                          {localizedActiveSection.challenges.slice(0, 2).map((ch, idx) => (
-                            <li key={idx} className="flex items-start gap-2 text-xs text-slate-700">
-                              <span className="text-amber-700 font-bold">•</span>
-                              <span>{ch}</span>
-                            </li>
-                          ))}
-                        </ul>
+                                  {/* Meaning */}
+                                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed bg-amber-50/40 p-3 rounded-lg border border-amber-100/70">
+                                    {pc.traditional_meaning?.[selectedLang] || pc.traditional_meaning?.["en"]}
+                                  </p>
+
+                                  {/* Practical Career Outcomes */}
+                                  <div>
+                                    <span className="text-xs sm:text-sm font-bold text-emerald-900 block mb-1.5">
+                                      {selectedLang === "bn" ? "সম্ভাব্য ব্যবহারিক কর্মজীবনগত ফলাফল:" : selectedLang === "hi" ? "संभावित व्यावहारिक कार्यक्षेत्र फल:" : "Practical Career Implications:"}
+                                    </span>
+                                    <ul className="space-y-1.5 pl-1">
+                                      {(pc.practical_outcomes?.[selectedLang] || pc.practical_outcomes?.["en"] || []).map((out, oIdx) => (
+                                        <li key={oIdx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-800">
+                                          <span className="text-emerald-700 font-bold mt-0.5">•</span>
+                                          <span>{out}</span>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+
+                                  {/* Challenges & Limitations */}
+                                  {pc.challenges?.[selectedLang]?.length > 0 && (
+                                    <div className="pt-2 border-t border-slate-100">
+                                      <span className="text-xs sm:text-sm font-bold text-amber-900 block mb-1">
+                                        {selectedLang === "bn" ? "সম্ভাব্য চ্যালেঞ্জ বা সীমাবদ্ধতা:" : selectedLang === "hi" ? "संभावित चुनौतियाँ एवं सीमाएँ:" : "Challenges or Limitations:"}
+                                      </span>
+                                      <ul className="space-y-1 pl-1">
+                                        {(pc.challenges[selectedLang] || pc.challenges["en"]).map((ch, cIdx) => (
+                                          <li key={cIdx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700">
+                                            <span className="text-amber-700 font-bold mt-0.5">•</span>
+                                            <span>{ch}</span>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                  )}
+
+                                  {/* Modifying factors & non-fatalistic footnote */}
+                                  <div className="flex items-center justify-between flex-wrap gap-2 pt-2 border-t border-slate-100 text-[11px] sm:text-xs text-slate-500">
+                                    <span>
+                                      <strong>{selectedLang === "bn" ? "প্রভাবক:" : selectedLang === "hi" ? "प्रभावक:" : "Modifiers:"}</strong> {pc.modifying_factors?.[selectedLang] || pc.modifying_factors?.["en"]}
+                                    </span>
+                                    <span className="italic text-amber-900/80">
+                                      {pc.non_fatalistic_note?.[selectedLang] || pc.non_fatalistic_note?.["en"]}
+                                    </span>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* C. Career Strengths & D. Career Challenges */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {/* Strengths */}
+                          <div className="p-4 sm:p-5 rounded-xl bg-emerald-50/60 border border-emerald-200/80 shadow-2xs space-y-2">
+                            <h4 className="text-xs sm:text-sm font-bold text-emerald-900 flex items-center gap-1.5 uppercase tracking-wider">
+                              <i className="fa-solid fa-award text-emerald-700"></i>
+                              {selectedLang === "bn" ? "গ. কুণ্ডলী সমর্থিত কর্মদক্ষতা ও শক্তিসমূহ" : selectedLang === "hi" ? "ग. कुंडली समर्थित कार्य क्षमता एवं शक्तियां" : "C. Supported Career Strengths"}
+                            </h4>
+                            <ul className="space-y-1.5">
+                              {(localizedActiveSection.career_analysis.strengths?.[selectedLang] ||
+                                localizedActiveSection.career_analysis.strengths?.["en"] || []).map((st, sIdx) => (
+                                <li key={sIdx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-800">
+                                  <span className="text-emerald-700 font-bold">•</span>
+                                  <span>{st}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          {/* Challenges */}
+                          <div className="p-4 sm:p-5 rounded-xl bg-amber-50/70 border border-amber-200/90 shadow-2xs space-y-2">
+                            <h4 className="text-xs sm:text-sm font-bold text-amber-950 flex items-center gap-1.5 uppercase tracking-wider">
+                              <i className="fa-solid fa-triangle-exclamation text-amber-700"></i>
+                              {selectedLang === "bn" ? "ঘ. সীমাবদ্ধতা ও সতর্কতামূলক দিক" : selectedLang === "hi" ? "घ. सीमाएं एवं सावधानियां" : "D. Career Challenges & Growth Areas"}
+                            </h4>
+                            <ul className="space-y-1.5">
+                              {(localizedActiveSection.career_analysis.challenges?.[selectedLang] ||
+                                localizedActiveSection.career_analysis.challenges?.["en"] || []).map((ch, cIdx) => (
+                                <li key={cIdx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-800">
+                                  <span className="text-amber-800 font-bold">•</span>
+                                  <span>{ch}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+
+                        {/* E. Employment vs Business Comparison */}
+                        {localizedActiveSection.career_analysis.employment_vs_business && (
+                          <div className="p-4 sm:p-5 rounded-xl bg-white border border-[#ebdcb9] shadow-xs space-y-3">
+                            <h3 className="text-sm sm:text-base font-bold text-[#800020] flex items-center gap-2">
+                              <i className="fa-solid fa-scale-balanced"></i>
+                              {selectedLang === "bn" ? "ঙ. চাকরি বনাম স্বাধীন ব্যবসা — তুলনামূলক বিচার" : selectedLang === "hi" ? "ङ. नौकरी बनाम स्वतंत्र व्यवसाय — तुलनात्मक विश्लेषण" : "E. Employment vs Business Comparison"}
+                            </h3>
+
+                            {/* Verdict Banner */}
+                            <div className="p-3.5 rounded-lg bg-amber-100/70 border border-amber-300 text-xs sm:text-sm font-bold text-[#800020]">
+                              <i className="fa-solid fa-check-double mr-1.5"></i>
+                              {localizedActiveSection.career_analysis.employment_vs_business.verdict?.[selectedLang] ||
+                                localizedActiveSection.career_analysis.employment_vs_business.verdict?.["en"]}
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-1">
+                              {/* Employment Factors */}
+                              <div className="p-3 sm:p-3.5 rounded-lg bg-slate-50 border border-slate-200 space-y-1.5">
+                                <span className="font-bold text-xs sm:text-sm text-slate-850 block">
+                                  {selectedLang === "bn" ? "চাকরি ও প্রাতিষ্ঠানিক সেবার কারণ:" : selectedLang === "hi" ? "नौकरी एवं सेवा के कारक:" : "Employment & Service Factors:"}
+                                </span>
+                                <ul className="space-y-1 text-xs sm:text-sm text-slate-750">
+                                  {(localizedActiveSection.career_analysis.employment_vs_business.emp_factors?.[selectedLang] || []).map((ef, efIdx) => (
+                                    <li key={efIdx} className="flex items-start gap-1.5">
+                                      <span className="text-slate-500">•</span>
+                                      <span>{ef}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+
+                              {/* Business Factors */}
+                              <div className="p-3 sm:p-3.5 rounded-lg bg-slate-50 border border-slate-200 space-y-1.5">
+                                <span className="font-bold text-xs sm:text-sm text-slate-850 block">
+                                  {selectedLang === "bn" ? "স্বাধীন ব্যবসা ও অংশীদারির কারণ:" : selectedLang === "hi" ? "स्वतंत्र व्यवसाय एवं साझेदारी के कारक:" : "Business & Partnership Factors:"}
+                                </span>
+                                <ul className="space-y-1 text-xs sm:text-sm text-slate-750">
+                                  {(localizedActiveSection.career_analysis.employment_vs_business.biz_factors?.[selectedLang] || []).map((bf, bfIdx) => (
+                                    <li key={bfIdx} className="flex items-start gap-1.5">
+                                      <span className="text-slate-500">•</span>
+                                      <span>{bf}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* F. Career Timeline & Timing Opportunities */}
+                        {localizedActiveSection.career_analysis.timeline && localizedActiveSection.career_analysis.timeline.length > 0 && (
+                          <div className="p-4 sm:p-5 rounded-xl bg-white border border-[#ebdcb9] shadow-xs space-y-3.5">
+                            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                              <h3 className="text-sm sm:text-base font-bold text-[#800020] flex items-center gap-2">
+                                <i className="fa-solid fa-timeline"></i>
+                                {selectedLang === "bn" ? "চ. পেশাগত সময়কাল ও সুযোগের দিগন্ত (বিংশোত্তরী দশাভিত্তিক)" : selectedLang === "hi" ? "च. आजीविका समय चक्र एवं अवसर (विंशोत्तरी दशा आधारित)" : "F. Career Timeline & Timing Windows"}
+                              </h3>
+                              <span className="text-[11px] text-slate-500 font-medium">
+                                {selectedLang === "bn" ? "প্রকৃত জ্যোতিষীয় হিসাব" : "Astronomically Calculated"}
+                              </span>
+                            </div>
+
+                            <div className="space-y-3">
+                              {localizedActiveSection.career_analysis.timeline.map((te, tIdx) => (
+                                <div key={tIdx} className="p-3 sm:p-3.5 rounded-xl bg-slate-50/80 border border-slate-200 hover:border-amber-300 transition-colors space-y-1.5">
+                                  <div className="flex items-center justify-between flex-wrap gap-2">
+                                    <span className="font-bold text-xs sm:text-sm text-[#800020]">
+                                      {te.event?.[selectedLang] || te.event?.["en"]}
+                                    </span>
+                                    <div className="flex items-center gap-2">
+                                      <span className="font-mono text-xs font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                                        {te.age_range}
+                                      </span>
+                                      <span className="text-xs text-slate-600 bg-white px-2 py-0.5 rounded border border-slate-200 font-medium">
+                                        {te.period_dates}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <p className="text-xs sm:text-sm text-slate-750 leading-relaxed font-sans">
+                                    {te.explanation?.[selectedLang] || te.explanation?.["en"]}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
                       </div>
+                    ) : (
+                      <>
+                        {/* Domain Overview (40-70 words) for other domains */}
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
+                            {ui.domainOverview}
+                          </h4>
+                          <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-sans">
+                            {localizedActiveSection.overview}
+                          </p>
+                        </div>
+
+                        {/* Core Themes (3 items) */}
+                        {localizedActiveSection.themes && localizedActiveSection.themes.length > 0 && (
+                          <div>
+                            <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-800 mb-1.5 flex items-center gap-1.5">
+                              <i className="fa-solid fa-sparkles text-emerald-600"></i> {ui.coreThemes}
+                            </h4>
+                            <ul className="space-y-1.5">
+                              {localizedActiveSection.themes.slice(0, 3).map((th, idx) => (
+                                <li key={idx} className="flex items-start gap-2 text-xs text-slate-700">
+                                  <span className="text-emerald-700 font-bold">•</span>
+                                  <span>{th}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {/* Mindful Growth Challenges (2 items) */}
+                        {localizedActiveSection.challenges && localizedActiveSection.challenges.length > 0 && (
+                          <div>
+                            <h4 className="text-xs font-bold uppercase tracking-wider text-amber-900 mb-1.5 flex items-center gap-1.5">
+                              <i className="fa-solid fa-shield-halved text-amber-700"></i> {ui.growthChallenges}
+                            </h4>
+                            <ul className="space-y-1.5">
+                              {localizedActiveSection.challenges.slice(0, 2).map((ch, idx) => (
+                                <li key={idx} className="flex items-start gap-2 text-xs text-slate-700">
+                                  <span className="text-amber-700 font-bold">•</span>
+                                  <span>{ch}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </>
                     )}
 
                     {/* Collapsible 6-Point "Why this prediction?" Accordion (Section 20.B) */}
