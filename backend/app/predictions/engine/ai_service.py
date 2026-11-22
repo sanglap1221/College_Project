@@ -29,8 +29,8 @@ PROVIDER_DEFAULTS = {
     "groq": {
         "name": "Groq Cloud (Fast & Free Tier)",
         "base_url": "https://api.groq.com/openai/v1",
-        "models": ["llama-3.3-70b-versatile", "llama-3.1-8b-instant", "mixtral-8x7b-32768"],
-        "default_model": "llama-3.3-70b-versatile",
+        "models": ["openai/gpt-oss-120b", "llama-3.3-70b-versatile", "llama-3.1-8b-instant", "mixtral-8x7b-32768"],
+        "default_model": "openai/gpt-oss-120b",
         "env_key": "GROQ_API_KEY",
     },
     "gemini": {
@@ -65,21 +65,21 @@ def get_ai_config() -> Dict[str, Any]:
     model = _runtime_config.get("model", "")
 
     if not api_key:
-        if os.getenv("GROQ_API_KEY"):
-            provider = provider or "groq"
-            api_key = os.getenv("GROQ_API_KEY", "").strip()
-            base_url = base_url or PROVIDER_DEFAULTS["groq"]["base_url"]
-            model = model or PROVIDER_DEFAULTS["groq"]["default_model"]
-        elif os.getenv("GEMINI_API_KEY"):
+        if os.getenv("GEMINI_API_KEY") and os.getenv("GEMINI_API_KEY").strip():
             provider = provider or "gemini"
             api_key = os.getenv("GEMINI_API_KEY", "").strip()
             base_url = base_url or PROVIDER_DEFAULTS["gemini"]["base_url"]
             model = model or PROVIDER_DEFAULTS["gemini"]["default_model"]
-        elif os.getenv("OPENROUTER_API_KEY"):
+        elif os.getenv("OPENROUTER_API_KEY") and os.getenv("OPENROUTER_API_KEY").strip():
             provider = provider or "openrouter"
             api_key = os.getenv("OPENROUTER_API_KEY", "").strip()
             base_url = base_url or PROVIDER_DEFAULTS["openrouter"]["base_url"]
             model = model or PROVIDER_DEFAULTS["openrouter"]["default_model"]
+        elif os.getenv("GROQ_API_KEY"):
+            provider = provider or "groq"
+            api_key = os.getenv("GROQ_API_KEY", "").strip()
+            base_url = base_url or PROVIDER_DEFAULTS["groq"]["base_url"]
+            model = model or PROVIDER_DEFAULTS["groq"]["default_model"]
         elif os.getenv("AI_API_KEY"):
             provider = provider or "custom"
             api_key = os.getenv("AI_API_KEY", "").strip()

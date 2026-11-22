@@ -1,6 +1,7 @@
 import uuid
 from typing import Any
 from datetime import date
+from venv import logger
 from fastapi import APIRouter, HTTPException, BackgroundTasks, Depends
 
 from app.pdf.generate_pdf import (
@@ -503,11 +504,10 @@ def ai_chat_endpoint(payload: dict[str, Any]):
     }
     target_lang = lang_map.get(str(raw_lang).lower(), str(raw_lang))
 
-    # Resolve AI Configuration
-    cfg = get_ai_config()
-    api_key = cfg.get("api_key") or os.getenv("GROQ_API_KEY") or os.getenv("NEXT_PUBLIC_GROQ_API_KEY")
-    base_url = cfg.get("base_url") or "https://api.groq.com/openai/v1"
-    model = cfg.get("model") or "llama-3.3-70b-versatile"
+    # Resolve AI Configuration (using Google Gemini)
+    api_key = os.getenv("GEMINI_API_KEY") or get_ai_config().get("api_key")
+    base_url = "https://generativelanguage.googleapis.com/v1beta/openai/"
+    model = "gemini-3.6-flash"
 
     # Get latest user query for RAG retrieval
     last_user_query = ""
