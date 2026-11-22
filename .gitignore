@@ -27,3 +27,4 @@ generated/
 *.pdf
 *.log
 __pycache__/
+backend/.env
