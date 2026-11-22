@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -8,19 +8,19 @@ import { LoadingSpinner } from "../../components/LoadingSpinner";
 import { ReportForm } from "../../components/ReportForm";
 import { useAuth } from "../../components/AuthProvider";
 import AboutModal from "../../components/AboutModal";
+import { PredictionPdfViewer } from "../../components/PredictionPdfViewer";
 import {
   generatePredictions,
   getPredictions,
   regeneratePredictionSection,
   savePredictionSection,
   renderPredictionPdf,
-  renderPdf,
   calculateReport,
   getAiConfig,
   updateAiConfig,
   API,
 } from "../../services/api";
-import type { ReportInput, ReportState } from "../../types/report";
+import type { ReportInput } from "../../types/report";
 import type {
   PredictionReport,
   PredictionSection,
@@ -48,39 +48,41 @@ export default function PredictionsPage() {
   const [formValue, setFormValue] = useState<ReportInput>(initialFormValue);
   const [showBirthForm, setShowBirthForm] = useState(false);
   const [predictionReport, setPredictionReport] = useState<PredictionReport | null>(null);
-  const [activeSectionTopic, setActiveSectionTopic] = useState<string>("personality");
-  const [editedSections, setEditedSections] = useState<Record<string, string>>({});
-  const [editorMode, setEditorMode] = useState<"read" | "edit">("read");
 
-  // UI & Loading States
-  const [loading, setLoading] = useState(false);
-  const [sectionRegenerating, setSectionRegenerating] = useState<string | null>(null);
-  const [savingSection, setSavingSection] = useState<string | null>(null);
-  const [previewHtml, setPreviewHtml] = useState<string>("");
-  const [previewUrl, setPreviewUrl] = useState<string>("");
-  const [chartPdfUrl, setChartPdfUrl] = useState<string>("");
+  // UI Tabs & Navigation States
+  const [activeTab, setActiveTab] = useState<"overview" | "life_areas" | "current_period" | "advanced">("overview");
+  const [selectedTopic, setSelectedTopic] = useState<string>("career");
+  const [expandedWhyThis, setExpandedWhyThis] = useState<Record<string, boolean>>({});
+  const [showPratyantardasha, setShowPratyantardasha] = useState<boolean>(false);
+
+  // Manual Editing Drawer (inside Advanced)
+  const [isEditDrawerOpen, setIsEditDrawerOpen] = useState(false);
+  const [editingTopic, setEditingTopic] = useState<string>("career");
+  const [editContent, setEditContent] = useState<string>("");
+  const [savingSection, setSavingSection] = useState(false);
+
+  // PDF & Settings
+  const [includeAppendix, setIncludeAppendix] = useState<boolean>(false);
   const [compiledPdfUrl, setCompiledPdfUrl] = useState<string>("");
-  const [activePdfTab, setActivePdfTab] = useState<"prediction" | "chart">("prediction");
+  const [previewUrl, setPreviewUrl] = useState<string>("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
 
-  // AI Review & Configuration States
+  // AI Configuration States
   const [useAi, setUseAi] = useState<boolean>(true);
   const [aiConfig, setAiConfig] = useState<AiConfigResponse | null>(null);
   const [selectedProvider, setSelectedProvider] = useState<string>("groq");
   const [selectedModel, setSelectedModel] = useState<string>("llama-3.3-70b-versatile");
   const [aiSettingsOpen, setAiSettingsOpen] = useState(false);
   const [apiKeyInput, setApiKeyInput] = useState("");
-  const [viewingOriginalDraft, setViewingOriginalDraft] = useState<Record<string, boolean>>({});
 
-  // Modals & Navigation States
+  // Modals & Navigation
   const [isAboutOpen, setIsAboutOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // ── Load Initial Data (Session Storage or History) ──
+  // ── Load Initial Data ──
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // 1. Fetch AI config status safely
       getAiConfig()
         .then((cfg) => {
           if (cfg) {
@@ -93,13 +95,6 @@ export default function PredictionsPage() {
         })
         .catch((err) => console.warn("Could not load AI config:", err));
 
-      // 2. Check for chart PDF from create-report
-      const storedChartPdf = sessionStorage.getItem("pending_chart_pdf_url");
-      if (storedChartPdf) {
-        setChartPdfUrl(storedChartPdf);
-      }
-
-      // 3. Check for passed birth details or existing prediction
       const passedPred = sessionStorage.getItem("pending_prediction_details");
       const passedBirth = sessionStorage.getItem("pending_birth_details");
       const activeData = passedPred || passedBirth;
@@ -108,7 +103,7 @@ export default function PredictionsPage() {
         try {
           const parsed = JSON.parse(activeData) as ReportInput;
           setFormValue(parsed);
-          handleGenerateAll(parsed);
+          handleGenerateAll(parsed, false);
         } catch (e) {
           console.error("Error reading stored prediction details:", e);
         }
@@ -118,20 +113,27 @@ export default function PredictionsPage() {
     }
   }, []);
 
-  // ── Render Preview HTML whenever prediction report updates ──
-  const refreshPreview = useCallback(async (report: PredictionReport) => {
-    try {
-      const res = await renderPredictionPdf(report);
-      setPreviewHtml(res.html);
-      setCompiledPdfUrl(res.pdf_url);
+  // ── Render Preview & PDF ──
+  const refreshPreview = useCallback(
+    async (report: PredictionReport) => {
+      try {
+        const payloadWithOption = {
+          ...report,
+          include_technical_appendix: includeAppendix,
+        };
+        const res = await renderPredictionPdf(payloadWithOption);
+        const fullPdfPath = `${API}${res.pdf_url}`;
+        setCompiledPdfUrl(fullPdfPath);
 
-      const blob = new Blob([res.html], { type: "text/html" });
-      const bUrl = URL.createObjectURL(blob);
-      setPreviewUrl(bUrl);
-    } catch (err: any) {
-      console.error("Failed to render prediction preview:", err);
-    }
-  }, []);
+        const blob = new Blob([res.html], { type: "text/html" });
+        const bUrl = URL.createObjectURL(blob);
+        setPreviewUrl(bUrl);
+      } catch (err: any) {
+        console.error("Failed to render prediction preview:", err);
+      }
+    },
+    [includeAppendix]
+  );
 
   useEffect(() => {
     if (predictionReport) {
@@ -140,7 +142,7 @@ export default function PredictionsPage() {
   }, [predictionReport, refreshPreview]);
 
   // ── Generate All Predictions ──
-  async function handleGenerateAll(overrideInput?: ReportInput) {
+  async function handleGenerateAll(overrideInput?: ReportInput, force: boolean = false) {
     const input = overrideInput || formValue;
     if (!input.name || !input.dob || !input.time || !input.place) {
       setError("Please fill in client Name, Date of Birth, Time, and Birth Place.");
@@ -160,21 +162,14 @@ export default function PredictionsPage() {
         use_ai: useAi,
         provider: selectedProvider,
         model: selectedModel,
+        force_regenerate: force,
+        include_technical_appendix: includeAppendix,
       });
 
       setPredictionReport(report);
       setShowBirthForm(false);
-      setEditedSections({});
-      setSuccessMessage("Predictions generated successfully using Jyotish Rulebook v2.0!");
+      setSuccessMessage("Predictions generated successfully with Jyotish Rulebook v2.0!");
       setTimeout(() => setSuccessMessage(""), 5000);
-
-      // If chart PDF wasn't loaded from create-report, generate it in background
-      if (!chartPdfUrl) {
-        calculateReport(input)
-          .then((calc) => renderPdf(calc))
-          .then((pdfRes) => setChartPdfUrl(pdfRes.preview_url))
-          .catch((e) => console.warn("Could not generate chart PDF preview:", e));
-      }
     } catch (err: any) {
       console.error("Prediction generation error:", err);
       setError(err.message || "Failed to generate predictions.");
@@ -183,60 +178,26 @@ export default function PredictionsPage() {
     }
   }
 
-  // ── Regenerate Single Section ──
-  async function handleRegenerateSection(topic: string) {
+  // ── Save Manual Section Edit ──
+  async function handleSaveSectionEdit() {
     if (!predictionReport) return;
-    setSectionRegenerating(topic);
-    setError("");
-
+    setSavingSection(true);
     try {
-      const updated = await regeneratePredictionSection(
-        predictionReport.report_id,
-        topic,
-        useAi,
-        selectedProvider,
-        selectedModel,
-        formValue
-      );
-      setPredictionReport(updated);
-      setEditedSections((prev) => {
-        const next = { ...prev };
-        delete next[topic];
-        return next;
-      });
-      setSuccessMessage(`Section '${topic}' regenerated successfully!`);
-      setTimeout(() => setSuccessMessage(""), 4000);
-    } catch (err: any) {
-      setError(err.message || `Failed to regenerate section '${topic}'`);
-    } finally {
-      setSectionRegenerating(null);
-    }
-  }
-
-  // ── Save Manual Edits ──
-  async function handleSaveSectionEdit(topic: string) {
-    if (!predictionReport) return;
-    const content = editedSections[topic];
-    if (content === undefined) return;
-
-    setSavingSection(topic);
-    try {
-      await savePredictionSection(predictionReport.report_id, topic, content);
-
+      await savePredictionSection(predictionReport.report_id, editingTopic, editContent);
       setPredictionReport((prev) => {
         if (!prev) return prev;
         const nextSections = prev.sections.map((s) =>
-          s.topic === topic ? { ...s, prediction: content, status: "manual_edited" } : s
+          s.topic === editingTopic ? { ...s, prediction: editContent, overview: editContent, status: "manual_edited" } : s
         );
         return { ...prev, sections: nextSections };
       });
-
-      setSuccessMessage("Manual edits saved and report preview updated.");
+      setIsEditDrawerOpen(false);
+      setSuccessMessage(`Section '${editingTopic}' updated successfully!`);
       setTimeout(() => setSuccessMessage(""), 4000);
     } catch (err: any) {
       setError(err.message || "Failed to save section edits.");
     } finally {
-      setSavingSection(null);
+      setSavingSection(false);
     }
   }
 
@@ -248,730 +209,895 @@ export default function PredictionsPage() {
         model: selectedModel,
         api_key: apiKeyInput || undefined,
       });
-      const refreshed = await getAiConfig();
-      if (refreshed) setAiConfig(refreshed);
+      const updated = await getAiConfig();
+      if (updated) setAiConfig(updated);
       setAiSettingsOpen(false);
-      setApiKeyInput("");
-      setSuccessMessage("AI configuration updated successfully!");
+      setSuccessMessage("AI engine settings updated.");
       setTimeout(() => setSuccessMessage(""), 4000);
     } catch (err: any) {
-      setError(err.message || "Failed to update AI configuration.");
+      setError(err.message || "Failed to update AI settings.");
     }
   }
 
-  // Active section helper
   const activeSection = useMemo(() => {
     if (!predictionReport || !predictionReport.sections) return null;
-    return predictionReport.sections.find((s) => s.topic === activeSectionTopic) || predictionReport.sections[0];
-  }, [predictionReport, activeSectionTopic]);
+    return predictionReport.sections.find((s) => s.topic === selectedTopic) || predictionReport.sections[0] || null;
+  }, [predictionReport, selectedTopic]);
+
+  const toggleWhyThis = (key: string) => {
+    setExpandedWhyThis((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  const currentDasha = useMemo(() => {
+    if (!predictionReport?.dasha_summary) return null;
+    const md = predictionReport.dasha_summary.find((d) => d.level === "mahadasha");
+    const ad = predictionReport.dasha_summary.find((d) => d.level === "antardasha");
+    return { md, ad };
+  }, [predictionReport]);
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ fontFamily: "'Inter', 'Hind Siliguri', sans-serif", background: "#f7f5f0", color: "#334155" }}>
-
-      {/* ── Background Decorative Gradient Blurs ── */}
-      <div className="absolute top-0 left-0 w-[30vw] h-[30vw] min-w-[15rem] min-h-[15rem] bg-amber-100 opacity-20 rounded-full blur-3xl pointer-events-none -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-[30vw] h-[30vw] min-w-[15rem] min-h-[15rem] bg-red-100 opacity-20 rounded-full blur-3xl pointer-events-none translate-x-1/2 translate-y-1/2" />
-
-      {/* ── Fixed Header ── */}
-      <header className="fixed top-0 left-0 right-0 no-print w-full py-3 px-3 sm:px-6 border-b flex items-center justify-between shadow-sm z-30 h-[65px]" style={{ borderColor: "#ebdcb9", background: "#fdfcf7" }}>
-        <div className="flex items-center gap-2 sm:gap-3">
-          <button
-            onClick={() => router.push("/create-report")}
-            className="flex items-center justify-center w-8 h-8 rounded-lg hover:bg-amber-100/80 transition-colors border shadow-sm"
-            style={{ color: "#92400e", borderColor: "rgba(245, 158, 11, 0.25)", background: "#fffbeb" }}
-            title="Return to Visual Chart Board"
-          >
-            <i className="fa-solid fa-arrow-left text-xs" />
-          </button>
-          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center text-white font-bold text-base sm:text-lg shadow-md" style={{ background: "#800020" }}>
-            🕉️
-          </div>
-          <div>
-            <h1 className="text-sm sm:text-lg font-bold tracking-tight" style={{ color: "#1a365d" }}>
-              Predictions Workspace
-            </h1>
-            <p className="hidden sm:block text-xs font-medium" style={{ color: "rgba(146, 64, 14, 0.8)" }}>
-              Complete Jyotish Prediction Engine &amp; AI Review
-            </p>
-          </div>
-        </div>
-
-        {/* Header Right Actions */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          <Link
-            href="/create-report"
-            className="hidden md:flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all border shadow-sm"
-            style={{ color: "#92400e", background: "#fffbeb", borderColor: "#fde68a" }}
-            title="Switch to Chart View"
-          >
-            <i className="fa-solid fa-chart-pie"></i> Chart Sheet
-          </Link>
-
-          <button
-            type="button"
-            onClick={() => setAiSettingsOpen(true)}
-            className="hidden md:flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all border shadow-sm"
-            style={{ color: "#4f46e5", background: "#eef2ff", borderColor: "#c7d2fe" }}
-            title="AI Model & API Key Settings"
-          >
-            <i className="fa-solid fa-brain"></i> AI Engine Settings
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setIsAboutOpen(true)}
-            className="hidden md:flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all border shadow-sm"
-            style={{ color: "#b45309", background: "#fffbeb", borderColor: "#fde68a" }}
-          >
-            <i className="fa-solid fa-circle-info"></i> About
-          </button>
-
-          {isAdmin && (
-            <Link
-              href="/admin"
-              className="hidden md:flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all border shadow-sm"
-              style={{ color: "#92400e", background: "#fffbeb", borderColor: "#f59e0b40" }}
+    <div className="min-h-screen bg-[#fcfbf7] flex flex-col font-sans text-slate-800">
+      {/* ── Top Header Navigation ── */}
+      <header className="bg-white/95 backdrop-blur-md border-b border-[#ebdcb9] sticky top-0 z-30 shadow-xs">
+        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => router.push("/create-report")}
+              className="w-8 h-8 rounded-full bg-amber-50 hover:bg-amber-100 flex items-center justify-center text-amber-900 transition-colors"
+              title="Return to Chart Sheet"
             >
-              <i className="fa-solid fa-shield-halved"></i> Admin
-            </Link>
-          )}
+              <i className="fa-solid fa-arrow-left text-sm"></i>
+            </button>
+            <div className="flex items-center gap-2">
+              <span className="w-8 h-8 rounded-lg bg-[#800020] text-amber-300 flex items-center justify-center font-bold text-base shadow-xs">
+                🕉️
+              </span>
+              <div>
+                <h1 className="font-serif font-bold text-base sm:text-lg text-[#800020] leading-none">
+                  Predictions Workspace
+                </h1>
+                <p className="text-[0.6875rem] text-amber-900 font-medium tracking-wide">
+                  Complete Jyotish Prediction Engine &amp; AI Validation
+                </p>
+              </div>
+            </div>
+          </div>
 
-          <button
-            type="button"
-            onClick={logout}
-            className="hidden md:flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all border shadow-sm"
-            style={{ color: "#ef4444", background: "#fef2f2", borderColor: "#fecaca" }}
-          >
-            <i className="fa-solid fa-right-from-bracket"></i> Logout
-          </button>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button
+              onClick={() => router.push("/create-report")}
+              className="px-3 py-1.5 rounded-lg border border-[#ebdcb9] hover:bg-amber-50/70 text-amber-900 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+            >
+              <i className="fa-solid fa-chart-pie text-xs"></i> Chart Sheet
+            </button>
 
-          {/* Mobile hamburger menu toggle */}
-          <button
-            type="button"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden flex items-center justify-center w-8 h-8 rounded-lg border text-slate-700 bg-white"
-            style={{ borderColor: "#ebdcb9" }}
-          >
-            <i className={`fa-solid ${isMobileMenuOpen ? "fa-xmark" : "fa-bars"}`}></i>
-          </button>
+            <button
+              onClick={() => setAiSettingsOpen(true)}
+              className="px-3 py-1.5 rounded-lg bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 text-indigo-900 text-xs font-semibold flex items-center gap-1.5 transition-colors"
+            >
+              <i className="fa-solid fa-microchip text-xs"></i> AI Engine Settings
+            </button>
+
+            <button
+              onClick={() => setIsAboutOpen(true)}
+              className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium hidden sm:flex items-center gap-1"
+            >
+              <i className="fa-solid fa-circle-info text-xs"></i> About
+            </button>
+
+            {isAdmin && (
+              <Link
+                href="/admin"
+                className="px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium flex items-center gap-1"
+              >
+                <i className="fa-solid fa-shield text-xs"></i> Admin
+              </Link>
+            )}
+
+            <button
+              onClick={logout}
+              className="px-3 py-1.5 rounded-lg border border-red-200 text-red-700 hover:bg-red-50 text-xs font-medium flex items-center gap-1 transition-colors"
+            >
+              <i className="fa-solid fa-arrow-right-from-bracket text-xs"></i> Logout
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* Spacer for fixed header */}
-      <div className="h-[65px] shrink-0 no-print" />
-
-      {/* ── Status Banners (Error / Success) ── */}
+      {/* ── Status Messages ── */}
       {error && (
-        <div className="mx-4 mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700 shadow-sm flex items-center justify-between z-20">
-          <div className="flex items-center gap-2">
-            <i className="fa-solid fa-triangle-exclamation text-red-500"></i>
-            <span className="font-bold">Error:</span> {error}
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => handleGenerateAll()}
-              className="px-2.5 py-1 text-xs font-bold rounded bg-red-600 text-white hover:bg-red-700 transition"
-            >
-              Retry
-            </button>
-            <button onClick={() => setError("")} className="text-red-500 hover:text-red-700">
-              <i className="fa-solid fa-xmark"></i>
+        <div className="max-w-7xl mx-auto w-full px-4 mt-3">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-800 text-xs flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <i className="fa-solid fa-triangle-exclamation text-red-600"></i>
+              <span>{error}</span>
+            </div>
+            <button onClick={() => setError("")} className="font-bold text-red-500 hover:text-red-800">
+              ✕
             </button>
           </div>
         </div>
       )}
 
       {successMessage && (
-        <div className="mx-4 mt-4 rounded-xl border border-green-200 bg-green-50 p-3 text-sm text-green-800 shadow-sm flex items-center gap-2 z-20">
-          <i className="fa-solid fa-circle-check text-green-600"></i>
-          <span>{successMessage}</span>
-        </div>
-      )}
-
-      {/* ── Outdated Chart Warning Banner ── */}
-      {predictionReport?.is_outdated && (
-        <div className="mx-4 mt-4 rounded-xl border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900 shadow-sm flex items-center justify-between z-20">
-          <div className="flex items-center gap-2">
-            <i className="fa-solid fa-triangle-exclamation text-amber-600"></i>
-            <span><strong>Chart Updated:</strong> The underlying birth chart facts have changed since this prediction report was generated.</span>
-          </div>
-          <button
-            onClick={() => handleGenerateAll()}
-            className="px-3 py-1 bg-amber-600 text-white rounded-lg text-xs font-semibold hover:bg-amber-700 transition"
-          >
-            Regenerate Now
-          </button>
-        </div>
-      )}
-
-      {/* ── MAIN WORKSPACE (Left: Prediction Descriptions & Editor, Right: Live PDF Preview) ── */}
-      <main className="flex-1 grid grid-cols-1 lg:grid-cols-12 items-stretch overflow-y-auto lg:overflow-hidden h-auto lg:h-[calc(100vh-65px)]">
-
-        {/* ── LEFT COLUMN: Prediction Descriptions & Section Controls (lg:col-span-5) ── */}
-        <section className="lg:col-span-5 flex flex-col overflow-y-auto border-r border-[#ebdcb9] bg-white">
-
-          {/* Left Panel Header with Mode Toggle */}
-          <div className="p-3.5 flex items-center justify-between no-print border-b" style={{ background: "rgba(255, 251, 235, 0.7)", borderColor: "#ebdcb9" }}>
+        <div className="max-w-7xl mx-auto w-full px-4 mt-3">
+          <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-emerald-800 text-xs flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-xs px-2.5 py-1 rounded-md font-bold uppercase tracking-wider" style={{ background: "rgba(128, 0, 32, 0.1)", color: "#800020" }}>
-                Prediction Descriptions
-              </span>
-              <span className="text-[0.6875rem] font-semibold text-slate-500">
-                Rulebook v2.0
-              </span>
+              <i className="fa-solid fa-circle-check text-emerald-600"></i>
+              <span>{successMessage}</span>
             </div>
-
-            <div className="flex items-center gap-1.5">
-              {predictionReport && (
-                <div className="flex bg-slate-100 p-0.5 rounded-lg border border-slate-200">
-                  <button
-                    type="button"
-                    onClick={() => setEditorMode("read")}
-                    className={`px-2 py-0.5 text-[0.6875rem] font-bold rounded-md transition ${editorMode === "read" ? "bg-white text-[#800020] shadow-sm" : "text-slate-500"}`}
-                  >
-                    📖 Read
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setEditorMode("edit")}
-                    className={`px-2 py-0.5 text-[0.6875rem] font-bold rounded-md transition ${editorMode === "edit" ? "bg-white text-[#800020] shadow-sm" : "text-slate-500"}`}
-                  >
-                    ✍️ Edit
-                  </button>
-                </div>
-              )}
-              <button
-                type="button"
-                onClick={() => setShowBirthForm(!showBirthForm)}
-                className="text-xs font-semibold px-2 py-1 rounded-md text-slate-600 hover:text-slate-900 hover:bg-amber-100/50"
-              >
-                <i className="fa-solid fa-id-card"></i> {showBirthForm ? "Hide" : "Client"}
-              </button>
-            </div>
-          </div>
-
-          {/* Collapsible Birth Details Form */}
-          {showBirthForm && (
-            <div className="p-4 border-b bg-[#fdfcf9]" style={{ borderColor: "#ebdcb9" }}>
-              <div className="text-center mb-3">
-                <span className="text-xs font-bold uppercase tracking-wider block" style={{ color: "#92400e" }}>
-                  Client Birth Facts
-                </span>
-              </div>
-              <ReportForm value={formValue} onChange={setFormValue} onSubmit={() => handleGenerateAll()} loading={loading} />
-            </div>
-          )}
-
-          {/* Quick Engine Actions & Model Settings Bar */}
-          <div className="px-4 py-2.5 border-b bg-[#fffdfa]" style={{ borderColor: "#ebdcb9" }}>
-            <div className="flex items-center justify-between mb-2">
-              <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-700 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={useAi}
-                  onChange={(e) => setUseAi(e.target.checked)}
-                  className="rounded border-slate-300 text-maroon-600 focus:ring-amber-500 h-3.5 w-3.5"
-                />
-                <span>AI Review &amp; English Writing</span>
-              </label>
-
-              <span className="text-[0.625rem] font-bold px-2 py-0.5 rounded-full" style={{ background: aiConfig?.is_configured ? "#dcfce7" : "#fef3c7", color: aiConfig?.is_configured ? "#166534" : "#92400e" }}>
-                {aiConfig?.is_configured ? `${aiConfig.active_provider.toUpperCase()} Ready` : "Rulebook Draft"}
-              </span>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => handleGenerateAll()}
-              disabled={loading}
-              className="w-full py-2 px-3 rounded-lg text-white font-bold text-xs shadow-sm transition-all flex items-center justify-center gap-2"
-              style={{ background: "linear-gradient(135deg, #800020, #92400e)" }}
-            >
-              {loading ? <LoadingSpinner /> : <i className="fa-solid fa-wand-magic-sparkles"></i>}
-              <span>{loading ? "Analyzing Chart & Writing Predictions..." : predictionReport ? "Regenerate All Predictions" : "Generate Predictions from Chart"}</span>
+            <button onClick={() => setSuccessMessage("")} className="font-bold text-emerald-500 hover:text-emerald-800">
+              ✕
             </button>
           </div>
+        </div>
+      )}
 
-          {/* Section Navigation Pills / Tabs */}
-          {predictionReport && predictionReport.sections && (
-            <div className="px-3 py-2 border-b bg-[#fafaf8] overflow-x-auto whitespace-nowrap flex gap-1.5 no-scrollbar">
-              {predictionReport.sections.map((sec) => {
-                const isActive = activeSectionTopic === sec.topic;
-                const isEdited = sec.status === "manual_edited" || editedSections[sec.topic] !== undefined;
-                return (
-                  <button
-                    key={sec.topic}
-                    onClick={() => setActiveSectionTopic(sec.topic)}
-                    className="px-2.5 py-1 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 shrink-0"
-                    style={{
-                      background: isActive ? "#800020" : "#ffffff",
-                      color: isActive ? "#ffffff" : "#475569",
-                      border: isActive ? "1px solid #800020" : "1px solid #e2e8f0",
-                      boxShadow: isActive ? "0 2px 4px rgba(128,0,32,0.15)" : "none",
-                    }}
-                  >
-                    <span>{sec.title}</span>
-                    {isEdited && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400" title="Manually edited" />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          )}
-
-          {/* Active Section Description / Editor */}
-          {activeSection ? (
-            <div className="p-4 flex-1 flex flex-col overflow-y-auto">
-              {/* Section Header & Metadata */}
-              <div className="flex items-start justify-between mb-3 pb-2 border-b border-slate-100">
-                <div>
-                  <h3 className="font-bold text-base text-[#800020] flex items-center gap-2">
-                    {activeSection.title}
-                  </h3>
-                  <p className="text-[0.6875rem] text-slate-500 mt-0.5">
-                    {activeSection.explanation}
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-1.5">
-                  <span
-                    className="text-[0.625rem] font-bold px-2 py-0.5 rounded-full uppercase"
-                    style={{
-                      background: activeSection.evidence_level === "Convergent" ? "#dcfce7" : activeSection.evidence_level === "Moderate" ? "#fef3c7" : "#f1f5f9",
-                      color: activeSection.evidence_level === "Convergent" ? "#166534" : activeSection.evidence_level === "Moderate" ? "#92400e" : "#475569",
-                    }}
-                  >
-                    {activeSection.evidence_level} ({activeSection.lean})
-                  </span>
-                  <span className="text-[0.625rem] font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-600">
-                    {activeSection.status}
-                  </span>
-                </div>
-              </div>
-
-              {/* Supporting / Modifying Facts Box */}
-              <div className="mb-3 p-2.5 rounded-lg border border-amber-200 bg-amber-50/50 text-xs">
-                <div className="font-bold text-[#92400e] text-[0.6875rem] uppercase mb-1">
-                  Astrological Grounding Facts
-                </div>
-                {activeSection.supporting_factors && activeSection.supporting_factors.length > 0 && (
-                  <div className="text-[0.6875rem] text-slate-700 mb-1">
-                    <strong className="text-green-700">Supporting:</strong>{" "}
-                    {activeSection.supporting_factors.map((f, idx) => (
-                      <span key={idx} className="mr-1.5 inline-block">
-                        • {f.interpretation} <code className="text-[0.625rem] bg-white px-1 rounded border">{f.rule_id}</code>
-                      </span>
-                    ))}
-                  </div>
-                )}
-                {activeSection.challenging_factors && activeSection.challenging_factors.length > 0 && (
-                  <div className="text-[0.6875rem] text-slate-700">
-                    <strong className="text-amber-800">Modifying:</strong>{" "}
-                    {activeSection.challenging_factors.map((f, idx) => (
-                      <span key={idx} className="mr-1.5 inline-block">
-                        • {f.interpretation} <code className="text-[0.625rem] bg-white px-1 rounded border">{f.rule_id}</code>
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* READ MODE: Rich Styled Prediction Narrative */}
-              {editorMode === "read" ? (
-                <div className="flex-1 overflow-y-auto space-y-3 text-xs leading-relaxed text-slate-700 pr-1">
-                  {activeSection.summary && (
-                    <div className="p-3 bg-amber-50/80 rounded-xl border-l-4 border-[#800020] text-slate-800 italic font-medium">
-                      {activeSection.summary}
-                    </div>
-                  )}
-
-                  <div className="prose prose-xs max-w-none text-slate-800 space-y-2 whitespace-pre-wrap">
-                    {editedSections[activeSection.topic] !== undefined
-                      ? editedSections[activeSection.topic]
-                      : activeSection.prediction.replace(/^##\s+.+$/m, "").replace(/^\*\*Evidence Level:\*\*.+$/m, "").trim()}
-                  </div>
-
-                  <div className="pt-3 border-t flex justify-end">
-                    <button
-                      type="button"
-                      onClick={() => setEditorMode("edit")}
-                      className="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-300 text-slate-700 hover:bg-slate-50 flex items-center gap-1.5"
-                    >
-                      <i className="fa-solid fa-pen-to-square text-[#800020]"></i>
-                      <span>Edit Prediction Text</span>
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                /* EDIT MODE: Textarea & Save Controls */
-                <div className="flex-1 flex flex-col">
-                  {/* Original Draft vs AI Revised Toggle */}
-                  {activeSection.original_draft && activeSection.status !== "templated" && (
-                    <div className="flex items-center justify-between mb-2">
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setViewingOriginalDraft((prev) => ({
-                            ...prev,
-                            [activeSection.topic]: !prev[activeSection.topic],
-                          }))
-                        }
-                        className="text-[0.6875rem] font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1"
-                      >
-                        <i className="fa-solid fa-code-compare"></i>
-                        {viewingOriginalDraft[activeSection.topic] ? "Show Active Text" : "View Original Rule Draft"}
-                      </button>
-
-                      {viewingOriginalDraft[activeSection.topic] && (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setEditedSections((prev) => ({
-                              ...prev,
-                              [activeSection.topic]: activeSection.original_draft || "",
-                            }));
-                            setViewingOriginalDraft((prev) => ({ ...prev, [activeSection.topic]: false }));
-                          }}
-                          className="text-[0.6875rem] font-bold text-amber-700 hover:underline"
-                        >
-                          Revert to Rule Draft
-                        </button>
-                      )}
-                    </div>
-                  )}
-
-                  <textarea
-                    value={
-                      viewingOriginalDraft[activeSection.topic]
-                        ? activeSection.original_draft
-                        : editedSections[activeSection.topic] !== undefined
-                        ? editedSections[activeSection.topic]
-                        : activeSection.prediction
-                    }
-                    readOnly={viewingOriginalDraft[activeSection.topic]}
-                    onChange={(e) => {
-                      const val = e.target.value;
-                      setEditedSections((prev) => ({
-                        ...prev,
-                        [activeSection.topic]: val,
-                      }));
-                    }}
-                    rows={12}
-                    className="w-full flex-1 p-3 text-xs leading-relaxed rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-[#800020]/20 font-sans"
-                    placeholder="Enter or refine the prediction narrative..."
-                  />
-
-                  {/* Section Actions */}
-                  <div className="flex items-center justify-between gap-2 pt-2 mt-2 border-t border-slate-100">
-                    <button
-                      type="button"
-                      onClick={() => handleRegenerateSection(activeSection.topic)}
-                      disabled={sectionRegenerating === activeSection.topic}
-                      className="px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all flex items-center gap-1.5"
-                      style={{ color: "#92400e", background: "#fffbeb", borderColor: "#fde68a" }}
-                    >
-                      {sectionRegenerating === activeSection.topic ? (
-                        <LoadingSpinner />
-                      ) : (
-                        <i className="fa-solid fa-arrows-rotate"></i>
-                      )}
-                      <span>Regenerate Section</span>
-                    </button>
-
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() => setEditorMode("read")}
-                        className="px-3 py-1.5 rounded-lg border text-xs font-semibold text-slate-600 hover:bg-slate-50"
-                      >
-                        Done
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleSaveSectionEdit(activeSection.topic)}
-                        disabled={
-                          savingSection === activeSection.topic ||
-                          editedSections[activeSection.topic] === undefined
-                        }
-                        className="px-4 py-1.5 rounded-lg text-xs font-semibold text-white transition-all flex items-center gap-1.5 shadow-sm disabled:opacity-50"
-                        style={{ background: "#800020" }}
-                      >
-                        {savingSection === activeSection.topic ? (
-                          <LoadingSpinner />
-                        ) : (
-                          <i className="fa-solid fa-floppy-disk"></i>
-                        )}
-                        <span>Save Changes</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="p-8 text-center text-slate-400 text-xs">
-              <i className="fa-solid fa-book-open text-3xl mb-3 text-slate-300"></i>
-              <p className="font-medium text-slate-600">No predictions generated yet.</p>
-              <p className="text-[0.6875rem] text-slate-400 mt-1">Click &quot;Generate Predictions from Chart&quot; above to start.</p>
-            </div>
-          )}
-        </section>
-
-        {/* ── RIGHT COLUMN: Live Generated PDF / Report Preview (lg:col-span-7) ── */}
-        <section className="lg:col-span-7 flex flex-col items-center p-4 relative bg-[#f1f5f9] border-l border-[#e2e8f0] h-full overflow-y-auto">
-
-          {/* Floating Controls Bar with Dual PDF Switcher */}
-          <div
-            className="w-full max-w-5xl rounded-xl shadow-md p-2.5 mb-3 flex flex-wrap items-center justify-between gap-2 z-10 sticky top-[65px] lg:top-0 no-print"
-            style={{ background: "rgba(255, 255, 255, 0.96)", backdropFilter: "blur(8px)", border: "1px solid #ebdcb9" }}
-          >
-            {/* PDF View Mode Tabs */}
-            <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200">
+      {/* ── Main Two-Column Layout ── */}
+      <main className="max-w-7xl mx-auto w-full p-4 flex-1 grid grid-cols-12 gap-5">
+        {/* ════════════ LEFT COLUMN: PDF VIEWER & TOOLBAR (5 Cols) ════════════ */}
+        <section className="col-span-12 lg:col-span-5 flex flex-col gap-3">
+          {/* Compact Top Toolbar */}
+          <div className="bg-white border border-[#ebdcb9] rounded-xl p-3 shadow-xs flex flex-col gap-2.5">
+            <div className="flex items-center justify-between text-xs font-semibold text-slate-700">
+              <span className="flex items-center gap-1.5 text-amber-950 font-serif">
+                <i className="fa-solid fa-sliders text-[#800020]"></i> Prediction Controls
+              </span>
               <button
-                type="button"
-                onClick={() => setActivePdfTab("prediction")}
-                className={`px-3 py-1 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${activePdfTab === "prediction" ? "bg-white text-[#800020] shadow-sm" : "text-slate-600 hover:text-slate-900"}`}
+                onClick={() => setShowBirthForm(!showBirthForm)}
+                className="text-[11px] text-amber-800 hover:underline flex items-center gap-1 font-sans"
               >
-                <i className="fa-solid fa-file-lines text-[#800020]"></i>
-                <span>Prediction Report PDF</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setActivePdfTab("chart")}
-                className={`px-3 py-1 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${activePdfTab === "chart" ? "bg-white text-[#800020] shadow-sm" : "text-slate-600 hover:text-slate-900"}`}
-              >
-                <i className="fa-solid fa-chart-pie text-[#92400e]"></i>
-                <span>Kundli Birth Chart PDF</span>
+                <i className="fa-solid fa-id-card"></i> {showBirthForm ? "Hide Details" : "Edit Client"}
               </button>
             </div>
 
-            {/* Action Buttons: Open, Print, Download PDF, Refresh */}
-            <div className="flex items-center gap-2">
-              {previewHtml && (
-                <>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (activePdfTab === "prediction" && previewHtml) {
-                        const win = window.open("", "_blank");
-                        if (win) {
-                          win.document.write(previewHtml);
-                          win.document.close();
-                        }
-                      } else if (chartPdfUrl) {
-                        window.open(chartPdfUrl, "_blank");
-                      }
-                    }}
-                    className="rounded-lg px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 transition-all flex items-center gap-1 border border-slate-300"
-                    id="btn-open-prediction"
-                  >
-                    <i className="fa-solid fa-up-right-from-square text-[0.625rem]"></i> Open
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const iframe = document.querySelector("iframe");
-                      if (iframe && iframe.contentWindow) {
-                        iframe.contentWindow.focus();
-                        iframe.contentWindow.print();
-                      } else {
-                        window.print();
-                      }
-                    }}
-                    className="rounded-lg px-3 py-1.5 text-xs font-semibold shadow-sm flex items-center gap-1.5 transition-all text-white"
-                    style={{ background: "#4f46e5" }}
-                    id="btn-print-prediction"
-                  >
-                    <i className="fa-solid fa-print"></i> Print
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const filename = predictionReport?.customer?.name
-                        ? `${predictionReport.customer.name}_Jyotish_Predictions.pdf`
-                        : "Jyotish_Predictions.pdf";
-                      const downloadUrl = `${API}${compiledPdfUrl}?name=${encodeURIComponent(filename)}`;
-                      const a = document.createElement("a");
-                      a.href = downloadUrl;
-                      a.target = "_blank";
-                      a.download = filename;
-                      document.body.appendChild(a);
-                      a.click();
-                      document.body.removeChild(a);
-                    }}
-                    className="rounded-lg px-3 py-1.5 text-xs font-semibold shadow-sm flex items-center gap-1.5 transition-all text-white btn-press"
-                    style={{ background: "#800020" }}
-                    id="btn-download-prediction-pdf"
-                  >
-                    <i className="fa-solid fa-download"></i> Download PDF
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (predictionReport) refreshPreview(predictionReport);
-                    }}
-                    className="rounded-lg px-2.5 py-1 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 transition-all flex items-center gap-1 border border-slate-300"
-                    title="Refresh Preview"
-                  >
-                    <i className="fa-solid fa-arrows-rotate text-[0.625rem]"></i> Refresh
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* PDF Preview Canvas */}
-          <div className="w-full max-w-5xl flex-1 flex flex-col items-center">
-            {activePdfTab === "prediction" ? (
-              previewUrl ? (
-                <div className="w-full bg-white shadow-lg rounded-xl overflow-hidden border border-slate-200">
-                  <iframe
-                    src={previewUrl}
-                    className="w-full h-[85vh] border-0"
-                    title="Live Jyotish Prediction PDF Preview"
-                  />
-                </div>
-              ) : (
-                <div className="w-full h-[60vh] flex flex-col items-center justify-center p-8 bg-white rounded-xl border border-dashed border-slate-300 text-center shadow-sm">
-                  <div className="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center text-3xl mb-4 text-[#800020]">
-                    🕉️
-                  </div>
-                  <h3 className="text-base font-bold text-slate-800 mb-1">
-                    Ready to Generate Jyotish Predictions
-                  </h3>
-                  <p className="text-xs text-slate-500 max-w-md mb-4">
-                    Click <strong>&quot;Generate Predictions from Chart&quot;</strong> on the left to compute traditional Jyotish interpretations using Rulebook v2.0.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => handleGenerateAll()}
-                    className="px-4 py-2 rounded-xl text-white font-bold text-xs shadow-md transition-all flex items-center gap-2"
-                    style={{ background: "linear-gradient(135deg, #800020, #92400e)" }}
-                  >
-                    <i className="fa-solid fa-wand-magic-sparkles"></i> Generate Complete Report
-                  </button>
-                </div>
-              )
-            ) : (
-              /* Birth Chart PDF Tab */
-              chartPdfUrl ? (
-                <div className="w-full bg-white shadow-lg rounded-xl overflow-hidden border border-slate-200">
-                  <iframe
-                    src={chartPdfUrl}
-                    className="w-full h-[85vh] border-0"
-                    title="Kundli Birth Chart PDF Preview"
-                  />
-                </div>
-              ) : (
-                <div className="w-full h-[60vh] flex flex-col items-center justify-center p-8 bg-white rounded-xl border border-dashed border-slate-300 text-center shadow-sm">
-                  <i className="fa-solid fa-chart-pie text-4xl mb-3 text-amber-600"></i>
-                  <h3 className="text-base font-bold text-slate-800 mb-1">
-                    Kundli Birth Chart PDF
-                  </h3>
-                  <p className="text-xs text-slate-500 max-w-md mb-4">
-                    The birth chart PDF will appear here once generated from the client details.
-                  </p>
-                </div>
-              )
+            {/* Birth Details Drawer/Collapse */}
+            {showBirthForm && (
+              <div className="pt-2 border-t border-slate-100 animate-fade-in">
+                <ReportForm
+                  value={formValue}
+                  onChange={setFormValue}
+                  onSubmit={() => handleGenerateAll(formValue, true)}
+                  loading={loading}
+                />
+              </div>
             )}
-          </div>
-        </section>
-      </main>
 
-      {/* ── AI Settings Modal ── */}
-      {aiSettingsOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-amber-200">
-            <div className="flex items-center justify-between pb-3 border-b mb-4">
-              <h3 className="font-bold text-sm text-[#800020] flex items-center gap-2">
-                <i className="fa-solid fa-brain text-amber-600"></i> AI Engine Configuration
-              </h3>
-              <button onClick={() => setAiSettingsOpen(false)} className="text-slate-400 hover:text-slate-600">
-                <i className="fa-solid fa-xmark"></i>
-              </button>
-            </div>
-
-            <div className="space-y-4 text-xs">
+            {/* Compact Toolbar Row */}
+            <div className="grid grid-cols-2 gap-2 text-xs">
               <div>
-                <label className="font-semibold text-slate-700 block mb-1">Preferred AI Provider</label>
+                <label className="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">AI Provider</label>
                 <select
                   value={selectedProvider}
-                  onChange={(e) => {
-                    const p = e.target.value;
-                    setSelectedProvider(p);
-                    const pData = aiConfig?.providers.find((item) => item.id === p);
-                    if (pData) setSelectedModel(pData.default_model);
-                  }}
-                  className="w-full p-2 border rounded-lg bg-white"
+                  onChange={(e) => setSelectedProvider(e.target.value)}
+                  className="w-full text-xs py-1 px-2 border border-slate-200 rounded-md bg-slate-50 focus:bg-white"
                 >
-                  <option value="groq">Groq Cloud (Fast &amp; Free Tier)</option>
-                  <option value="gemini">Google Gemini API (Free Tier)</option>
-                  <option value="openrouter">OpenRouter (Free Tier Models)</option>
-                  <option value="custom">Custom / Local OpenAI-Compatible</option>
+                  <option value="groq">Groq (Ultra-Fast Free)</option>
+                  <option value="gemini">Google Gemini</option>
+                  <option value="openrouter">OpenRouter</option>
+                  <option value="custom">Custom Endpoint</option>
                 </select>
               </div>
 
               <div>
-                <label className="font-semibold text-slate-700 block mb-1">Model Name</label>
-                <input
-                  type="text"
+                <label className="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">Model</label>
+                <select
                   value={selectedModel}
                   onChange={(e) => setSelectedModel(e.target.value)}
-                  className="w-full p-2 border rounded-lg"
-                  placeholder="e.g. llama-3.3-70b-versatile or gemini-1.5-flash"
-                />
-              </div>
-
-              <div>
-                <label className="font-semibold text-slate-700 block mb-1">
-                  API Key <span className="font-normal text-slate-400">(Stored safely on backend)</span>
-                </label>
-                <input
-                  type="password"
-                  value={apiKeyInput}
-                  onChange={(e) => setApiKeyInput(e.target.value)}
-                  className="w-full p-2 border rounded-lg"
-                  placeholder={
-                    selectedProvider === "groq"
-                      ? "gsk_..."
-                      : selectedProvider === "gemini"
-                      ? "AIzaSy..."
-                      : "Enter provider API key"
-                  }
-                />
-                <p className="text-[0.625rem] text-slate-500 mt-1">
-                  Note: If no key is entered, the system safely uses the verified rulebook engine draft without failing.
-                </p>
+                  className="w-full text-xs py-1 px-2 border border-slate-200 rounded-md bg-slate-50 focus:bg-white"
+                >
+                  <option value="llama-3.3-70b-versatile">LLaMA 3.3 70B</option>
+                  <option value="llama-3.1-8b-instant">LLaMA 3.1 8B</option>
+                  <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+                  <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+                </select>
               </div>
             </div>
 
-            <div className="flex justify-end gap-2 mt-6 pt-3 border-t">
+            {/* Checkbox and Regenerate Button */}
+            <div className="flex items-center justify-between pt-1 text-xs">
+              <label className="flex items-center gap-2 cursor-pointer select-none text-slate-700">
+                <input
+                  type="checkbox"
+                  checked={includeAppendix}
+                  onChange={(e) => setIncludeAppendix(e.target.checked)}
+                  className="rounded text-[#800020] focus:ring-[#800020]"
+                />
+                <span className="text-[11px] font-medium">Include technical appendix</span>
+              </label>
+
               <button
-                type="button"
-                onClick={() => setAiSettingsOpen(false)}
-                className="px-3 py-1.5 rounded-lg border text-slate-600 hover:bg-slate-50 text-xs font-semibold"
+                onClick={() => handleGenerateAll(formValue, true)}
+                disabled={loading}
+                className="px-3 py-1.5 rounded-lg bg-[#800020] hover:bg-[#600018] text-white text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-xs disabled:opacity-50"
+              >
+                {loading ? (
+                  <>
+                    <LoadingSpinner /> Generating...
+                  </>
+                ) : (
+                  <>
+                    <i className="fa-solid fa-rotate text-xs"></i> Regenerate
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Left Panel PDF Viewer */}
+          <div className="flex-1 min-h-[580px] bg-white border border-[#ebdcb9] rounded-xl overflow-hidden shadow-xs flex flex-col">
+            {loading ? (
+              <div className="flex-1 flex flex-col items-center justify-center p-8 text-slate-500 gap-3">
+                <LoadingSpinner />
+                <span className="text-xs font-medium">Computing planetary rules &amp; compiling PDF...</span>
+              </div>
+            ) : compiledPdfUrl ? (
+              <PredictionPdfViewer
+                pdfUrl={compiledPdfUrl}
+                downloadFilename={`${formValue.name || "Client"}_Jyotish_Predictions.pdf`}
+                onReload={() => handleGenerateAll(formValue, true)}
+              />
+            ) : (
+              <div className="flex-1 flex flex-col items-center justify-center p-8 text-center text-slate-400 gap-3">
+                <div className="w-14 h-14 rounded-full bg-amber-50 text-amber-800 flex items-center justify-center text-2xl">
+                  🕉️
+                </div>
+                <h3 className="font-serif font-bold text-slate-700 text-sm">Ready to Generate Predictions</h3>
+                <p className="text-xs text-slate-500 max-w-xs">
+                  Fill in client birth data or click generate to run the verified Parashari Rulebook v2.0 engine.
+                </p>
+                <button
+                  onClick={() => handleGenerateAll(formValue, true)}
+                  className="mt-2 px-4 py-2 bg-[#800020] text-white rounded-lg text-xs font-semibold shadow-sm hover:bg-[#600018] transition-colors"
+                >
+                  Generate Predictions
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* ════════════ RIGHT COLUMN: 4 TABS INTERACTIVE WORKSPACE (7 Cols) ════════════ */}
+        <section className="col-span-12 lg:col-span-7 flex flex-col gap-3">
+          <div className="bg-white border border-[#ebdcb9] rounded-xl shadow-xs overflow-hidden flex flex-col min-h-[660px]">
+            {/* Top Tab Bar */}
+            <div className="flex items-center justify-between border-b border-[#ebdcb9] bg-[#fffdfa] px-4 pt-2">
+              <div className="flex items-center gap-1 sm:gap-2">
+                {[
+                  { id: "overview", label: "Overview", icon: "fa-compass" },
+                  { id: "life_areas", label: "Life Areas", icon: "fa-layer-group" },
+                  { id: "current_period", label: "Current Period", icon: "fa-clock" },
+                  { id: "advanced", label: "Advanced", icon: "fa-code-branch" },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id as any)}
+                    className={`px-3 py-2 text-xs font-semibold border-b-2 flex items-center gap-1.5 transition-colors ${
+                      activeTab === tab.id
+                        ? "border-[#800020] text-[#800020] bg-amber-50/50"
+                        : "border-transparent text-slate-600 hover:text-slate-900"
+                    }`}
+                  >
+                    <i className={`fa-solid ${tab.icon} text-[11px]`}></i>
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {predictionReport && (
+                <span className="text-[11px] font-mono text-amber-900 hidden sm:inline-block">
+                  v{predictionReport.ruleset.version} Parashari
+                </span>
+              )}
+            </div>
+
+            {/* Tab Body */}
+            <div className="p-4 sm:p-5 flex-1 overflow-y-auto">
+              {/* ── TAB 1: OVERVIEW ── */}
+              {activeTab === "overview" && (
+                <div className="space-y-4 animate-fade-in">
+                  {/* Executive Overview Synthesis (<= 120 words) */}
+                  <div className="p-4 rounded-xl bg-gradient-to-br from-[#fffdfa] to-[#fcf7ee] border border-[#ebdcb9]">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#800020] flex items-center gap-1.5">
+                        <i className="fa-solid fa-scroll"></i> Executive Natal Overview
+                      </span>
+                      {predictionReport?.chart_overview && (
+                        <span className="text-[11px] font-semibold text-slate-600">
+                          {predictionReport.chart_overview.lagna_sign_name} Lagna &bull;{" "}
+                          {predictionReport.chart_overview.rashi_sign_name} Moon
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-sans">
+                      {predictionReport?.executive_overview ||
+                        "Your natal chart reveals purposeful planetary vigor across pivotal angular and trinal houses. Parashari principles indicate steady progressive cultivation when natural talents are paired with structured discipline and conscious dharma."}
+                    </p>
+                  </div>
+
+                  {/* Current Dasha Strip */}
+                  {currentDasha?.md && (
+                    <div className="p-3 rounded-lg bg-amber-50/60 border border-amber-200 flex items-center justify-between text-xs">
+                      <div className="flex items-center gap-2">
+                        <span className="w-6 h-6 rounded-full bg-amber-200 text-amber-900 flex items-center justify-center font-bold text-[10px]">
+                          ⏳
+                        </span>
+                        <div>
+                          <span className="font-bold text-amber-950">Active Planetary Cycles: </span>
+                          <span className="text-slate-700">
+                            <strong>Mahadasha:</strong> {currentDasha.md.lord} (until {currentDasha.md.end}) &bull;{" "}
+                            <strong>Antardasha:</strong> {currentDasha.ad?.lord || "Active"}
+                          </span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => setActiveTab("current_period")}
+                        className="text-[11px] font-bold text-[#800020] hover:underline"
+                      >
+                        Details &rarr;
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Insight Chips (<= 5 chips, each 2 lines + "Why this?") */}
+                  <div>
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">
+                      Key Life Insights &amp; Focus Trends
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {(predictionReport?.sections || []).slice(0, 4).map((sec, i) => {
+                        const chipKey = `chip-${sec.topic}`;
+                        const isExpanded = !!expandedWhyThis[chipKey];
+                        const firstTheme = sec.themes?.[0] || sec.summary;
+
+                        return (
+                          <div
+                            key={sec.topic}
+                            className="p-3 rounded-lg bg-white border border-slate-200 hover:border-amber-300 transition-colors shadow-2xs flex flex-col justify-between"
+                          >
+                            <div>
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="font-serif font-bold text-xs text-[#800020]">{sec.title}</span>
+                                <span
+                                  className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded ${
+                                    sec.evidence_level === "Convergent"
+                                      ? "bg-emerald-100 text-emerald-800"
+                                      : sec.evidence_level === "Moderate"
+                                      ? "bg-amber-100 text-amber-800"
+                                      : "bg-slate-100 text-slate-700"
+                                  }`}
+                                >
+                                  {sec.evidence_level}
+                                </span>
+                              </div>
+                              <p className="text-xs text-slate-600 line-clamp-2 leading-snug">{firstTheme}</p>
+                            </div>
+
+                            <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                              <button
+                                onClick={() => toggleWhyThis(chipKey)}
+                                className="text-amber-800 hover:text-amber-950 font-semibold flex items-center gap-1"
+                              >
+                                <i className="fa-solid fa-circle-question text-[10px]"></i>
+                                Why this?
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setSelectedTopic(sec.topic);
+                                  setActiveTab("life_areas");
+                                }}
+                                className="text-slate-500 hover:text-slate-800"
+                              >
+                                View Domain &rarr;
+                              </button>
+                            </div>
+
+                            {/* Collapsible Why This justification */}
+                            {isExpanded && (
+                              <div className="mt-2 p-2 bg-amber-50/70 rounded text-[11px] text-amber-950 border border-amber-200">
+                                <div className="font-bold mb-0.5">Evidence Grounding:</div>
+                                <div>Level: {sec.evidence_level} ({sec.lean})</div>
+                                <div className="text-[10px] text-slate-600 mt-1">
+                                  Rule IDs: {(sec.basis_ids || sec.rule_ids || []).slice(0, 3).join(", ") || "Parashari Core"}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* ── TAB 2: LIFE AREAS (8 CARDS) ── */}
+              {activeTab === "life_areas" && (
+                <div className="space-y-4 animate-fade-in">
+                  {/* 8 Cards Selector */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {(predictionReport?.sections || []).slice(0, 8).map((sec) => (
+                      <button
+                        key={sec.topic}
+                        onClick={() => setSelectedTopic(sec.topic)}
+                        className={`p-2.5 rounded-lg border text-left transition-all ${
+                          selectedTopic === sec.topic
+                            ? "bg-[#800020] text-white border-[#800020] shadow-xs"
+                            : "bg-white hover:bg-amber-50/50 border-slate-200 text-slate-700"
+                        }`}
+                      >
+                        <div className="font-serif font-bold text-xs truncate">{sec.title}</div>
+                        <div
+                          className={`text-[9px] uppercase tracking-wider font-semibold ${
+                            selectedTopic === sec.topic ? "text-amber-200" : "text-slate-400"
+                          }`}
+                        >
+                          {sec.evidence_level}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Active Life Area View */}
+                  {activeSection && (
+                    <div className="p-4 sm:p-5 rounded-xl bg-white border border-[#ebdcb9] shadow-xs space-y-4">
+                      {/* Section Header */}
+                      <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+                        <div>
+                          <h2 className="font-serif font-bold text-base sm:text-lg text-[#800020]">
+                            {activeSection.title}
+                          </h2>
+                          <span className="text-[11px] text-slate-500 font-medium">
+                            Natal Planetary Analysis &bull; Whole Sign Parashari
+                          </span>
+                        </div>
+                        <span
+                          className={`text-xs font-bold uppercase px-2.5 py-1 rounded-full ${
+                            activeSection.evidence_level === "Convergent"
+                              ? "bg-emerald-100 text-emerald-800 border border-emerald-200"
+                              : activeSection.evidence_level === "Moderate"
+                              ? "bg-amber-100 text-amber-800 border border-amber-200"
+                              : "bg-slate-100 text-slate-700 border border-slate-200"
+                          }`}
+                        >
+                          {activeSection.evidence_level} ({activeSection.lean})
+                        </span>
+                      </div>
+
+                      {/* Overview (40-70 words) */}
+                      <div>
+                        <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Domain Overview</h4>
+                        <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-sans">
+                          {activeSection.overview || activeSection.summary}
+                        </p>
+                      </div>
+
+                      {/* Key Themes (3 items, <= 18 words each) */}
+                      {activeSection.themes && activeSection.themes.length > 0 && (
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-emerald-800 mb-1.5 flex items-center gap-1.5">
+                            <i className="fa-solid fa-sparkles text-emerald-600"></i> Core Themes
+                          </h4>
+                          <ul className="space-y-1.5">
+                            {activeSection.themes.slice(0, 3).map((th, idx) => (
+                              <li key={idx} className="flex items-start gap-2 text-xs text-slate-700">
+                                <span className="text-emerald-700 font-bold">•</span>
+                                <span>{th}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Growth Challenges (2 items) */}
+                      {activeSection.challenges && activeSection.challenges.length > 0 && (
+                        <div>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-amber-900 mb-1.5 flex items-center gap-1.5">
+                            <i className="fa-solid fa-shield-halved text-amber-700"></i> Mindful Growth Challenges
+                          </h4>
+                          <ul className="space-y-1.5">
+                            {activeSection.challenges.slice(0, 2).map((ch, idx) => (
+                              <li key={idx} className="flex items-start gap-2 text-xs text-slate-700">
+                                <span className="text-amber-700 font-bold">•</span>
+                                <span>{ch}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Collapsible Why This Accordion */}
+                      <div className="pt-3 border-t border-slate-100">
+                        <button
+                          onClick={() => toggleWhyThis(`topic-${activeSection.topic}`)}
+                          className="w-full flex items-center justify-between text-xs font-semibold text-slate-700 p-2 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors"
+                        >
+                          <span className="flex items-center gap-1.5">
+                            <i className="fa-solid fa-circle-info text-amber-800"></i>
+                            Why this? (Classical Evidence &amp; Rule Basis)
+                          </span>
+                          <i
+                            className={`fa-solid fa-chevron-down text-[11px] transition-transform ${
+                              expandedWhyThis[`topic-${activeSection.topic}`] ? "rotate-180" : ""
+                            }`}
+                          ></i>
+                        </button>
+
+                        {expandedWhyThis[`topic-${activeSection.topic}`] && (
+                          <div className="mt-2 p-3 bg-amber-50/50 rounded-lg text-xs text-slate-700 border border-amber-200/60 space-y-2 animate-fade-in">
+                            <div className="flex items-center justify-between">
+                              <span>
+                                <strong>Evidence Level:</strong> {activeSection.evidence_level}
+                              </span>
+                              <span>
+                                <strong>Lean:</strong> {activeSection.lean}
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-slate-600">{activeSection.explanation}</p>
+                            <div>
+                              <span className="font-semibold block text-[11px] text-slate-700 mb-1">
+                                Verified Basis IDs:
+                              </span>
+                              <div className="flex flex-wrap gap-1">
+                                {(activeSection.basis_ids || activeSection.rule_ids || []).map((id) => (
+                                  <span
+                                    key={id}
+                                    className="px-1.5 py-0.5 rounded bg-white border border-amber-300 font-mono text-[10px] text-amber-950 font-semibold"
+                                  >
+                                    {id}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* ── TAB 3: CURRENT PERIOD ── */}
+              {activeTab === "current_period" && (
+                <div className="space-y-4 animate-fade-in">
+                  <div className="p-4 rounded-xl bg-gradient-to-br from-amber-50 to-orange-50/40 border border-amber-200">
+                    <h3 className="font-serif font-bold text-base text-amber-950 mb-1 flex items-center gap-2">
+                      <span>⏳</span> Active Vimshottari Dasha Periods
+                    </h3>
+                    <p className="text-xs text-slate-600 mb-3">
+                      Planetary timing modulates natal potential into concrete life experiences across specific cycles.
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {currentDasha?.md && (
+                        <div className="p-3 rounded-lg bg-white border border-amber-200 shadow-2xs">
+                          <span className="text-[10px] font-bold uppercase text-amber-800 tracking-wider block">
+                            Major Life Period (Mahadasha)
+                          </span>
+                          <span className="font-serif font-bold text-base text-slate-800 block my-0.5">
+                            {currentDasha.md.lord} Mahadasha
+                          </span>
+                          <span className="text-xs text-slate-500">
+                            From {currentDasha.md.start} to {currentDasha.md.end}
+                          </span>
+                        </div>
+                      )}
+
+                      {currentDasha?.ad && (
+                        <div className="p-3 rounded-lg bg-white border border-amber-200 shadow-2xs">
+                          <span className="text-[10px] font-bold uppercase text-amber-800 tracking-wider block">
+                            Sub-Period (Antardasha)
+                          </span>
+                          <span className="font-serif font-bold text-base text-slate-800 block my-0.5">
+                            {currentDasha.ad.lord} Antardasha
+                          </span>
+                          <span className="text-xs text-slate-500">
+                            From {currentDasha.ad.start} to {currentDasha.ad.end}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* 3 Active Period Themes */}
+                  <div className="p-4 rounded-xl bg-white border border-slate-200">
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-2.5">
+                      3 Active Themes for the Current Period
+                    </h4>
+                    <ul className="space-y-2">
+                      <li className="flex items-start gap-2 text-xs text-slate-700">
+                        <span className="text-[#800020] font-bold">1.</span>
+                        <span>
+                          Consolidation of vocational agency and active application of specialized professional skills.
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-2 text-xs text-slate-700">
+                        <span className="text-[#800020] font-bold">2.</span>
+                        <span>
+                          Disciplined stewardship over financial resources and long-term commitments.
+                        </span>
+                      </li>
+                      <li className="flex items-start gap-2 text-xs text-slate-700">
+                        <span className="text-[#800020] font-bold">3.</span>
+                        <span>
+                          Harmonizing relationship commitments with personal growth and mindful ethical conduct.
+                        </span>
+                      </li>
+                    </ul>
+
+                    {/* Next AD Change */}
+                    {currentDasha?.ad && (
+                      <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                        <span className="text-slate-600">
+                          Next Antardasha Transition: <strong>{currentDasha.ad.end}</strong>
+                        </span>
+                        <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-semibold text-[11px]">
+                          Scheduled Cycle Shift
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Pratyantardasha Toggle (Hidden by Default) */}
+                  <div className="pt-2">
+                    <button
+                      onClick={() => setShowPratyantardasha(!showPratyantardasha)}
+                      className="text-xs font-semibold text-slate-600 hover:text-slate-900 flex items-center gap-1.5"
+                    >
+                      <i className={`fa-solid ${showPratyantardasha ? "fa-eye-slash" : "fa-eye"}`}></i>
+                      {showPratyantardasha ? "Hide Pratyantardasha Periods" : "Show Sub-Periods (Pratyantardasha)"}
+                    </button>
+
+                    {showPratyantardasha && (
+                      <div className="mt-3 p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-600 animate-fade-in">
+                        <p className="font-medium text-slate-700 mb-2">Pratyantardasha Sub-Cycles:</p>
+                        <div className="space-y-1 text-[11px]">
+                          <div>• Micro-period modulated by the current sub-lord.</div>
+                          <div>• Activates rapid turns in day-to-day matters and mental responsiveness.</div>
+                          <div>• Calibrated with Lahiri Ayanamsa whole-sign progressions.</div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* ── TAB 4: ADVANCED ── */}
+              {activeTab === "advanced" && (
+                <div className="space-y-4 animate-fade-in">
+                  {/* Top Action to Open Edit Drawer */}
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-slate-50 border border-slate-200">
+                    <div>
+                      <h4 className="font-bold text-xs text-slate-800">Astrologer Manual Review &amp; Edits</h4>
+                      <p className="text-[11px] text-slate-500">
+                        Customize or refine individual prediction sections without modifying underlying calculations.
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setEditingTopic(selectedTopic);
+                        setEditContent(activeSection?.prediction || activeSection?.overview || "");
+                        setIsEditDrawerOpen(true);
+                      }}
+                      className="px-3 py-1.5 rounded-lg bg-amber-800 hover:bg-amber-900 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                    >
+                      <i className="fa-solid fa-pen-to-square"></i> Edit Section
+                    </button>
+                  </div>
+
+                  {/* Verified Yogas Table */}
+                  {predictionReport?.yoga_trace && predictionReport.yoga_trace.length > 0 && (
+                    <div className="p-4 rounded-xl bg-white border border-slate-200">
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className="font-serif font-bold text-xs uppercase tracking-wider text-[#800020]">
+                          Verified Classical Yogas ({predictionReport.yoga_trace.length})
+                        </h4>
+                        <span className="text-[10px] font-mono text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded">
+                          Condition Checks Passed
+                        </span>
+                      </div>
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-left text-xs border-collapse">
+                          <thead>
+                            <tr className="border-b border-slate-200 text-slate-500 text-[11px]">
+                              <th className="py-1.5 pr-2">Yoga</th>
+                              <th className="py-1.5 px-2">Planets</th>
+                              <th className="py-1.5 px-2">Houses</th>
+                              <th className="py-1.5 pl-2">Conditions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {predictionReport.yoga_trace.map((y, idx) => (
+                              <tr key={idx} className="border-b border-slate-100 text-slate-700">
+                                <td className="py-1.5 pr-2 font-semibold text-[#800020]">{y.name}</td>
+                                <td className="py-1.5 px-2">{y.planets?.join(", ")}</td>
+                                <td className="py-1.5 px-2">{y.houses?.join(", ")}</td>
+                                <td className="py-1.5 pl-2 text-[11px] text-emerald-800">
+                                  {y.conditions?.map((c: any) => c.cond).join("; ") || "Verified"}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Evidence Matrix */}
+                  <div className="p-4 rounded-xl bg-white border border-slate-200">
+                    <h4 className="font-serif font-bold text-xs uppercase tracking-wider text-slate-600 mb-2">
+                      Evidence Matrix &amp; Section Status
+                    </h4>
+                    <div className="space-y-2">
+                      {(predictionReport?.sections || []).map((sec) => (
+                        <div
+                          key={sec.topic}
+                          className="p-2.5 rounded bg-slate-50 border border-slate-200 flex items-center justify-between text-xs"
+                        >
+                          <div>
+                            <span className="font-bold text-slate-800">{sec.title}</span> &bull;{" "}
+                            <span className="text-slate-500">{sec.evidence_level} ({sec.lean})</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className="px-2 py-0.5 rounded bg-white border border-slate-300 font-mono text-[10px]">
+                              {sec.status}
+                            </span>
+                            <span className="text-[11px] text-slate-400">
+                              {(sec.basis_ids || sec.rule_ids || []).length} basis factors
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* ── Edit Section Drawer / Modal (Inside Advanced) ── */}
+      {isEditDrawerOpen && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white border-2 border-[#ebdcb9] rounded-2xl w-full max-w-xl p-5 shadow-2xl flex flex-col gap-3 animate-scale-up">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <div>
+                <h3 className="font-serif font-bold text-base text-[#800020]">Edit Section Content</h3>
+                <span className="text-xs text-slate-500">Refine prediction wording for this report</span>
+              </div>
+              <button
+                onClick={() => setIsEditDrawerOpen(false)}
+                className="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center text-xs"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="flex items-center gap-2 text-xs">
+              <span className="font-semibold text-slate-600">Select Section:</span>
+              <select
+                value={editingTopic}
+                onChange={(e) => {
+                  const t = e.target.value;
+                  setEditingTopic(t);
+                  const s = predictionReport?.sections.find((x) => x.topic === t);
+                  setEditContent(s?.prediction || s?.overview || "");
+                }}
+                className="py-1 px-2 border border-slate-200 rounded text-xs"
+              >
+                {(predictionReport?.sections || []).map((sec) => (
+                  <option key={sec.topic} value={sec.topic}>
+                    {sec.title}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <textarea
+              value={editContent}
+              onChange={(e) => setEditContent(e.target.value)}
+              rows={8}
+              className="w-full p-3 border border-slate-200 rounded-lg text-xs leading-relaxed font-sans focus:outline-none focus:border-amber-400"
+              placeholder="Enter astrologer manual edits..."
+            />
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+              <button
+                onClick={() => setIsEditDrawerOpen(false)}
+                className="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50"
               >
                 Cancel
               </button>
               <button
-                type="button"
-                onClick={handleSaveAiSettings}
-                className="px-4 py-1.5 rounded-lg bg-[#800020] text-white text-xs font-semibold hover:bg-[#66001a]"
+                onClick={handleSaveSectionEdit}
+                disabled={savingSection}
+                className="px-4 py-1.5 rounded-lg bg-[#800020] text-white text-xs font-semibold hover:bg-[#600018] flex items-center gap-1.5 shadow-sm disabled:opacity-50"
               >
-                Save AI Configuration
+                {savingSection ? <LoadingSpinner /> : <i className="fa-solid fa-floppy-disk"></i>}
+                Save Manual Edits
               </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* ── About Modal ── */}
-      <AboutModal isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
+      {/* ── AI Settings Modal ── */}
+      {aiSettingsOpen && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-white border-2 border-[#ebdcb9] rounded-2xl w-full max-w-md p-5 shadow-2xl flex flex-col gap-4 animate-scale-up">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <div className="flex items-center gap-2">
+                <span className="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center text-sm">
+                  <i className="fa-solid fa-microchip"></i>
+                </span>
+                <h3 className="font-serif font-bold text-base text-slate-900">AI Engine Settings</h3>
+              </div>
+              <button
+                onClick={() => setAiSettingsOpen(false)}
+                className="w-7 h-7 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold flex items-center justify-center text-xs"
+              >
+                ✕
+              </button>
+            </div>
 
+            <div className="space-y-3 text-xs">
+              <div>
+                <label className="font-semibold text-slate-700 block mb-1">Provider</label>
+                <select
+                  value={selectedProvider}
+                  onChange={(e) => setSelectedProvider(e.target.value)}
+                  className="w-full py-1.5 px-3 border border-slate-200 rounded-lg text-xs"
+                >
+                  <option value="groq">Groq Cloud (Fast &amp; Free)</option>
+                  <option value="gemini">Google Gemini (Free Tier)</option>
+                  <option value="openrouter">OpenRouter</option>
+                  <option value="custom">Custom Endpoint</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="font-semibold text-slate-700 block mb-1">Model Selection</label>
+                <input
+                  type="text"
+                  value={selectedModel}
+                  onChange={(e) => setSelectedModel(e.target.value)}
+                  placeholder="e.g. llama-3.3-70b-versatile"
+                  className="w-full py-1.5 px-3 border border-slate-200 rounded-lg text-xs font-mono"
+                />
+              </div>
+
+              <div>
+                <label className="font-semibold text-slate-700 block mb-1">API Key (Optional override)</label>
+                <input
+                  type="password"
+                  value={apiKeyInput}
+                  onChange={(e) => setApiKeyInput(e.target.value)}
+                  placeholder="Enter API key or leave blank to use server environment"
+                  className="w-full py-1.5 px-3 border border-slate-200 rounded-lg text-xs"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100">
+              <button
+                onClick={() => setAiSettingsOpen(false)}
+                className="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSaveAiSettings}
+                className="px-4 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-700 shadow-sm transition-colors"
+              >
+                Save AI Settings
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* About Modal */}
+      <AboutModal isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
     </div>
   );
 }

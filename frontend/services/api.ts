@@ -243,6 +243,8 @@ export async function generatePredictions(payload: {
   model?: string;
   topics?: string[];
   ref_date?: string;
+  force_regenerate?: boolean;
+  include_technical_appendix?: boolean;
 }): Promise<PredictionReport> {
   const response = await fetch(`${API}/api/predictions/generate`, {
     method: "POST",

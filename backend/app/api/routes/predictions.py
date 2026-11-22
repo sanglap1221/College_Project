@@ -43,6 +43,8 @@ class PredictionGenerateRequest(BaseModel):
     model: Optional[str] = None
     topics: Optional[List[str]] = None
     ref_date: Optional[str] = None
+    force_regenerate: bool = False
+    include_technical_appendix: bool = False
 
 
 class RegenerateSectionRequest(BaseModel):
@@ -83,6 +85,8 @@ def generate_prediction_endpoint(
             ref_date=payload.ref_date,
             provider=payload.provider,
             model=payload.model,
+            force_regenerate=payload.force_regenerate,
+            include_technical_appendix=payload.include_technical_appendix,
         )
         return report
     except ValueError as exc:

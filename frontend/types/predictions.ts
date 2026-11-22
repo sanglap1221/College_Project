@@ -25,6 +25,10 @@ export interface PredictionSection {
     mixed: number;
     independent_groups: number;
   };
+  overview?: string;
+  themes?: string[];
+  challenges?: string[];
+  basis_ids?: string[];
   summary: string;
   prediction: string;
   original_draft?: string;
@@ -53,6 +57,8 @@ export interface PredictionReport {
   reference_date: string;
   language: string;
   generated_at: string;
+  executive_overview?: string;
+  include_technical_appendix?: boolean;
   customer: {
     name: string;
     dob: string;

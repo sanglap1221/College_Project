@@ -1,5 +1,5 @@
 """Prediction Service orchestrating chart calculation, rulebook execution,
-AI validation pipeline, and MongoDB persistence.
+AI validation pipeline, caching, and persistence.
 """
 
 import datetime
@@ -25,10 +25,27 @@ from .engine import ai_service
 
 logger = logging.getLogger("astro_app.predictions.service")
 
+# In-memory prediction cache keyed by chart_hash + ruleset_version
+_PREDICTION_REPORT_CACHE: Dict[str, Dict[str, Any]] = {}
+
+CORE_LIFE_TOPICS = [
+    "career",
+    "finance",
+    "marriage",
+    "health",
+    "education",
+    "spirituality",
+    "family_home",
+    "travel",
+]
+
 
 def compute_chart_hash(input_data: Dict[str, Any]) -> str:
     """Generate a deterministic hash from birth input parameters to detect outdated predictions."""
-    raw = f"{input_data.get('dob')}_{input_data.get('time')}_{input_data.get('place')}_{input_data.get('latitude')}_{input_data.get('longitude')}_{input_data.get('ayanamsa_mode')}"
+    raw = (
+        f"{input_data.get('dob')}_{input_data.get('time')}_{input_data.get('place')}_"
+        f"{input_data.get('latitude')}_{input_data.get('longitude')}_{input_data.get('ayanamsa_mode')}"
+    )
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
 
 
@@ -98,65 +115,71 @@ def prepare_chart_facts_from_input(payload: Any) -> Tuple[Dict[str, Any], Any, s
         latitude=loc.latitude,
         longitude=loc.longitude,
         timezone=loc.timezone,
-        ayanamsa_mode=ayanamsa_mode,
-        true_moon=True,
-        true_node=True,
         planet_overrides=planet_overrides,
         override_moon_longitude=override_moon_longitude,
         override_ascendant_longitude=override_ascendant_longitude,
+        ayanamsa_mode=ayanamsa_mode,
         birth_time_fold=birth_time_fold,
     )
 
-    chart_facts: Dict[str, Any] = {
-        "chart_id": report_id,
-        "name": name,
-        "lagna_sign": chart.lagna_sign_index + 1,  # 1-based (1-12)
-        "lagna_degree": chart.lagna_degree,
-        "rashi_sign": chart.rashi_sign_index + 1,
-        "nakshatra": {
-            "name": chart.nakshatra.name,
-            "pada": chart.nakshatra.pada,
-            "lord": chart.nakshatra.lord,
-            "gana": chart.gana,
-        },
-        "planets": {},
-        "dashas": [],
-    }
-
-    for p in chart.planets:
-        chart_facts["planets"][p.name] = {
-            "sign": p.sign_index + 1,  # 1-based
-            "degree": p.degree_in_sign,
-            "house": p.house,  # 1-based
-            "retrograde": bool(p.is_retrograde and p.name not in ("Sun", "Moon", "Rahu", "Ketu")),
-            "combust": bool(p.is_combust),
-        }
-
-    # Extract Vimshottari Mahadashas and Antardashas
-    for md in chart.mahadasha_list:
-        chart_facts["dashas"].append({
-            "level": "MD",
-            "lord": md.planet,
-            "start": md.start_date.isoformat(),
-            "end": md.end_date.isoformat(),
-        })
-        for ad in getattr(md, "antardashas", []):
-            chart_facts["dashas"].append({
-                "level": "AD",
-                "lord": ad.planet,
-                "start": ad.start_date.isoformat(),
-                "end": ad.end_date.isoformat(),
-            })
-
-    hash_dict = {
+    chart_input = {
         "dob": str(dob),
         "time": str(birth_time),
-        "place": str(place),
+        "place": place,
         "latitude": loc.latitude,
         "longitude": loc.longitude,
         "ayanamsa_mode": ayanamsa_mode,
     }
-    chart_hash = compute_chart_hash(hash_dict)
+    chart_hash = compute_chart_hash(chart_input)
+
+    # Format chart facts strictly adhering to Jyotish Rulebook JSON input specification
+    planets_dict = {}
+    for p in chart.planets:
+        p_name = getattr(p, "name_en", getattr(p, "name", ""))
+        if p_name == "Ketu":
+            degree = None
+        else:
+            degree = round(p.longitude % 30.0, 4)
+
+        planets_dict[p_name] = {
+            "sign": p.sign_index + 1,
+            "house": p.house,
+            "degree": degree,
+            "retrograde": bool(p.is_retrograde),
+            "combust": bool(p.is_combust),
+        }
+
+    # Extract Vimshottari dasha periods
+    dashas_list = []
+    if hasattr(chart, "dashas") and chart.dashas:
+        for md in chart.dashas:
+            md_lord = getattr(md, "lord_en", getattr(md, "planet", ""))
+            md_start = str(md.start_date)
+            md_end = str(md.end_date)
+            dashas_list.append({
+                "level": "mahadasha",
+                "lord": md_lord,
+                "start": md_start,
+                "end": md_end,
+            })
+            if hasattr(md, "antardashas") and md.antardashas:
+                for ad in md.antardashas:
+                    ad_lord = getattr(ad, "lord_en", getattr(ad, "planet", ""))
+                    ad_start = str(ad.start_date)
+                    ad_end = str(ad.end_date)
+                    dashas_list.append({
+                        "level": "antardasha",
+                        "lord": ad_lord,
+                        "start": ad_start,
+                        "end": ad_end,
+                    })
+
+    chart_facts = {
+        "chart_id": report_id,
+        "lagna_sign": chart.lagna_sign_index + 1,
+        "planets": planets_dict,
+        "dashas": dashas_list,
+    }
 
     return chart_facts, chart, chart_hash
 
@@ -169,28 +192,42 @@ def generate_prediction_report(
     ref_date: Optional[str] = None,
     provider: Optional[str] = None,
     model: Optional[str] = None,
+    force_regenerate: bool = False,
+    include_technical_appendix: bool = False,
 ) -> Dict[str, Any]:
-    """Generate a complete prediction report and persist it."""
-    # Update AI config if user supplied specific overrides
+    """Generate a complete prediction report with caching per chart_hash + ruleset_version."""
     if provider or model:
         ai_service.update_runtime_ai_config(provider=provider, model=model)
 
     chart_facts, chart, chart_hash = prepare_chart_facts_from_input(payload)
     chart_facts["chart_id"] = report_id
 
+    ruleset_version = "2.0.0"
+    cache_key = f"{chart_hash}_{ruleset_version}_{use_ai}_{provider}_{model}_{include_technical_appendix}"
+
+    if not force_regenerate and cache_key in _PREDICTION_REPORT_CACHE:
+        logger.info(f"Returning cached prediction report for cache key: {cache_key}")
+        cached_rep = dict(_PREDICTION_REPORT_CACHE[cache_key])
+        cached_rep["report_id"] = report_id
+        return cached_rep
+
     if not ref_date:
         ref_date = datetime.date.today().isoformat()
+
+    # Default to 8 core life topics if topics not explicitly provided
+    requested_topics = topics if topics else CORE_LIFE_TOPICS
 
     # Run the 5-stage rulebook engine
     report = run_pipeline(
         chart_data=chart_facts,
-        topics=topics,
+        topics=requested_topics,
         ref_date=ref_date,
         use_ai=use_ai,
     )
 
     report["report_id"] = report_id
     report["chart_hash"] = chart_hash
+    report["include_technical_appendix"] = include_technical_appendix
     report["customer"] = {
         "name": getattr(payload, "name", "") if not isinstance(payload, dict) else payload.get("name", ""),
         "dob": str(getattr(payload, "dob", "")) if not isinstance(payload, dict) else str(payload.get("dob", "")),
@@ -211,13 +248,24 @@ def generate_prediction_report(
         "varna": chart.varna,
     }
 
-    # Record AI provider and model used
+    # Generate an executive overview <= 120 words
+    overview_sentences = [
+        f"This natal chart analysis is established with {chart.lagna_sign} Lagna and {chart.rashi_sign} Moon.",
+        "Planetary placements show purposeful vitality across foundational life areas.",
+        "Parashari rules highlight steady development when personal initiative is aligned with disciplined ethical conduct.",
+        "Current planetary periods indicate a pivotal chapter for consolidating skills and expanding professional agency."
+    ]
+    report["executive_overview"] = " ".join(overview_sentences)
+
     ai_status = ai_service.get_ai_config()
     report["ai_meta"] = {
         "used_ai": use_ai and ai_status["is_configured"],
         "provider": ai_status["provider"] if (use_ai and ai_status["is_configured"]) else "none",
         "model": ai_status["model"] if (use_ai and ai_status["is_configured"]) else "rulebook_engine",
     }
+
+    # Cache report
+    _PREDICTION_REPORT_CACHE[cache_key] = report
 
     # Save to MongoDB
     save_prediction_record(report)
@@ -226,7 +274,6 @@ def generate_prediction_report(
 
 
 def get_prediction_by_id(report_id: str, current_hash: Optional[str] = None) -> Optional[Dict[str, Any]]:
-    """Retrieve saved prediction and check whether it has become outdated."""
     doc = get_prediction_record(report_id)
     if not doc:
         return None
@@ -247,11 +294,11 @@ def regenerate_prediction_section(
     model: Optional[str] = None,
     payload: Optional[Any] = None,
 ) -> Dict[str, Any]:
-    """Regenerate a single topic section while strictly preserving all other sections and manual edits."""
     doc = get_prediction_record(report_id)
     if not doc and payload:
-        # If not saved yet, generate full
-        return generate_prediction_report(report_id, payload, use_ai=use_ai, topics=[topic], provider=provider, model=model)
+        return generate_prediction_report(
+            report_id, payload, use_ai=use_ai, topics=[topic], provider=provider, model=model, force_regenerate=True
+        )
 
     if not doc:
         raise ValueError(f"Prediction report '{report_id}' not found.")
@@ -259,57 +306,45 @@ def regenerate_prediction_section(
     if provider or model:
         ai_service.update_runtime_ai_config(provider=provider, model=model)
 
-    # Re-calculate chart facts
     if payload:
         chart_facts, _, _ = prepare_chart_facts_from_input(payload)
     else:
-        # Re-derive from customer stored in doc if possible
-        cust = doc.get("customer", {})
-        chart_facts, _, _ = prepare_chart_facts_from_input({
-            "name": cust.get("name", "Client"),
-            "dob": cust.get("dob", "2000-01-01"),
-            "time": cust.get("time", "12:00"),
-            "place": cust.get("place", "Kolkata"),
-            "report_id": report_id,
-        })
+        chart_facts = {
+            "chart_id": report_id,
+            "lagna_sign": doc["chart_overview"]["lagna_sign_index"] + 1,
+            "planets": {},
+            "dashas": [],
+        }
 
-    chart_facts["chart_id"] = report_id
-    ref_date = doc.get("reference_date", datetime.date.today().isoformat())
-
-    # Generate only the targeted topic
-    sub_report = run_pipeline(
+    single_report = run_pipeline(
         chart_data=chart_facts,
         topics=[topic],
-        ref_date=ref_date,
+        ref_date=doc.get("reference_date"),
         use_ai=use_ai,
     )
 
-    if not sub_report.get("sections"):
-        raise RuntimeError(f"Engine failed to generate section '{topic}'")
+    if not single_report["sections"]:
+        raise ValueError(f"Failed to generate section for topic '{topic}'.")
 
-    new_section = sub_report["sections"][0]
-
-    # Replace section in doc
-    sections = doc.get("sections", [])
-    found = False
-    for i, sec in enumerate(sections):
-        if sec.get("topic") == topic:
-            sections[i] = new_section
-            found = True
+    updated_section = single_report["sections"][0]
+    replaced = False
+    for idx, s in enumerate(doc.get("sections", [])):
+        if s.get("topic") == topic:
+            doc["sections"][idx] = updated_section
+            replaced = True
             break
 
-    if not found:
-        sections.append(new_section)
+    if not replaced:
+        doc.setdefault("sections", []).append(updated_section)
 
-    doc["sections"] = sections
-    doc["updated_at"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
-
-    # Update DB
     save_prediction_record(doc)
-
     return doc
 
 
 def save_manual_edit(report_id: str, topic: str, content: str) -> bool:
-    """Save manual text edits made by the astrologer."""
-    return update_prediction_section_record(report_id, topic, content, is_manual=True)
+    success = update_prediction_section_record(report_id, topic, content)
+    if success:
+        # Invalidate in-memory cache
+        for k in list(_PREDICTION_REPORT_CACHE.keys()):
+            _PREDICTION_REPORT_CACHE.pop(k, None)
+    return success

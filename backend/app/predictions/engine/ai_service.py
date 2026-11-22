@@ -12,11 +12,12 @@ import re
 import time
 import urllib.request
 import urllib.error
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
+
+from .writer import enforce_topic_json_limits, clean_markdown_artifacts
 
 logger = logging.getLogger("astro_app.predictions.ai")
 
-# Runtime in-memory overrides for AI settings
 _runtime_config: Dict[str, str] = {
     "provider": "",
     "base_url": "",
@@ -58,13 +59,11 @@ PROVIDER_DEFAULTS = {
 
 def get_ai_config() -> Dict[str, Any]:
     """Resolve active AI configuration from runtime settings or environment variables."""
-    # 1. Check runtime overrides
     provider = _runtime_config.get("provider", "").lower()
     base_url = _runtime_config.get("base_url", "")
     api_key = _runtime_config.get("api_key", "")
     model = _runtime_config.get("model", "")
 
-    # 2. If not explicitly set in runtime, check environment variables
     if not api_key:
         if os.getenv("GROQ_API_KEY"):
             provider = provider or "groq"
@@ -105,7 +104,6 @@ def get_ai_config() -> Dict[str, Any]:
 
 
 def update_runtime_ai_config(provider: Optional[str] = None, model: Optional[str] = None, api_key: Optional[str] = None, base_url: Optional[str] = None) -> Dict[str, Any]:
-    """Update runtime AI settings dynamically."""
     global _runtime_config
     if provider is not None:
         _runtime_config["provider"] = provider.lower()
@@ -121,7 +119,6 @@ def update_runtime_ai_config(provider: Optional[str] = None, model: Optional[str
 
 
 def list_providers_status() -> Dict[str, Any]:
-    """List available providers, their configured status and available models."""
     cfg = get_ai_config()
     providers_info = []
     for pid, pdata in PROVIDER_DEFAULTS.items():
@@ -145,7 +142,6 @@ def list_providers_status() -> Dict[str, Any]:
 
 
 def call_llm_chat(messages: List[Dict[str, str]], retries: int = 2) -> str:
-    """Call the OpenAI-compatible chat completion endpoint."""
     cfg = get_ai_config()
     if not cfg["is_configured"]:
         raise RuntimeError("No AI API is currently configured. Provide an API key.")
@@ -155,7 +151,6 @@ def call_llm_chat(messages: List[Dict[str, str]], retries: int = 2) -> str:
         "Authorization": f"Bearer {cfg['api_key']}",
         "Content-Type": "application/json",
     }
-    # OpenRouter specific optional headers
     if "openrouter" in cfg["base_url"]:
         headers["HTTP-Referer"] = "https://astro-workspace.local"
         headers["X-Title"] = "Astro Workspace"
@@ -163,12 +158,12 @@ def call_llm_chat(messages: List[Dict[str, str]], retries: int = 2) -> str:
     payload_dict: Dict[str, Any] = {
         "model": cfg["model"],
         "messages": messages,
-        "temperature": 0.25,
+        "temperature": 0.2,
     }
 
     body = json.dumps(payload_dict).encode("utf-8")
-
     last_error = None
+
     for attempt in range(retries + 1):
         req = urllib.request.Request(url, data=body, headers=headers)
         try:
@@ -200,127 +195,135 @@ def call_llm_chat(messages: List[Dict[str, str]], retries: int = 2) -> str:
 
 
 def parse_llm_json(raw_text: str) -> Dict[str, Any]:
-    """Safely extract and parse JSON object from LLM response text."""
     clean = raw_text.strip()
-    # Strip markdown code blocks
     clean = re.sub(r"^```(?:json)?\s*", "", clean, flags=re.MULTILINE)
     clean = re.sub(r"\s*```$", "", clean, flags=re.MULTILINE)
     clean = clean.strip()
-
     match = re.search(r"\{[\s\S]*\}", clean)
     if match:
         clean = match.group(0)
-
     return json.loads(clean)
 
 
-REVIEW_SYSTEM_PROMPT = """You are an expert Jyotish editor and validation assistant for an authentic Vedic astrology prediction report.
-Your role is to review structured astrological evidence from a natal chart and produce a comprehensive, professional English interpretation.
+BATCH_GEN_PROMPT = """You are an expert Vedic Jyotish editor.
+Your task is to write structured predictions for several life topics simultaneously based ONLY on the provided astrological factors.
 
-CRITICAL CONSTRAINTS:
-1. Grounding: You may ONLY use the planetary placements, house lordships, dignities, yogas and dasha timing provided in the EVIDENCE. Do NOT invent missing planets, aspects, yogas, or life events.
-2. Non-deterministic Language: Vedic Jyotish is symbolic and indicative. Never use deterministic or fatalistic phrases (e.g., 'you will definitely become rich', 'divorce is certain', 'guaranteed success'). Use hedged, constructive phrasing (e.g., 'traditionally interpreted as indicating', 'suggests potential for', 'may experience periods of', 'fosters disciplined effort towards').
-3. No Forbidden Content: Strictly NEVER produce medical diagnoses, illness cures, death predictions, guaranteed wealth amounts, or legal/visa guarantees.
-4. Explanations: Explain any technical Sanskrit term naturally in plain English (e.g. Kendra = pivotal angle houses; Trikona = trine houses).
-5. Citations: Maintain citations of relevant [RULE-ID] tags where applicable.
+CRITICAL RULES:
+1. Grounding: You may ONLY use the planetary placements, house lordships, dignities, yogas and dasha timing provided in the EVIDENCE for each topic. Do not invent missing facts.
+2. Non-deterministic Language: Vedic Jyotish is symbolic and indicative. Never use fatalistic statements.
+3. Health Area: Strictly non-diagnostic traditional constitution/element symbolism.
+4. Schema per topic:
+   - "overview": string, 40 to 70 words.
+   - "themes": array of exactly 3 strings, each <= 18 words.
+   - "challenges": array of exactly 2 strings, each <= 22 words.
+   - "basis_ids": array of rule IDs strictly chosen from the topic's allowed_ids.
 
-You must respond STRICTLY with valid JSON following this schema:
+Output STRICTLY a valid JSON object matching:
 {
-  "topic": "<topic title>",
-  "status": "reviewed",
-  "summary": "<2-3 sentence executive summary of the combined indications>",
-  "prediction": "<Full professional narrative with paragraphs: Tendencies & Themes, Supporting Influences, Challenges & Growth Areas, Timing & Guidance>",
-  "supporting_factors": [
-    {
-      "factor": "<chart factor>",
-      "interpretation": "<how it is traditionally interpreted>",
-      "rule_id": "<RULE-ID>"
+  "topics": {
+    "<topic_key>": {
+      "overview": "...",
+      "themes": ["...", "...", "..."],
+      "challenges": ["...", "..."],
+      "basis_ids": ["..."]
     }
-  ],
-  "challenging_factors": [
-    {
-      "factor": "<modifying factor>",
-      "interpretation": "<constructive meaning of the challenge>",
-      "rule_id": "<RULE-ID>"
-    }
-  ],
-  "counter_indicators": [],
-  "timing": ["<summary of relevant active dasha activations if present>"],
-  "validation": {
-    "rulebook_consistency": "reviewed",
-    "chart_evidence_consistency": "verified",
-    "unsupported_claims": [],
-    "contradictions": [],
-    "missing_data": [],
-    "warnings": []
-  },
-  "limitations": [
-    "Symbolic interpretation based on classical Parashari principles; not deterministic certainty."
-  ]
+  }
+}
+"""
+
+BATCH_AUDIT_PROMPT = """You are a strict compliance auditor for a Vedic Jyotish report.
+Review the interpretations produced for each topic against classical grounding rules.
+Flag any topic containing:
+- Fatalistic or deterministic claims
+- Medical diagnoses or health prescriptions
+- Unsupported planetary claims
+Output STRICTLY valid JSON:
+{
+  "all_passed": true,
+  "rejected_topics": [],
+  "notes": []
 }
 """
 
 
-def ai_review_section(
-    topic: str,
-    title: str,
-    evidence_items: List[Dict[str, Any]],
-    timing_items: List[Dict[str, Any]],
-    templated_draft: str,
-) -> Tuple[Dict[str, Any], str, List[str]]:
-    """Run Stage 3 (AI Validation) and Stage 4 (Correction / Structured Output).
-    Returns (structured_dict, final_prediction_text, validation_notes).
+def ai_generate_and_audit_all_topics(
+    topics_packages: Dict[str, Any],
+    dasha_summary: List[Dict[str, Any]],
+) -> Tuple[Dict[str, Dict[str, Any]], List[str]]:
+    """Generate all topics in ONE AI call and audit all topics in ONE call (free-tier rate limits).
+    Returns (topic_results_map, audit_notes).
     """
     notes: List[str] = []
-    
-    anonymized_evidence = [
-        {
-            "rule_id": e.get("rule_id"),
-            "kind": e.get("kind"),
-            "planets": e.get("planets"),
-            "houses": e.get("houses"),
-            "direction": e.get("direction"),
-            "text": e.get("text"),
-        }
-        for e in evidence_items
-    ]
-
-    timing_summary = [
-        {
-            "level": t.get("timing", {}).get("level"),
-            "lord": t.get("timing", {}).get("lord"),
-            "start": t.get("timing", {}).get("start"),
-            "end": t.get("timing", {}).get("end"),
-            "text": t.get("text"),
-        }
-        for t in timing_items if "timing" in t
-    ]
-
-    user_payload = {
-        "topic": topic,
-        "title": title,
-        "evidence": anonymized_evidence,
-        "timing": timing_summary,
-        "baseline_draft": templated_draft,
+    compact_input = {
+        "active_dashas": dasha_summary,
+        "topics": {},
     }
 
-    messages = [
-        {"role": "system", "content": REVIEW_SYSTEM_PROMPT},
-        {"role": "user", "content": json.dumps(user_payload, ensure_ascii=False)},
+    for topic, pkg in topics_packages.items():
+        compact_input["topics"][topic] = {
+            "title": pkg["title"],
+            "evidence": [
+                {
+                    "rule_id": e.get("rule_id"),
+                    "direction": e.get("direction"),
+                    "text": e.get("text"),
+                }
+                for e in pkg["used_items"]
+            ],
+            "allowed_ids": sorted(list(pkg["allowed_ids"]))[:8],
+        }
+
+    # Call 1: Generate all topics in one call
+    gen_messages = [
+        {"role": "system", "content": BATCH_GEN_PROMPT},
+        {"role": "user", "content": json.dumps(compact_input, ensure_ascii=False)},
     ]
 
     try:
-        raw_response = call_llm_chat(messages)
-        parsed = parse_llm_json(raw_response)
-        
-        # Verify required keys
-        if "prediction" in parsed and parsed.get("status") in ("reviewed", "ai_rewritten_audited"):
-            prediction_text = parsed["prediction"]
-            return parsed, prediction_text, notes
-        else:
-            notes.append("AI response missing expected JSON fields; fell back to rule draft.")
+        raw_gen = call_llm_chat(gen_messages)
+        parsed_gen = parse_llm_json(raw_gen)
+        generated_topics = parsed_gen.get("topics", {})
     except Exception as exc:
-        logger.error(f"AI review error for topic '{topic}': {exc}")
-        notes.append(f"AI review failed ({exc}); used verified rulebook draft.")
+        logger.warning(f"Batch AI generation call failed: {exc}")
+        notes.append(f"AI batch generation failed ({exc}); verified template used.")
+        return {}, notes
 
-    return {}, templated_draft, notes
+    if not isinstance(generated_topics, dict) or not generated_topics:
+        notes.append("AI generation returned empty topics map; verified template used.")
+        return {}, notes
+
+    # Call 2: Audit all generated topics in one call
+    audit_messages = [
+        {"role": "system", "content": BATCH_AUDIT_PROMPT},
+        {"role": "user", "content": json.dumps({"generated": generated_topics}, ensure_ascii=False)},
+    ]
+
+    rejected_topics = set()
+    try:
+        raw_audit = call_llm_chat(audit_messages)
+        parsed_audit = parse_llm_json(raw_audit)
+        for rej in parsed_audit.get("rejected_topics", []):
+            rejected_topics.add(str(rej).strip())
+        if parsed_audit.get("notes"):
+            notes.extend(parsed_audit["notes"])
+    except Exception as exc:
+        logger.warning(f"Batch AI audit call failed: {exc}")
+        notes.append(f"AI audit call warning ({exc}); continuing with grounding gate.")
+
+    final_results: Dict[str, Dict[str, Any]] = {}
+
+    for topic, pkg in topics_packages.items():
+        if topic in rejected_topics:
+            notes.append(f"Topic '{topic}' rejected during AI compliance audit; fallback to template.")
+            continue
+
+        raw_topic_data = generated_topics.get(topic)
+        if not raw_topic_data or not isinstance(raw_topic_data, dict):
+            continue
+
+        # Enforce limits
+        allowed_ids = pkg["allowed_ids"]
+        cleaned_topic = enforce_topic_json_limits(raw_topic_data, allowed_ids)
+        final_results[topic] = cleaned_topic
+
+    return final_results, notes
