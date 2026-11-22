@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "patterns": [
+    "\\byou will (definitely|certainly|surely|absolutely)\\b",
+    "\\bdestined (to|for)\\b",
+    "\\byou will (die|be rich|become rich|get married on)\\b",
+    "\\b(life ?span|time of death|death)\\b",
+    "\\b(cancer|diabetes|tumou?r|heart attack|depression|schizophrenia)\\b",
+    "\\b(cursed|doomed)\\b",
+    "\\b(must|should) (buy|wear) (a |an )?(gemstone|ring|stone|yantra)\\b",
+    "\\bguaranteed (success|wealth|marriage|admission|visa|promotion)\\b",
+    "\\b(spouse|wife|husband) (will be|is) (a|an) (tall|fair|dark|beautiful)\\b"
+  ]
+}

@@ -613,6 +613,14 @@ export default function HomePage() {
         {/* Navigation Action Control Center */}
         <div className="flex items-center space-x-2 sm:space-x-3">
           <button
+            onClick={() => router.push("/predictions")}
+            className="px-4 py-2 rounded-lg bg-rose-950/40 hover:bg-rose-900/60 border border-rose-500/30 text-rose-200 text-xs sm:text-sm font-medium transition-all flex items-center space-x-2 cursor-pointer"
+            title="Jyotish Predictions Workspace"
+          >
+            <i className="fa-solid fa-wand-magic-sparkles text-amber-400"></i>
+            <span>Predictions</span>
+          </button>
+          <button
             onClick={() => window.location.reload()}
             className="px-4 py-2 rounded-lg bg-indigo-950/40 hover:bg-indigo-900/60 border border-indigo-500/20 text-indigo-200 text-xs sm:text-sm font-medium transition-all flex items-center space-x-2 cursor-pointer"
           >

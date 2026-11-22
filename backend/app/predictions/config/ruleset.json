@@ -1,0 +1,31 @@
+{
+  "ruleset_id": "parashari-core",
+  "version": "2.0.0",
+  "zodiac": "sidereal",
+  "ayanamsa": "chart-supplied",
+  "house_system": "whole-sign",
+  "node_aspects": [
+    7
+  ],
+  "language": "en",
+  "enabled": {
+    "planet_in_house": true,
+    "house_lord_in_house": true,
+    "dignity": true,
+    "yogas": true,
+    "dasha": true,
+    "transits": false,
+    "divisional_charts": false,
+    "shadbala": false,
+    "ashtakavarga": false,
+    "remedies": false
+  },
+  "yoga": {
+    "gaja_kesari_require_jupiter_not_debilitated": true,
+    "mahapurusha_from": "lagna",
+    "neecha_bhanga_mode": "any"
+  },
+  "evidence": {
+    "max_items_per_side": 6
+  }
+}

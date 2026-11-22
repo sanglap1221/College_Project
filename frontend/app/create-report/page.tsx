@@ -1149,6 +1149,23 @@ export default function CreateReportPage() {
           >
             <i className="fa-solid fa-arrows-rotate"></i> Reload
           </button>
+          {/* Predictions Button */}
+          <button
+            type="button"
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                sessionStorage.setItem("pending_prediction_details", JSON.stringify(formValue));
+                sessionStorage.setItem("pending_chart_pdf_url", compiledPdfUrl || fullPdfUrl || "");
+              }
+              router.push("/predictions");
+            }}
+            className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg transition-all border shadow-sm btn-press"
+            style={{ color: "#800020", background: "#fdf2f4", borderColor: "#fecdd3" }}
+            id="workspace-predictions-btn"
+            title="Open Jyotish Predictions Workspace"
+          >
+            <i className="fa-solid fa-wand-magic-sparkles"></i> Predictions
+          </button>
           <button
             type="button"
             onClick={() => setIsAboutOpen(true)}
@@ -1246,6 +1263,21 @@ export default function CreateReportPage() {
                     >
                       <i className="fa-solid fa-plus w-4 text-center text-slate-400"></i> New Report
                     </Link>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        if (typeof window !== "undefined") {
+                          sessionStorage.setItem("pending_prediction_details", JSON.stringify(formValue));
+                          sessionStorage.setItem("pending_chart_pdf_url", compiledPdfUrl || fullPdfUrl || "");
+                        }
+                        router.push("/predictions");
+                      }}
+                      className="flex items-center gap-2.5 text-xs font-semibold px-3 py-2.5 rounded-lg hover:bg-rose-50 transition-colors w-full text-left"
+                      style={{ color: "#800020" }}
+                    >
+                      <i className="fa-solid fa-wand-magic-sparkles w-4 text-center text-[#800020]"></i> Predictions
+                    </button>
                     <button
                       type="button"
                       onClick={() => {
@@ -2202,6 +2234,22 @@ export default function CreateReportPage() {
                     id="btn-download-pdf"
                   >
                     <i className="fa-solid fa-download"></i> Download PDF
+                  </button>
+                  <button
+                    className="rounded-lg px-3 py-1.5 text-xs font-semibold shadow-sm flex items-center gap-1.5 transition-all text-white btn-press"
+                    style={{ background: "linear-gradient(135deg, #800020, #92400e)" }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (typeof window !== "undefined") {
+                        sessionStorage.setItem("pending_prediction_details", JSON.stringify(formValue));
+                        sessionStorage.setItem("pending_chart_pdf_url", compiledPdfUrl || fullPdfUrl || "");
+                      }
+                      router.push("/predictions");
+                    }}
+                    id="btn-predictions-preview"
+                    title="Open Complete Jyotish Predictions Workspace"
+                  >
+                    <i className="fa-solid fa-wand-magic-sparkles"></i> Predictions
                   </button>
                 </>
               )}

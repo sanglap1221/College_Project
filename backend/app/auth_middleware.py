@@ -77,6 +77,28 @@ async def get_current_user(
         )
 
 
+async def get_optional_user(
+    credentials: HTTPAuthorizationCredentials | None = Depends(security),
+    token: str | None = Query(None),
+) -> dict | None:
+    """
+    FastAPI dependency: optional user authentication.
+    Returns decoded token payload if valid token present, otherwise None without raising 401.
+    """
+    token_str = None
+    if credentials is not None:
+        token_str = credentials.credentials
+    elif token is not None:
+        token_str = token
+
+    if token_str is None:
+        return None
+    try:
+        return decode_token(token_str)
+    except Exception:
+        return None
+
+
 async def require_admin(current_user: dict = Depends(get_current_user)) -> dict:
     """
     FastAPI dependency: ensures the authenticated user has the 'admin' role.

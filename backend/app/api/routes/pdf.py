@@ -484,7 +484,9 @@ def download_pdf(
 @router.post("/api/ai-chat")
 def ai_chat_endpoint(payload: dict[str, Any]):
     import os
-    import httpx
+    import json
+    import urllib.request
+    import urllib.error
 
     messages = payload.get("messages", [])
     report_state = payload.get("report_state", {})
@@ -528,23 +530,23 @@ def ai_chat_endpoint(payload: dict[str, Any]):
     formatted_messages = [{"role": "system", "content": system_prompt}] + recent_messages
 
     try:
-        with httpx.Client(timeout=30.0) as client:
-            resp = client.post(
-                "https://api.groq.com/openai/v1/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {groq_api_key}",
-                    "Content-Type": "application/json"
-                },
-                json={
-                    "model": "openai/gpt-oss-120b",
-                    "messages": formatted_messages,
-                    "temperature": 0.7,
-                    "max_tokens": 1000
-                }
-            )
-            if resp.status_code != 200:
-                raise HTTPException(status_code=resp.status_code, detail=resp.text)
-            data = resp.json()
+        req_body = json.dumps({
+            "model": "llama-3.3-70b-versatile",
+            "messages": formatted_messages,
+            "temperature": 0.7,
+            "max_tokens": 1000,
+        }).encode("utf-8")
+
+        req = urllib.request.Request(
+            "https://api.groq.com/openai/v1/chat/completions",
+            data=req_body,
+            headers={
+                "Authorization": f"Bearer {groq_api_key}",
+                "Content-Type": "application/json",
+            },
+        )
+        with urllib.request.urlopen(req, timeout=30.0) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
             reply = data["choices"][0]["message"]["content"]
             return {"reply": reply}
     except Exception as exc:

@@ -1,0 +1,102 @@
+[
+  {
+    "id": "YOGA-PMP-*",
+    "name": "Pancha Mahapurusha (Ruchaka, Bhadra, Hamsa, Malavya, Sasha)",
+    "conditions": [
+      "planet in own or exalted sign",
+      "planet in kendra from Lagna"
+    ],
+    "template": "{name} is detected: {planets} is in dignity in a kendra, traditionally read as emphasizing the significations of that planet with prominence.",
+    "direction": "supportive",
+    "version": "2.0.0",
+    "tradition": "Parashari",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft"
+  },
+  {
+    "id": "YOGA-GAJAKESARI",
+    "name": "Gaja-Kesari",
+    "conditions": [
+      "Jupiter in kendra from Moon",
+      "variant: Jupiter not debilitated"
+    ],
+    "template": "Gaja-Kesari Yoga is detected (Jupiter in a kendra from the Moon), traditionally read as emphasizing learning, reputation and counsel.",
+    "direction": "supportive",
+    "version": "2.0.0",
+    "tradition": "Parashari",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft"
+  },
+  {
+    "id": "YOGA-VRY-*",
+    "name": "Viparita Raja (Harsha, Sarala, Vimala)",
+    "conditions": [
+      "lord of 6/8/12 placed in 6/8/12"
+    ],
+    "template": "{name} is detected, traditionally read as gains emerging through difficulty or resolved obstacles.",
+    "direction": "mixed",
+    "exclusions_pending": "Cancellation/qualification conditions need verified source.",
+    "version": "2.0.0",
+    "tradition": "Parashari",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft"
+  },
+  {
+    "id": "YOGA-RAJA-*",
+    "name": "Raja-yoga combination",
+    "conditions": [
+      "kendra lord linked with trikona lord by conjunction, sign exchange or mutual aspect"
+    ],
+    "template": "A kendra lord and a trikona lord are linked ({planets}), traditionally read as supporting status, responsibility and effective action.",
+    "direction": "supportive",
+    "version": "2.0.0",
+    "tradition": "Parashari",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft"
+  },
+  {
+    "id": "YOGA-YOGAKARAKA-*",
+    "name": "Yogakaraka",
+    "conditions": [
+      "one planet lords a kendra and a trikona"
+    ],
+    "template": "{planets} rules both a kendra and a trikona for this Lagna, traditionally read as a particularly constructive planet for the chart.",
+    "direction": "supportive",
+    "version": "2.0.0",
+    "tradition": "Parashari",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft"
+  },
+  {
+    "id": "YOGA-NB-*",
+    "name": "Neecha-bhanga candidate",
+    "conditions": [
+      "planet debilitated",
+      "dispositor OR exaltation-sign lord in kendra from Lagna or Moon"
+    ],
+    "template": "The debilitation of {planets_first} meets a documented cancellation condition, which traditionally softens its debilitation.",
+    "direction": "mixed",
+    "version": "2.0.0",
+    "tradition": "Parashari",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft"
+  }
+]

@@ -68,20 +68,31 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 # ── Database Connection ──
 
 _mongo_client: Optional[MongoClient] = None
+_last_mongo_connect_attempt: float = 0.0
+_mongo_connect_failed: bool = False
 
 def get_mongo_client() -> Optional[MongoClient]:
     """Helper to initialize client with a short timeout to handle failures gracefully, caching the client for reuse."""
-    global _mongo_client
+    global _mongo_client, _last_mongo_connect_attempt, _mongo_connect_failed
     if _mongo_client is not None:
         return _mongo_client
 
+    import time
+    now = time.time()
+    # Back off 30 seconds if last attempt failed to avoid hanging requests
+    if _mongo_connect_failed and (now - _last_mongo_connect_attempt) < 30.0:
+        return None
+
+    _last_mongo_connect_attempt = now
     try:
-        client = MongoClient(MONGODB_URI, serverSelectionTimeoutMS=5000)
+        client = MongoClient(MONGODB_URI, serverSelectionTimeoutMS=2000, connectTimeoutMS=2000)
         # Force a quick server selection check to see if database is reachable on first connect
         client.admin.command('ping')
         _mongo_client = client
+        _mongo_connect_failed = False
         return client
     except Exception as exc:
+        _mongo_connect_failed = True
         logger.warning(f"Failed to connect to MongoDB at {MONGODB_URI}: {exc}")
         return None
 
@@ -419,3 +430,86 @@ def delete_report_by_id(report_id: str) -> bool:
     except Exception as exc:
         logger.error(f"Error deleting report {report_id}: {exc}")
         return False
+
+
+# ── Prediction Reports Persistence ──
+
+_memory_predictions_store: dict[str, Any] = {}
+
+def save_prediction_record(prediction_data: dict[str, Any]) -> bool:
+    """Save or update full prediction report in MongoDB predictions collection with in-memory fallback."""
+    report_id = prediction_data.get("report_id") or prediction_data.get("chart_id")
+    if not report_id:
+        return False
+
+    doc = to_bson_compatible(prediction_data)
+    doc["updated_at"] = datetime.now(timezone.utc)
+    _memory_predictions_store[report_id] = doc
+
+    try:
+        client = get_mongo_client()
+        if client is not None:
+            db = client[MONGODB_DB_NAME]
+            db.predictions.update_one(
+                {"report_id": report_id},
+                {"$set": doc, "$setOnInsert": {"created_at": datetime.now(timezone.utc)}},
+                upsert=True,
+            )
+        return True
+    except Exception as exc:
+        logger.error(f"Error saving prediction record to MongoDB: {exc}")
+        return True
+
+
+def get_prediction_record(report_id: str) -> Optional[dict[str, Any]]:
+    """Retrieve saved prediction report by report_id or chart_id."""
+    try:
+        client = get_mongo_client()
+        if client is not None:
+            db = client[MONGODB_DB_NAME]
+            doc = db.predictions.find_one({"report_id": report_id}, {"_id": 0})
+            if not doc:
+                doc = db.predictions.find_one({"chart_id": report_id}, {"_id": 0})
+            if doc:
+                return doc
+    except Exception as exc:
+        logger.error(f"Error retrieving prediction record for {report_id} from MongoDB: {exc}")
+
+    return _memory_predictions_store.get(report_id)
+
+
+def update_prediction_section_record(report_id: str, topic: str, content: str, is_manual: bool = True) -> bool:
+    """Update a specific section in a saved prediction report."""
+    # Always update in-memory cache first
+    doc = _memory_predictions_store.get(report_id)
+    if doc:
+        for sec in doc.get("sections", []):
+            if sec.get("topic") == topic:
+                sec["prediction"] = content
+                if is_manual:
+                    sec["status"] = "manual_edited"
+                break
+
+    try:
+        client = get_mongo_client()
+        if client is not None:
+            db = client[MONGODB_DB_NAME]
+            db_doc = db.predictions.find_one({"report_id": report_id})
+            if db_doc:
+                sections = db_doc.get("sections", [])
+                for sec in sections:
+                    if sec.get("topic") == topic:
+                        sec["prediction"] = content
+                        if is_manual:
+                            sec["status"] = "manual_edited"
+                        break
+                db.predictions.update_one(
+                    {"report_id": report_id},
+                    {"$set": {"sections": sections, "updated_at": datetime.now(timezone.utc)}}
+                )
+        return True
+    except Exception as exc:
+        logger.error(f"Error updating section {topic} for report {report_id}: {exc}")
+        return True
+
+

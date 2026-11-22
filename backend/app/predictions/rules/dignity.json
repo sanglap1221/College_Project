@@ -1,0 +1,653 @@
+[
+  {
+    "id": "DIG-SUN-EXALTED",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Sun",
+      "dignity": "exalted"
+    },
+    "required_inputs": [
+      "planets.Sun.sign"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Sun is exalted, which in this tradition strengthens the expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-SUN-OWN",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Sun",
+      "dignity": "own"
+    },
+    "required_inputs": [
+      "planets.Sun.sign"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Sun is in its own sign, traditionally read as a stable expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-SUN-MOOLATRIKONA",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Sun",
+      "dignity": "moolatrikona"
+    },
+    "required_inputs": [
+      "planets.Sun.sign",
+      "planets.Sun.degree"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Sun is in its moolatrikona range, traditionally read as a strong expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-SUN-DEBILITATED",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Sun",
+      "dignity": "debilitated"
+    },
+    "required_inputs": [
+      "planets.Sun.sign"
+    ],
+    "effect_direction": "challenging",
+    "interpretation_template": "Sun is debilitated, traditionally read as making its significations harder to express directly; cancellation (neecha-bhanga), lordship and aspects may modify this. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-MOON-EXALTED",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Moon",
+      "dignity": "exalted"
+    },
+    "required_inputs": [
+      "planets.Moon.sign"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Moon is exalted, which in this tradition strengthens the expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-MOON-OWN",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Moon",
+      "dignity": "own"
+    },
+    "required_inputs": [
+      "planets.Moon.sign"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Moon is in its own sign, traditionally read as a stable expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-MOON-MOOLATRIKONA",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Moon",
+      "dignity": "moolatrikona"
+    },
+    "required_inputs": [
+      "planets.Moon.sign",
+      "planets.Moon.degree"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Moon is in its moolatrikona range, traditionally read as a strong expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-MOON-DEBILITATED",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Moon",
+      "dignity": "debilitated"
+    },
+    "required_inputs": [
+      "planets.Moon.sign"
+    ],
+    "effect_direction": "challenging",
+    "interpretation_template": "Moon is debilitated, traditionally read as making its significations harder to express directly; cancellation (neecha-bhanga), lordship and aspects may modify this. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-MARS-EXALTED",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mars",
+      "dignity": "exalted"
+    },
+    "required_inputs": [
+      "planets.Mars.sign"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Mars is exalted, which in this tradition strengthens the expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-MARS-OWN",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mars",
+      "dignity": "own"
+    },
+    "required_inputs": [
+      "planets.Mars.sign"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Mars is in its own sign, traditionally read as a stable expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-MARS-MOOLATRIKONA",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mars",
+      "dignity": "moolatrikona"
+    },
+    "required_inputs": [
+      "planets.Mars.sign",
+      "planets.Mars.degree"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Mars is in its moolatrikona range, traditionally read as a strong expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-MARS-DEBILITATED",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mars",
+      "dignity": "debilitated"
+    },
+    "required_inputs": [
+      "planets.Mars.sign"
+    ],
+    "effect_direction": "challenging",
+    "interpretation_template": "Mars is debilitated, traditionally read as making its significations harder to express directly; cancellation (neecha-bhanga), lordship and aspects may modify this. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-MERCURY-EXALTED",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mercury",
+      "dignity": "exalted"
+    },
+    "required_inputs": [
+      "planets.Mercury.sign"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Mercury is exalted, which in this tradition strengthens the expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-MERCURY-OWN",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mercury",
+      "dignity": "own"
+    },
+    "required_inputs": [
+      "planets.Mercury.sign"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Mercury is in its own sign, traditionally read as a stable expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-MERCURY-MOOLATRIKONA",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mercury",
+      "dignity": "moolatrikona"
+    },
+    "required_inputs": [
+      "planets.Mercury.sign",
+      "planets.Mercury.degree"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Mercury is in its moolatrikona range, traditionally read as a strong expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-MERCURY-DEBILITATED",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mercury",
+      "dignity": "debilitated"
+    },
+    "required_inputs": [
+      "planets.Mercury.sign"
+    ],
+    "effect_direction": "challenging",
+    "interpretation_template": "Mercury is debilitated, traditionally read as making its significations harder to express directly; cancellation (neecha-bhanga), lordship and aspects may modify this. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-JUPITER-EXALTED",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Jupiter",
+      "dignity": "exalted"
+    },
+    "required_inputs": [
+      "planets.Jupiter.sign"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Jupiter is exalted, which in this tradition strengthens the expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-JUPITER-OWN",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Jupiter",
+      "dignity": "own"
+    },
+    "required_inputs": [
+      "planets.Jupiter.sign"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Jupiter is in its own sign, traditionally read as a stable expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-JUPITER-MOOLATRIKONA",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Jupiter",
+      "dignity": "moolatrikona"
+    },
+    "required_inputs": [
+      "planets.Jupiter.sign",
+      "planets.Jupiter.degree"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Jupiter is in its moolatrikona range, traditionally read as a strong expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-JUPITER-DEBILITATED",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Jupiter",
+      "dignity": "debilitated"
+    },
+    "required_inputs": [
+      "planets.Jupiter.sign"
+    ],
+    "effect_direction": "challenging",
+    "interpretation_template": "Jupiter is debilitated, traditionally read as making its significations harder to express directly; cancellation (neecha-bhanga), lordship and aspects may modify this. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-VENUS-EXALTED",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Venus",
+      "dignity": "exalted"
+    },
+    "required_inputs": [
+      "planets.Venus.sign"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Venus is exalted, which in this tradition strengthens the expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-VENUS-OWN",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Venus",
+      "dignity": "own"
+    },
+    "required_inputs": [
+      "planets.Venus.sign"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Venus is in its own sign, traditionally read as a stable expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-VENUS-MOOLATRIKONA",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Venus",
+      "dignity": "moolatrikona"
+    },
+    "required_inputs": [
+      "planets.Venus.sign",
+      "planets.Venus.degree"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Venus is in its moolatrikona range, traditionally read as a strong expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-VENUS-DEBILITATED",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Venus",
+      "dignity": "debilitated"
+    },
+    "required_inputs": [
+      "planets.Venus.sign"
+    ],
+    "effect_direction": "challenging",
+    "interpretation_template": "Venus is debilitated, traditionally read as making its significations harder to express directly; cancellation (neecha-bhanga), lordship and aspects may modify this. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-SATURN-EXALTED",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Saturn",
+      "dignity": "exalted"
+    },
+    "required_inputs": [
+      "planets.Saturn.sign"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Saturn is exalted, which in this tradition strengthens the expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-SATURN-OWN",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Saturn",
+      "dignity": "own"
+    },
+    "required_inputs": [
+      "planets.Saturn.sign"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Saturn is in its own sign, traditionally read as a stable expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-SATURN-MOOLATRIKONA",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Saturn",
+      "dignity": "moolatrikona"
+    },
+    "required_inputs": [
+      "planets.Saturn.sign",
+      "planets.Saturn.degree"
+    ],
+    "effect_direction": "supportive",
+    "interpretation_template": "Saturn is in its moolatrikona range, traditionally read as a strong expression of its significations. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  },
+  {
+    "id": "DIG-SATURN-DEBILITATED",
+    "version": "2.0.0",
+    "category": "dignity",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Saturn",
+      "dignity": "debilitated"
+    },
+    "required_inputs": [
+      "planets.Saturn.sign"
+    ],
+    "effect_direction": "challenging",
+    "interpretation_template": "Saturn is debilitated, traditionally read as making its significations harder to express directly; cancellation (neecha-bhanga), lordship and aspects may modify this. Dignity modifies expression and does not decide an outcome alone.",
+    "source": {
+      "status": "pending_review",
+      "note": "Moolatrikona degrees are tradition-dependent."
+    },
+    "status": "draft",
+    "tests": [
+      "T-DIG"
+    ]
+  }
+]

@@ -1,0 +1,2918 @@
+[
+  {
+    "id": "PH-SUN-H01",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Sun",
+      "house": 1
+    },
+    "required_inputs": [
+      "planets.Sun.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      1
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Sun, associated with authority, visibility, purpose and leadership, is placed in the 1st house, directing these themes toward embodiment, temperament and agency. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SUN-H02",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Sun",
+      "house": 2
+    },
+    "required_inputs": [
+      "planets.Sun.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Sun, associated with authority, visibility, purpose and leadership, is placed in the 2nd house, directing these themes toward family context, speech and accumulated resources. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SUN-H03",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Sun",
+      "house": 3
+    },
+    "required_inputs": [
+      "planets.Sun.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      3
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Sun, associated with authority, visibility, purpose and leadership, is placed in the 3rd house, directing these themes toward effort, courage, skills and communication. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SUN-H04",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Sun",
+      "house": 4
+    },
+    "required_inputs": [
+      "planets.Sun.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      4
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Sun, associated with authority, visibility, purpose and leadership, is placed in the 4th house, directing these themes toward home, inner security and the foundations of learning. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SUN-H05",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Sun",
+      "house": 5
+    },
+    "required_inputs": [
+      "planets.Sun.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Sun, associated with authority, visibility, purpose and leadership, is placed in the 5th house, directing these themes toward learning, creativity and children (traditional framing). The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SUN-H06",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Sun",
+      "house": 6
+    },
+    "required_inputs": [
+      "planets.Sun.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Sun, associated with authority, visibility, purpose and leadership, is placed in the 6th house, directing these themes toward service, routines, contest and obstacles. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SUN-H07",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Sun",
+      "house": 7
+    },
+    "required_inputs": [
+      "planets.Sun.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Sun, associated with authority, visibility, purpose and leadership, is placed in the 7th house, directing these themes toward partnerships and agreements. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SUN-H08",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Sun",
+      "house": 8
+    },
+    "required_inputs": [
+      "planets.Sun.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Sun, associated with authority, visibility, purpose and leadership, is placed in the 8th house, directing these themes toward change, shared resources and research. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SUN-H09",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Sun",
+      "house": 9
+    },
+    "required_inputs": [
+      "planets.Sun.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Sun, associated with authority, visibility, purpose and leadership, is placed in the 9th house, directing these themes toward dharma, mentors and higher learning. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SUN-H10",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Sun",
+      "house": 10
+    },
+    "required_inputs": [
+      "planets.Sun.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Sun, associated with authority, visibility, purpose and leadership, is placed in the 10th house, directing these themes toward vocation, responsibility and visible contribution. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SUN-H11",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Sun",
+      "house": 11
+    },
+    "required_inputs": [
+      "planets.Sun.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Sun, associated with authority, visibility, purpose and leadership, is placed in the 11th house, directing these themes toward gains, networks and goals. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SUN-H12",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Sun",
+      "house": 12
+    },
+    "required_inputs": [
+      "planets.Sun.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Sun, associated with authority, visibility, purpose and leadership, is placed in the 12th house, directing these themes toward expenditure, retreat, and foreign or inward contexts. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MOON-H01",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Moon",
+      "house": 1
+    },
+    "required_inputs": [
+      "planets.Moon.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      1
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Moon, associated with mind, emotional processing and receptivity, is placed in the 1st house, directing these themes toward embodiment, temperament and agency. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MOON-H02",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Moon",
+      "house": 2
+    },
+    "required_inputs": [
+      "planets.Moon.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Moon, associated with mind, emotional processing and receptivity, is placed in the 2nd house, directing these themes toward family context, speech and accumulated resources. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MOON-H03",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Moon",
+      "house": 3
+    },
+    "required_inputs": [
+      "planets.Moon.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Moon, associated with mind, emotional processing and receptivity, is placed in the 3rd house, directing these themes toward effort, courage, skills and communication. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MOON-H04",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Moon",
+      "house": 4
+    },
+    "required_inputs": [
+      "planets.Moon.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      4
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Moon, associated with mind, emotional processing and receptivity, is placed in the 4th house, directing these themes toward home, inner security and the foundations of learning. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MOON-H05",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Moon",
+      "house": 5
+    },
+    "required_inputs": [
+      "planets.Moon.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Moon, associated with mind, emotional processing and receptivity, is placed in the 5th house, directing these themes toward learning, creativity and children (traditional framing). The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MOON-H06",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Moon",
+      "house": 6
+    },
+    "required_inputs": [
+      "planets.Moon.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Moon, associated with mind, emotional processing and receptivity, is placed in the 6th house, directing these themes toward service, routines, contest and obstacles. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MOON-H07",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Moon",
+      "house": 7
+    },
+    "required_inputs": [
+      "planets.Moon.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Moon, associated with mind, emotional processing and receptivity, is placed in the 7th house, directing these themes toward partnerships and agreements. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MOON-H08",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Moon",
+      "house": 8
+    },
+    "required_inputs": [
+      "planets.Moon.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Moon, associated with mind, emotional processing and receptivity, is placed in the 8th house, directing these themes toward change, shared resources and research. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MOON-H09",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Moon",
+      "house": 9
+    },
+    "required_inputs": [
+      "planets.Moon.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Moon, associated with mind, emotional processing and receptivity, is placed in the 9th house, directing these themes toward dharma, mentors and higher learning. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MOON-H10",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Moon",
+      "house": 10
+    },
+    "required_inputs": [
+      "planets.Moon.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Moon, associated with mind, emotional processing and receptivity, is placed in the 10th house, directing these themes toward vocation, responsibility and visible contribution. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MOON-H11",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Moon",
+      "house": 11
+    },
+    "required_inputs": [
+      "planets.Moon.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Moon, associated with mind, emotional processing and receptivity, is placed in the 11th house, directing these themes toward gains, networks and goals. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MOON-H12",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Moon",
+      "house": 12
+    },
+    "required_inputs": [
+      "planets.Moon.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Moon, associated with mind, emotional processing and receptivity, is placed in the 12th house, directing these themes toward expenditure, retreat, and foreign or inward contexts. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MARS-H01",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mars",
+      "house": 1
+    },
+    "required_inputs": [
+      "planets.Mars.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      1
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mars, associated with initiative, courage, assertion and technical action, is placed in the 1st house, directing these themes toward embodiment, temperament and agency. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MARS-H02",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mars",
+      "house": 2
+    },
+    "required_inputs": [
+      "planets.Mars.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mars, associated with initiative, courage, assertion and technical action, is placed in the 2nd house, directing these themes toward family context, speech and accumulated resources. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MARS-H03",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mars",
+      "house": 3
+    },
+    "required_inputs": [
+      "planets.Mars.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      3
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mars, associated with initiative, courage, assertion and technical action, is placed in the 3rd house, directing these themes toward effort, courage, skills and communication. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MARS-H04",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mars",
+      "house": 4
+    },
+    "required_inputs": [
+      "planets.Mars.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      4
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mars, associated with initiative, courage, assertion and technical action, is placed in the 4th house, directing these themes toward home, inner security and the foundations of learning. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MARS-H05",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mars",
+      "house": 5
+    },
+    "required_inputs": [
+      "planets.Mars.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mars, associated with initiative, courage, assertion and technical action, is placed in the 5th house, directing these themes toward learning, creativity and children (traditional framing). The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MARS-H06",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mars",
+      "house": 6
+    },
+    "required_inputs": [
+      "planets.Mars.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mars, associated with initiative, courage, assertion and technical action, is placed in the 6th house, directing these themes toward service, routines, contest and obstacles. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MARS-H07",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mars",
+      "house": 7
+    },
+    "required_inputs": [
+      "planets.Mars.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mars, associated with initiative, courage, assertion and technical action, is placed in the 7th house, directing these themes toward partnerships and agreements. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MARS-H08",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mars",
+      "house": 8
+    },
+    "required_inputs": [
+      "planets.Mars.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mars, associated with initiative, courage, assertion and technical action, is placed in the 8th house, directing these themes toward change, shared resources and research. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MARS-H09",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mars",
+      "house": 9
+    },
+    "required_inputs": [
+      "planets.Mars.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mars, associated with initiative, courage, assertion and technical action, is placed in the 9th house, directing these themes toward dharma, mentors and higher learning. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MARS-H10",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mars",
+      "house": 10
+    },
+    "required_inputs": [
+      "planets.Mars.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mars, associated with initiative, courage, assertion and technical action, is placed in the 10th house, directing these themes toward vocation, responsibility and visible contribution. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MARS-H11",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mars",
+      "house": 11
+    },
+    "required_inputs": [
+      "planets.Mars.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mars, associated with initiative, courage, assertion and technical action, is placed in the 11th house, directing these themes toward gains, networks and goals. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MARS-H12",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mars",
+      "house": 12
+    },
+    "required_inputs": [
+      "planets.Mars.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mars, associated with initiative, courage, assertion and technical action, is placed in the 12th house, directing these themes toward expenditure, retreat, and foreign or inward contexts. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MERCURY-H01",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mercury",
+      "house": 1
+    },
+    "required_inputs": [
+      "planets.Mercury.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mercury, associated with analysis, language, commerce and learning, is placed in the 1st house, directing these themes toward embodiment, temperament and agency. Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MERCURY-H02",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mercury",
+      "house": 2
+    },
+    "required_inputs": [
+      "planets.Mercury.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mercury, associated with analysis, language, commerce and learning, is placed in the 2nd house, directing these themes toward family context, speech and accumulated resources. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MERCURY-H03",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mercury",
+      "house": 3
+    },
+    "required_inputs": [
+      "planets.Mercury.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mercury, associated with analysis, language, commerce and learning, is placed in the 3rd house, directing these themes toward effort, courage, skills and communication. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MERCURY-H04",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mercury",
+      "house": 4
+    },
+    "required_inputs": [
+      "planets.Mercury.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mercury, associated with analysis, language, commerce and learning, is placed in the 4th house, directing these themes toward home, inner security and the foundations of learning. Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MERCURY-H05",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mercury",
+      "house": 5
+    },
+    "required_inputs": [
+      "planets.Mercury.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mercury, associated with analysis, language, commerce and learning, is placed in the 5th house, directing these themes toward learning, creativity and children (traditional framing). Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MERCURY-H06",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mercury",
+      "house": 6
+    },
+    "required_inputs": [
+      "planets.Mercury.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mercury, associated with analysis, language, commerce and learning, is placed in the 6th house, directing these themes toward service, routines, contest and obstacles. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MERCURY-H07",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mercury",
+      "house": 7
+    },
+    "required_inputs": [
+      "planets.Mercury.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mercury, associated with analysis, language, commerce and learning, is placed in the 7th house, directing these themes toward partnerships and agreements. Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MERCURY-H08",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mercury",
+      "house": 8
+    },
+    "required_inputs": [
+      "planets.Mercury.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mercury, associated with analysis, language, commerce and learning, is placed in the 8th house, directing these themes toward change, shared resources and research. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MERCURY-H09",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mercury",
+      "house": 9
+    },
+    "required_inputs": [
+      "planets.Mercury.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mercury, associated with analysis, language, commerce and learning, is placed in the 9th house, directing these themes toward dharma, mentors and higher learning. Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MERCURY-H10",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mercury",
+      "house": 10
+    },
+    "required_inputs": [
+      "planets.Mercury.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mercury, associated with analysis, language, commerce and learning, is placed in the 10th house, directing these themes toward vocation, responsibility and visible contribution. Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MERCURY-H11",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mercury",
+      "house": 11
+    },
+    "required_inputs": [
+      "planets.Mercury.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mercury, associated with analysis, language, commerce and learning, is placed in the 11th house, directing these themes toward gains, networks and goals. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-MERCURY-H12",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Mercury",
+      "house": 12
+    },
+    "required_inputs": [
+      "planets.Mercury.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Mercury, associated with analysis, language, commerce and learning, is placed in the 12th house, directing these themes toward expenditure, retreat, and foreign or inward contexts. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-JUPITER-H01",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Jupiter",
+      "house": 1
+    },
+    "required_inputs": [
+      "planets.Jupiter.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Jupiter, associated with knowledge, counsel, growth and ethics, is placed in the 1st house, directing these themes toward embodiment, temperament and agency. Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-JUPITER-H02",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Jupiter",
+      "house": 2
+    },
+    "required_inputs": [
+      "planets.Jupiter.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Jupiter, associated with knowledge, counsel, growth and ethics, is placed in the 2nd house, directing these themes toward family context, speech and accumulated resources. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-JUPITER-H03",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Jupiter",
+      "house": 3
+    },
+    "required_inputs": [
+      "planets.Jupiter.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Jupiter, associated with knowledge, counsel, growth and ethics, is placed in the 3rd house, directing these themes toward effort, courage, skills and communication. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-JUPITER-H04",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Jupiter",
+      "house": 4
+    },
+    "required_inputs": [
+      "planets.Jupiter.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Jupiter, associated with knowledge, counsel, growth and ethics, is placed in the 4th house, directing these themes toward home, inner security and the foundations of learning. Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-JUPITER-H05",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Jupiter",
+      "house": 5
+    },
+    "required_inputs": [
+      "planets.Jupiter.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Jupiter, associated with knowledge, counsel, growth and ethics, is placed in the 5th house, directing these themes toward learning, creativity and children (traditional framing). Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-JUPITER-H06",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Jupiter",
+      "house": 6
+    },
+    "required_inputs": [
+      "planets.Jupiter.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Jupiter, associated with knowledge, counsel, growth and ethics, is placed in the 6th house, directing these themes toward service, routines, contest and obstacles. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-JUPITER-H07",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Jupiter",
+      "house": 7
+    },
+    "required_inputs": [
+      "planets.Jupiter.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Jupiter, associated with knowledge, counsel, growth and ethics, is placed in the 7th house, directing these themes toward partnerships and agreements. Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-JUPITER-H08",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Jupiter",
+      "house": 8
+    },
+    "required_inputs": [
+      "planets.Jupiter.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Jupiter, associated with knowledge, counsel, growth and ethics, is placed in the 8th house, directing these themes toward change, shared resources and research. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-JUPITER-H09",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Jupiter",
+      "house": 9
+    },
+    "required_inputs": [
+      "planets.Jupiter.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Jupiter, associated with knowledge, counsel, growth and ethics, is placed in the 9th house, directing these themes toward dharma, mentors and higher learning. Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-JUPITER-H10",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Jupiter",
+      "house": 10
+    },
+    "required_inputs": [
+      "planets.Jupiter.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Jupiter, associated with knowledge, counsel, growth and ethics, is placed in the 10th house, directing these themes toward vocation, responsibility and visible contribution. Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-JUPITER-H11",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Jupiter",
+      "house": 11
+    },
+    "required_inputs": [
+      "planets.Jupiter.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Jupiter, associated with knowledge, counsel, growth and ethics, is placed in the 11th house, directing these themes toward gains, networks and goals. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-JUPITER-H12",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Jupiter",
+      "house": 12
+    },
+    "required_inputs": [
+      "planets.Jupiter.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Jupiter, associated with knowledge, counsel, growth and ethics, is placed in the 12th house, directing these themes toward expenditure, retreat, and foreign or inward contexts. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-VENUS-H01",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Venus",
+      "house": 1
+    },
+    "required_inputs": [
+      "planets.Venus.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Venus, associated with relationships, aesthetics, diplomacy and comforts, is placed in the 1st house, directing these themes toward embodiment, temperament and agency. Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-VENUS-H02",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Venus",
+      "house": 2
+    },
+    "required_inputs": [
+      "planets.Venus.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Venus, associated with relationships, aesthetics, diplomacy and comforts, is placed in the 2nd house, directing these themes toward family context, speech and accumulated resources. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-VENUS-H03",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Venus",
+      "house": 3
+    },
+    "required_inputs": [
+      "planets.Venus.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Venus, associated with relationships, aesthetics, diplomacy and comforts, is placed in the 3rd house, directing these themes toward effort, courage, skills and communication. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-VENUS-H04",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Venus",
+      "house": 4
+    },
+    "required_inputs": [
+      "planets.Venus.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Venus, associated with relationships, aesthetics, diplomacy and comforts, is placed in the 4th house, directing these themes toward home, inner security and the foundations of learning. Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-VENUS-H05",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Venus",
+      "house": 5
+    },
+    "required_inputs": [
+      "planets.Venus.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Venus, associated with relationships, aesthetics, diplomacy and comforts, is placed in the 5th house, directing these themes toward learning, creativity and children (traditional framing). Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-VENUS-H06",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Venus",
+      "house": 6
+    },
+    "required_inputs": [
+      "planets.Venus.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Venus, associated with relationships, aesthetics, diplomacy and comforts, is placed in the 6th house, directing these themes toward service, routines, contest and obstacles. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-VENUS-H07",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Venus",
+      "house": 7
+    },
+    "required_inputs": [
+      "planets.Venus.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Venus, associated with relationships, aesthetics, diplomacy and comforts, is placed in the 7th house, directing these themes toward partnerships and agreements. Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-VENUS-H08",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Venus",
+      "house": 8
+    },
+    "required_inputs": [
+      "planets.Venus.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Venus, associated with relationships, aesthetics, diplomacy and comforts, is placed in the 8th house, directing these themes toward change, shared resources and research. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-VENUS-H09",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Venus",
+      "house": 9
+    },
+    "required_inputs": [
+      "planets.Venus.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Venus, associated with relationships, aesthetics, diplomacy and comforts, is placed in the 9th house, directing these themes toward dharma, mentors and higher learning. Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-VENUS-H10",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Venus",
+      "house": 10
+    },
+    "required_inputs": [
+      "planets.Venus.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Venus, associated with relationships, aesthetics, diplomacy and comforts, is placed in the 10th house, directing these themes toward vocation, responsibility and visible contribution. Natural benefics in kendra or trikona houses are traditionally read as supportive.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-VENUS-H11",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Venus",
+      "house": 11
+    },
+    "required_inputs": [
+      "planets.Venus.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Venus, associated with relationships, aesthetics, diplomacy and comforts, is placed in the 11th house, directing these themes toward gains, networks and goals. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-VENUS-H12",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Venus",
+      "house": 12
+    },
+    "required_inputs": [
+      "planets.Venus.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Venus, associated with relationships, aesthetics, diplomacy and comforts, is placed in the 12th house, directing these themes toward expenditure, retreat, and foreign or inward contexts. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SATURN-H01",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Saturn",
+      "house": 1
+    },
+    "required_inputs": [
+      "planets.Saturn.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      1
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Saturn, associated with discipline, endurance, systems and responsibility, is placed in the 1st house, directing these themes toward embodiment, temperament and agency. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SATURN-H02",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Saturn",
+      "house": 2
+    },
+    "required_inputs": [
+      "planets.Saturn.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Saturn, associated with discipline, endurance, systems and responsibility, is placed in the 2nd house, directing these themes toward family context, speech and accumulated resources. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SATURN-H03",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Saturn",
+      "house": 3
+    },
+    "required_inputs": [
+      "planets.Saturn.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      3
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Saturn, associated with discipline, endurance, systems and responsibility, is placed in the 3rd house, directing these themes toward effort, courage, skills and communication. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SATURN-H04",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Saturn",
+      "house": 4
+    },
+    "required_inputs": [
+      "planets.Saturn.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      4
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Saturn, associated with discipline, endurance, systems and responsibility, is placed in the 4th house, directing these themes toward home, inner security and the foundations of learning. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SATURN-H05",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Saturn",
+      "house": 5
+    },
+    "required_inputs": [
+      "planets.Saturn.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Saturn, associated with discipline, endurance, systems and responsibility, is placed in the 5th house, directing these themes toward learning, creativity and children (traditional framing). The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SATURN-H06",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Saturn",
+      "house": 6
+    },
+    "required_inputs": [
+      "planets.Saturn.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Saturn, associated with discipline, endurance, systems and responsibility, is placed in the 6th house, directing these themes toward service, routines, contest and obstacles. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SATURN-H07",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Saturn",
+      "house": 7
+    },
+    "required_inputs": [
+      "planets.Saturn.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Saturn, associated with discipline, endurance, systems and responsibility, is placed in the 7th house, directing these themes toward partnerships and agreements. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SATURN-H08",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Saturn",
+      "house": 8
+    },
+    "required_inputs": [
+      "planets.Saturn.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Saturn, associated with discipline, endurance, systems and responsibility, is placed in the 8th house, directing these themes toward change, shared resources and research. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SATURN-H09",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Saturn",
+      "house": 9
+    },
+    "required_inputs": [
+      "planets.Saturn.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Saturn, associated with discipline, endurance, systems and responsibility, is placed in the 9th house, directing these themes toward dharma, mentors and higher learning. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SATURN-H10",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Saturn",
+      "house": 10
+    },
+    "required_inputs": [
+      "planets.Saturn.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Saturn, associated with discipline, endurance, systems and responsibility, is placed in the 10th house, directing these themes toward vocation, responsibility and visible contribution. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SATURN-H11",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Saturn",
+      "house": 11
+    },
+    "required_inputs": [
+      "planets.Saturn.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Saturn, associated with discipline, endurance, systems and responsibility, is placed in the 11th house, directing these themes toward gains, networks and goals. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-SATURN-H12",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Saturn",
+      "house": 12
+    },
+    "required_inputs": [
+      "planets.Saturn.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Saturn, associated with discipline, endurance, systems and responsibility, is placed in the 12th house, directing these themes toward expenditure, retreat, and foreign or inward contexts. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-RAHU-H01",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Rahu",
+      "house": 1
+    },
+    "required_inputs": [
+      "planets.Rahu.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      1
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Rahu, associated with unconventional ambition, amplification and experimentation, is placed in the 1st house, directing these themes toward embodiment, temperament and agency. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-RAHU-H02",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Rahu",
+      "house": 2
+    },
+    "required_inputs": [
+      "planets.Rahu.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Rahu, associated with unconventional ambition, amplification and experimentation, is placed in the 2nd house, directing these themes toward family context, speech and accumulated resources. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-RAHU-H03",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Rahu",
+      "house": 3
+    },
+    "required_inputs": [
+      "planets.Rahu.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      3
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Rahu, associated with unconventional ambition, amplification and experimentation, is placed in the 3rd house, directing these themes toward effort, courage, skills and communication. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-RAHU-H04",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Rahu",
+      "house": 4
+    },
+    "required_inputs": [
+      "planets.Rahu.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      4
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Rahu, associated with unconventional ambition, amplification and experimentation, is placed in the 4th house, directing these themes toward home, inner security and the foundations of learning. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-RAHU-H05",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Rahu",
+      "house": 5
+    },
+    "required_inputs": [
+      "planets.Rahu.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Rahu, associated with unconventional ambition, amplification and experimentation, is placed in the 5th house, directing these themes toward learning, creativity and children (traditional framing). The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-RAHU-H06",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Rahu",
+      "house": 6
+    },
+    "required_inputs": [
+      "planets.Rahu.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Rahu, associated with unconventional ambition, amplification and experimentation, is placed in the 6th house, directing these themes toward service, routines, contest and obstacles. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-RAHU-H07",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Rahu",
+      "house": 7
+    },
+    "required_inputs": [
+      "planets.Rahu.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Rahu, associated with unconventional ambition, amplification and experimentation, is placed in the 7th house, directing these themes toward partnerships and agreements. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-RAHU-H08",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Rahu",
+      "house": 8
+    },
+    "required_inputs": [
+      "planets.Rahu.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Rahu, associated with unconventional ambition, amplification and experimentation, is placed in the 8th house, directing these themes toward change, shared resources and research. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-RAHU-H09",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Rahu",
+      "house": 9
+    },
+    "required_inputs": [
+      "planets.Rahu.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Rahu, associated with unconventional ambition, amplification and experimentation, is placed in the 9th house, directing these themes toward dharma, mentors and higher learning. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-RAHU-H10",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Rahu",
+      "house": 10
+    },
+    "required_inputs": [
+      "planets.Rahu.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Rahu, associated with unconventional ambition, amplification and experimentation, is placed in the 10th house, directing these themes toward vocation, responsibility and visible contribution. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-RAHU-H11",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Rahu",
+      "house": 11
+    },
+    "required_inputs": [
+      "planets.Rahu.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Rahu, associated with unconventional ambition, amplification and experimentation, is placed in the 11th house, directing these themes toward gains, networks and goals. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-RAHU-H12",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Rahu",
+      "house": 12
+    },
+    "required_inputs": [
+      "planets.Rahu.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Rahu, associated with unconventional ambition, amplification and experimentation, is placed in the 12th house, directing these themes toward expenditure, retreat, and foreign or inward contexts. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-KETU-H01",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Ketu",
+      "house": 1
+    },
+    "required_inputs": [
+      "planets.Ketu.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      1
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Ketu, associated with detachment, inward focus and specialization, is placed in the 1st house, directing these themes toward embodiment, temperament and agency. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-KETU-H02",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Ketu",
+      "house": 2
+    },
+    "required_inputs": [
+      "planets.Ketu.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Ketu, associated with detachment, inward focus and specialization, is placed in the 2nd house, directing these themes toward family context, speech and accumulated resources. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-KETU-H03",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Ketu",
+      "house": 3
+    },
+    "required_inputs": [
+      "planets.Ketu.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      3
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Ketu, associated with detachment, inward focus and specialization, is placed in the 3rd house, directing these themes toward effort, courage, skills and communication. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-KETU-H04",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Ketu",
+      "house": 4
+    },
+    "required_inputs": [
+      "planets.Ketu.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      4
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Ketu, associated with detachment, inward focus and specialization, is placed in the 4th house, directing these themes toward home, inner security and the foundations of learning. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-KETU-H05",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Ketu",
+      "house": 5
+    },
+    "required_inputs": [
+      "planets.Ketu.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Ketu, associated with detachment, inward focus and specialization, is placed in the 5th house, directing these themes toward learning, creativity and children (traditional framing). The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-KETU-H06",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Ketu",
+      "house": 6
+    },
+    "required_inputs": [
+      "planets.Ketu.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Ketu, associated with detachment, inward focus and specialization, is placed in the 6th house, directing these themes toward service, routines, contest and obstacles. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-KETU-H07",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Ketu",
+      "house": 7
+    },
+    "required_inputs": [
+      "planets.Ketu.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Ketu, associated with detachment, inward focus and specialization, is placed in the 7th house, directing these themes toward partnerships and agreements. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-KETU-H08",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Ketu",
+      "house": 8
+    },
+    "required_inputs": [
+      "planets.Ketu.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Ketu, associated with detachment, inward focus and specialization, is placed in the 8th house, directing these themes toward change, shared resources and research. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-KETU-H09",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Ketu",
+      "house": 9
+    },
+    "required_inputs": [
+      "planets.Ketu.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Ketu, associated with detachment, inward focus and specialization, is placed in the 9th house, directing these themes toward dharma, mentors and higher learning. The expression depends on sign, dignity, aspects and lordship.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-KETU-H10",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Ketu",
+      "house": 10
+    },
+    "required_inputs": [
+      "planets.Ketu.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Ketu, associated with detachment, inward focus and specialization, is placed in the 10th house, directing these themes toward vocation, responsibility and visible contribution. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-KETU-H11",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Ketu",
+      "house": 11
+    },
+    "required_inputs": [
+      "planets.Ketu.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Ketu, associated with detachment, inward focus and specialization, is placed in the 11th house, directing these themes toward gains, networks and goals. Natural malefics in the upachaya houses (3, 6, 10, 11) are traditionally read as constructive, effort-driven placements.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  },
+  {
+    "id": "PH-KETU-H12",
+    "version": "2.0.0",
+    "category": "planet_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "planet": "Ketu",
+      "house": 12
+    },
+    "required_inputs": [
+      "planets.Ketu.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "Ketu, associated with detachment, inward focus and specialization, is placed in the 12th house, directing these themes toward expenditure, retreat, and foreign or inward contexts. This house is traditionally read as mixed, calling for effort and adjustment rather than ease.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-PH"
+    ]
+  }
+]

@@ -230,3 +230,161 @@ export async function sendAiChatMessage(messages: { role: string; content: strin
   const data = await response.json();
   return data.reply;
 }
+
+// ── Jyotish Predictions Engine API Calls ──
+
+import type { PredictionReport, AiConfigResponse } from "../types/predictions";
+
+export async function generatePredictions(payload: {
+  report_id?: string;
+  customer_data: any;
+  use_ai?: boolean;
+  provider?: string;
+  model?: string;
+  topics?: string[];
+  ref_date?: string;
+}): Promise<PredictionReport> {
+  const response = await fetch(`${API}/api/predictions/generate`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify(payload),
+  });
+
+  handleAuthError(response);
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.detail || `Failed to generate predictions: ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+export async function getPredictions(reportId: string, chartHash?: string): Promise<PredictionReport> {
+  const url = new URL(`${API}/api/predictions/${reportId}`);
+  if (chartHash) {
+    url.searchParams.set("chart_hash", chartHash);
+  }
+
+  const response = await fetch(url.toString(), {
+    headers: getAuthHeaders(),
+  });
+
+  handleAuthError(response);
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.detail || `Failed to fetch predictions: ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+export async function regeneratePredictionSection(
+  reportId: string,
+  topic: string,
+  useAi: boolean = false,
+  provider?: string,
+  model?: string,
+  customerData?: any
+): Promise<PredictionReport> {
+  const response = await fetch(`${API}/api/predictions/${reportId}/regenerate-section`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify({
+      topic,
+      use_ai: useAi,
+      provider,
+      model,
+      customer_data: customerData,
+    }),
+  });
+
+  handleAuthError(response);
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.detail || `Failed to regenerate section: ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+export async function savePredictionSection(
+  reportId: string,
+  topic: string,
+  content: string
+): Promise<{ status: string; message: string }> {
+  const response = await fetch(`${API}/api/predictions/${reportId}/section`, {
+    method: "PUT",
+    headers: getAuthHeaders(),
+    body: JSON.stringify({
+      topic,
+      content,
+    }),
+  });
+
+  handleAuthError(response);
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.detail || `Failed to save section edits: ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+export async function getAiConfig(): Promise<AiConfigResponse> {
+  const response = await fetch(`${API}/api/predictions/ai-config`, {
+    headers: getAuthHeaders(),
+  });
+
+  handleAuthError(response);
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.detail || `Failed to fetch AI configuration: ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+export async function updateAiConfig(config: {
+  provider?: string;
+  model?: string;
+  api_key?: string;
+  base_url?: string;
+}): Promise<any> {
+  const response = await fetch(`${API}/api/predictions/ai-config`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify(config),
+  });
+
+  handleAuthError(response);
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.detail || `Failed to update AI configuration: ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+export async function renderPredictionPdf(payload: any): Promise<{ html: string; pdf_url: string; report_id: string }> {
+  const response = await fetch(`${API}/api/predictions/render-pdf`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify(payload),
+  });
+
+  handleAuthError(response);
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.detail || `Failed to render prediction PDF: ${response.statusText}`);
+  }
+
+  return response.json();
+}
+

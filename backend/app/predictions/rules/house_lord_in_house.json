@@ -1,0 +1,4166 @@
+[
+  {
+    "id": "HL-H01-IN-H01",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 1,
+      "placed_in_house": 1
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 1st house (embodiment, temperament and agency) is placed in the 1st house (embodiment, temperament and agency), connecting these two areas. The lord sits in its own house, concentrating the themes of that house.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H01-IN-H02",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 1,
+      "placed_in_house": 2
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      1,
+      2
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 1st house (embodiment, temperament and agency) is placed in the 2nd house (family context, speech and accumulated resources), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H01-IN-H03",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 1,
+      "placed_in_house": 3
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      1,
+      3
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 1st house (embodiment, temperament and agency) is placed in the 3rd house (effort, courage, skills and communication), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H01-IN-H04",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 1,
+      "placed_in_house": 4
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      4
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 1st house (embodiment, temperament and agency) is placed in the 4th house (home, inner security and the foundations of learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H01-IN-H05",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 1,
+      "placed_in_house": 5
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 1st house (embodiment, temperament and agency) is placed in the 5th house (learning, creativity and children (traditional framing)), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H01-IN-H06",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 1,
+      "placed_in_house": 6
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      1,
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 1st house (embodiment, temperament and agency) is placed in the 6th house (service, routines, contest and obstacles), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H01-IN-H07",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 1,
+      "placed_in_house": 7
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 1st house (embodiment, temperament and agency) is placed in the 7th house (partnerships and agreements), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H01-IN-H08",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 1,
+      "placed_in_house": 8
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      1,
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 1st house (embodiment, temperament and agency) is placed in the 8th house (change, shared resources and research), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H01-IN-H09",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 1,
+      "placed_in_house": 9
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 1st house (embodiment, temperament and agency) is placed in the 9th house (dharma, mentors and higher learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H01-IN-H10",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 1,
+      "placed_in_house": 10
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 1st house (embodiment, temperament and agency) is placed in the 10th house (vocation, responsibility and visible contribution), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H01-IN-H11",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 1,
+      "placed_in_house": 11
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 1st house (embodiment, temperament and agency) is placed in the 11th house (gains, networks and goals), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H01-IN-H12",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 1,
+      "placed_in_house": 12
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      1,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 1st house (embodiment, temperament and agency) is placed in the 12th house (expenditure, retreat, and foreign or inward contexts), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H02-IN-H01",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 2,
+      "placed_in_house": 1
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      2
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 2nd house (family context, speech and accumulated resources) is placed in the 1st house (embodiment, temperament and agency), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H02-IN-H02",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 2,
+      "placed_in_house": 2
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 2nd house (family context, speech and accumulated resources) is placed in the 2nd house (family context, speech and accumulated resources), connecting these two areas. The lord sits in its own house, concentrating the themes of that house.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H02-IN-H03",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 2,
+      "placed_in_house": 3
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2,
+      3
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 2nd house (family context, speech and accumulated resources) is placed in the 3rd house (effort, courage, skills and communication), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H02-IN-H04",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 2,
+      "placed_in_house": 4
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      2,
+      4
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 2nd house (family context, speech and accumulated resources) is placed in the 4th house (home, inner security and the foundations of learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H02-IN-H05",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 2,
+      "placed_in_house": 5
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      2,
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 2nd house (family context, speech and accumulated resources) is placed in the 5th house (learning, creativity and children (traditional framing)), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H02-IN-H06",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 2,
+      "placed_in_house": 6
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2,
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 2nd house (family context, speech and accumulated resources) is placed in the 6th house (service, routines, contest and obstacles), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H02-IN-H07",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 2,
+      "placed_in_house": 7
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      2,
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 2nd house (family context, speech and accumulated resources) is placed in the 7th house (partnerships and agreements), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H02-IN-H08",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 2,
+      "placed_in_house": 8
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2,
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 2nd house (family context, speech and accumulated resources) is placed in the 8th house (change, shared resources and research), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H02-IN-H09",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 2,
+      "placed_in_house": 9
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      2,
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 2nd house (family context, speech and accumulated resources) is placed in the 9th house (dharma, mentors and higher learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H02-IN-H10",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 2,
+      "placed_in_house": 10
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      2,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 2nd house (family context, speech and accumulated resources) is placed in the 10th house (vocation, responsibility and visible contribution), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H02-IN-H11",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 2,
+      "placed_in_house": 11
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      2,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 2nd house (family context, speech and accumulated resources) is placed in the 11th house (gains, networks and goals), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H02-IN-H12",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 2,
+      "placed_in_house": 12
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 2nd house (family context, speech and accumulated resources) is placed in the 12th house (expenditure, retreat, and foreign or inward contexts), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H03-IN-H01",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 3,
+      "placed_in_house": 1
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      3
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 3rd house (effort, courage, skills and communication) is placed in the 1st house (embodiment, temperament and agency), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H03-IN-H02",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 3,
+      "placed_in_house": 2
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2,
+      3
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 3rd house (effort, courage, skills and communication) is placed in the 2nd house (family context, speech and accumulated resources), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H03-IN-H03",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 3,
+      "placed_in_house": 3
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 3rd house (effort, courage, skills and communication) is placed in the 3rd house (effort, courage, skills and communication), connecting these two areas. The lord sits in its own house, concentrating the themes of that house.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H03-IN-H04",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 3,
+      "placed_in_house": 4
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      3,
+      4
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 3rd house (effort, courage, skills and communication) is placed in the 4th house (home, inner security and the foundations of learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H03-IN-H05",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 3,
+      "placed_in_house": 5
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      3,
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 3rd house (effort, courage, skills and communication) is placed in the 5th house (learning, creativity and children (traditional framing)), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H03-IN-H06",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 3,
+      "placed_in_house": 6
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3,
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 3rd house (effort, courage, skills and communication) is placed in the 6th house (service, routines, contest and obstacles), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H03-IN-H07",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 3,
+      "placed_in_house": 7
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      3,
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 3rd house (effort, courage, skills and communication) is placed in the 7th house (partnerships and agreements), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H03-IN-H08",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 3,
+      "placed_in_house": 8
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3,
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 3rd house (effort, courage, skills and communication) is placed in the 8th house (change, shared resources and research), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H03-IN-H09",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 3,
+      "placed_in_house": 9
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      3,
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 3rd house (effort, courage, skills and communication) is placed in the 9th house (dharma, mentors and higher learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H03-IN-H10",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 3,
+      "placed_in_house": 10
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      3,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 3rd house (effort, courage, skills and communication) is placed in the 10th house (vocation, responsibility and visible contribution), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H03-IN-H11",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 3,
+      "placed_in_house": 11
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      3,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 3rd house (effort, courage, skills and communication) is placed in the 11th house (gains, networks and goals), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H03-IN-H12",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 3,
+      "placed_in_house": 12
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 3rd house (effort, courage, skills and communication) is placed in the 12th house (expenditure, retreat, and foreign or inward contexts), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H04-IN-H01",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 4,
+      "placed_in_house": 1
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      4
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 4th house (home, inner security and the foundations of learning) is placed in the 1st house (embodiment, temperament and agency), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H04-IN-H02",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 4,
+      "placed_in_house": 2
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2,
+      4
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 4th house (home, inner security and the foundations of learning) is placed in the 2nd house (family context, speech and accumulated resources), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H04-IN-H03",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 4,
+      "placed_in_house": 3
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3,
+      4
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 4th house (home, inner security and the foundations of learning) is placed in the 3rd house (effort, courage, skills and communication), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H04-IN-H04",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 4,
+      "placed_in_house": 4
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 4th house (home, inner security and the foundations of learning) is placed in the 4th house (home, inner security and the foundations of learning), connecting these two areas. The lord sits in its own house, concentrating the themes of that house.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H04-IN-H05",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 4,
+      "placed_in_house": 5
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4,
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 4th house (home, inner security and the foundations of learning) is placed in the 5th house (learning, creativity and children (traditional framing)), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H04-IN-H06",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 4,
+      "placed_in_house": 6
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      4,
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 4th house (home, inner security and the foundations of learning) is placed in the 6th house (service, routines, contest and obstacles), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H04-IN-H07",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 4,
+      "placed_in_house": 7
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4,
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 4th house (home, inner security and the foundations of learning) is placed in the 7th house (partnerships and agreements), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H04-IN-H08",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 4,
+      "placed_in_house": 8
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      4,
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 4th house (home, inner security and the foundations of learning) is placed in the 8th house (change, shared resources and research), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H04-IN-H09",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 4,
+      "placed_in_house": 9
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4,
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 4th house (home, inner security and the foundations of learning) is placed in the 9th house (dharma, mentors and higher learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H04-IN-H10",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 4,
+      "placed_in_house": 10
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 4th house (home, inner security and the foundations of learning) is placed in the 10th house (vocation, responsibility and visible contribution), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H04-IN-H11",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 4,
+      "placed_in_house": 11
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 4th house (home, inner security and the foundations of learning) is placed in the 11th house (gains, networks and goals), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H04-IN-H12",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 4,
+      "placed_in_house": 12
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      4,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 4th house (home, inner security and the foundations of learning) is placed in the 12th house (expenditure, retreat, and foreign or inward contexts), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H05-IN-H01",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 5,
+      "placed_in_house": 1
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 5th house (learning, creativity and children (traditional framing)) is placed in the 1st house (embodiment, temperament and agency), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H05-IN-H02",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 5,
+      "placed_in_house": 2
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2,
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 5th house (learning, creativity and children (traditional framing)) is placed in the 2nd house (family context, speech and accumulated resources), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H05-IN-H03",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 5,
+      "placed_in_house": 3
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3,
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 5th house (learning, creativity and children (traditional framing)) is placed in the 3rd house (effort, courage, skills and communication), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H05-IN-H04",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 5,
+      "placed_in_house": 4
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4,
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 5th house (learning, creativity and children (traditional framing)) is placed in the 4th house (home, inner security and the foundations of learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H05-IN-H05",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 5,
+      "placed_in_house": 5
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      5
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 5th house (learning, creativity and children (traditional framing)) is placed in the 5th house (learning, creativity and children (traditional framing)), connecting these two areas. The lord sits in its own house, concentrating the themes of that house.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H05-IN-H06",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 5,
+      "placed_in_house": 6
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      5,
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 5th house (learning, creativity and children (traditional framing)) is placed in the 6th house (service, routines, contest and obstacles), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H05-IN-H07",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 5,
+      "placed_in_house": 7
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      5,
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 5th house (learning, creativity and children (traditional framing)) is placed in the 7th house (partnerships and agreements), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H05-IN-H08",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 5,
+      "placed_in_house": 8
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      5,
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 5th house (learning, creativity and children (traditional framing)) is placed in the 8th house (change, shared resources and research), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H05-IN-H09",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 5,
+      "placed_in_house": 9
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      5,
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 5th house (learning, creativity and children (traditional framing)) is placed in the 9th house (dharma, mentors and higher learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H05-IN-H10",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 5,
+      "placed_in_house": 10
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      5,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 5th house (learning, creativity and children (traditional framing)) is placed in the 10th house (vocation, responsibility and visible contribution), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H05-IN-H11",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 5,
+      "placed_in_house": 11
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      5,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 5th house (learning, creativity and children (traditional framing)) is placed in the 11th house (gains, networks and goals), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H05-IN-H12",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 5,
+      "placed_in_house": 12
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      5,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 5th house (learning, creativity and children (traditional framing)) is placed in the 12th house (expenditure, retreat, and foreign or inward contexts), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H06-IN-H01",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 6,
+      "placed_in_house": 1
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 6th house (service, routines, contest and obstacles) is placed in the 1st house (embodiment, temperament and agency), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H06-IN-H02",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 6,
+      "placed_in_house": 2
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2,
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 6th house (service, routines, contest and obstacles) is placed in the 2nd house (family context, speech and accumulated resources), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H06-IN-H03",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 6,
+      "placed_in_house": 3
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3,
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 6th house (service, routines, contest and obstacles) is placed in the 3rd house (effort, courage, skills and communication), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H06-IN-H04",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 6,
+      "placed_in_house": 4
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4,
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 6th house (service, routines, contest and obstacles) is placed in the 4th house (home, inner security and the foundations of learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H06-IN-H05",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 6,
+      "placed_in_house": 5
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      5,
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 6th house (service, routines, contest and obstacles) is placed in the 5th house (learning, creativity and children (traditional framing)), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H06-IN-H06",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 6,
+      "placed_in_house": 6
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      6
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 6th house (service, routines, contest and obstacles) is placed in the 6th house (service, routines, contest and obstacles), connecting these two areas. The lord sits in its own house, concentrating the themes of that house.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H06-IN-H07",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 6,
+      "placed_in_house": 7
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      6,
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 6th house (service, routines, contest and obstacles) is placed in the 7th house (partnerships and agreements), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H06-IN-H08",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 6,
+      "placed_in_house": 8
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      6,
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 6th house (service, routines, contest and obstacles) is placed in the 8th house (change, shared resources and research), connecting these two areas. A dusthana lord in a dusthana is only read as constructive (viparita) if the viparita detector passes; otherwise treat as mixed.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H06-IN-H09",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 6,
+      "placed_in_house": 9
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      6,
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 6th house (service, routines, contest and obstacles) is placed in the 9th house (dharma, mentors and higher learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H06-IN-H10",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 6,
+      "placed_in_house": 10
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      6,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 6th house (service, routines, contest and obstacles) is placed in the 10th house (vocation, responsibility and visible contribution), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H06-IN-H11",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 6,
+      "placed_in_house": 11
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      6,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 6th house (service, routines, contest and obstacles) is placed in the 11th house (gains, networks and goals), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H06-IN-H12",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 6,
+      "placed_in_house": 12
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      6,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 6th house (service, routines, contest and obstacles) is placed in the 12th house (expenditure, retreat, and foreign or inward contexts), connecting these two areas. A dusthana lord in a dusthana is only read as constructive (viparita) if the viparita detector passes; otherwise treat as mixed.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H07-IN-H01",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 7,
+      "placed_in_house": 1
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 7th house (partnerships and agreements) is placed in the 1st house (embodiment, temperament and agency), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H07-IN-H02",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 7,
+      "placed_in_house": 2
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2,
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 7th house (partnerships and agreements) is placed in the 2nd house (family context, speech and accumulated resources), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H07-IN-H03",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 7,
+      "placed_in_house": 3
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3,
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 7th house (partnerships and agreements) is placed in the 3rd house (effort, courage, skills and communication), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H07-IN-H04",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 7,
+      "placed_in_house": 4
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4,
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 7th house (partnerships and agreements) is placed in the 4th house (home, inner security and the foundations of learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H07-IN-H05",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 7,
+      "placed_in_house": 5
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      5,
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 7th house (partnerships and agreements) is placed in the 5th house (learning, creativity and children (traditional framing)), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H07-IN-H06",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 7,
+      "placed_in_house": 6
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      6,
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 7th house (partnerships and agreements) is placed in the 6th house (service, routines, contest and obstacles), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H07-IN-H07",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 7,
+      "placed_in_house": 7
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      7
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 7th house (partnerships and agreements) is placed in the 7th house (partnerships and agreements), connecting these two areas. The lord sits in its own house, concentrating the themes of that house.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H07-IN-H08",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 7,
+      "placed_in_house": 8
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      7,
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 7th house (partnerships and agreements) is placed in the 8th house (change, shared resources and research), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H07-IN-H09",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 7,
+      "placed_in_house": 9
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      7,
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 7th house (partnerships and agreements) is placed in the 9th house (dharma, mentors and higher learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H07-IN-H10",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 7,
+      "placed_in_house": 10
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      7,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 7th house (partnerships and agreements) is placed in the 10th house (vocation, responsibility and visible contribution), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H07-IN-H11",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 7,
+      "placed_in_house": 11
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      7,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 7th house (partnerships and agreements) is placed in the 11th house (gains, networks and goals), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H07-IN-H12",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 7,
+      "placed_in_house": 12
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      7,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 7th house (partnerships and agreements) is placed in the 12th house (expenditure, retreat, and foreign or inward contexts), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H08-IN-H01",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 8,
+      "placed_in_house": 1
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 8th house (change, shared resources and research) is placed in the 1st house (embodiment, temperament and agency), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H08-IN-H02",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 8,
+      "placed_in_house": 2
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2,
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 8th house (change, shared resources and research) is placed in the 2nd house (family context, speech and accumulated resources), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H08-IN-H03",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 8,
+      "placed_in_house": 3
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3,
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 8th house (change, shared resources and research) is placed in the 3rd house (effort, courage, skills and communication), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H08-IN-H04",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 8,
+      "placed_in_house": 4
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4,
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 8th house (change, shared resources and research) is placed in the 4th house (home, inner security and the foundations of learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H08-IN-H05",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 8,
+      "placed_in_house": 5
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      5,
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 8th house (change, shared resources and research) is placed in the 5th house (learning, creativity and children (traditional framing)), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H08-IN-H06",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 8,
+      "placed_in_house": 6
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      6,
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 8th house (change, shared resources and research) is placed in the 6th house (service, routines, contest and obstacles), connecting these two areas. A dusthana lord in a dusthana is only read as constructive (viparita) if the viparita detector passes; otherwise treat as mixed.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H08-IN-H07",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 8,
+      "placed_in_house": 7
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      7,
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 8th house (change, shared resources and research) is placed in the 7th house (partnerships and agreements), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H08-IN-H08",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 8,
+      "placed_in_house": 8
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      8
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 8th house (change, shared resources and research) is placed in the 8th house (change, shared resources and research), connecting these two areas. The lord sits in its own house, concentrating the themes of that house.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H08-IN-H09",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 8,
+      "placed_in_house": 9
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      8,
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 8th house (change, shared resources and research) is placed in the 9th house (dharma, mentors and higher learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H08-IN-H10",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 8,
+      "placed_in_house": 10
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      8,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 8th house (change, shared resources and research) is placed in the 10th house (vocation, responsibility and visible contribution), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H08-IN-H11",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 8,
+      "placed_in_house": 11
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      8,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 8th house (change, shared resources and research) is placed in the 11th house (gains, networks and goals), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H08-IN-H12",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 8,
+      "placed_in_house": 12
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      8,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 8th house (change, shared resources and research) is placed in the 12th house (expenditure, retreat, and foreign or inward contexts), connecting these two areas. A dusthana lord in a dusthana is only read as constructive (viparita) if the viparita detector passes; otherwise treat as mixed.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H09-IN-H01",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 9,
+      "placed_in_house": 1
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 9th house (dharma, mentors and higher learning) is placed in the 1st house (embodiment, temperament and agency), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H09-IN-H02",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 9,
+      "placed_in_house": 2
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2,
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 9th house (dharma, mentors and higher learning) is placed in the 2nd house (family context, speech and accumulated resources), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H09-IN-H03",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 9,
+      "placed_in_house": 3
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3,
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 9th house (dharma, mentors and higher learning) is placed in the 3rd house (effort, courage, skills and communication), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H09-IN-H04",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 9,
+      "placed_in_house": 4
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4,
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 9th house (dharma, mentors and higher learning) is placed in the 4th house (home, inner security and the foundations of learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H09-IN-H05",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 9,
+      "placed_in_house": 5
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      5,
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 9th house (dharma, mentors and higher learning) is placed in the 5th house (learning, creativity and children (traditional framing)), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H09-IN-H06",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 9,
+      "placed_in_house": 6
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      6,
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 9th house (dharma, mentors and higher learning) is placed in the 6th house (service, routines, contest and obstacles), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H09-IN-H07",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 9,
+      "placed_in_house": 7
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      7,
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 9th house (dharma, mentors and higher learning) is placed in the 7th house (partnerships and agreements), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H09-IN-H08",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 9,
+      "placed_in_house": 8
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      8,
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 9th house (dharma, mentors and higher learning) is placed in the 8th house (change, shared resources and research), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H09-IN-H09",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 9,
+      "placed_in_house": 9
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      9
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 9th house (dharma, mentors and higher learning) is placed in the 9th house (dharma, mentors and higher learning), connecting these two areas. The lord sits in its own house, concentrating the themes of that house.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H09-IN-H10",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 9,
+      "placed_in_house": 10
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      9,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 9th house (dharma, mentors and higher learning) is placed in the 10th house (vocation, responsibility and visible contribution), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H09-IN-H11",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 9,
+      "placed_in_house": 11
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      9,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 9th house (dharma, mentors and higher learning) is placed in the 11th house (gains, networks and goals), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H09-IN-H12",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 9,
+      "placed_in_house": 12
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      9,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 9th house (dharma, mentors and higher learning) is placed in the 12th house (expenditure, retreat, and foreign or inward contexts), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H10-IN-H01",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 10,
+      "placed_in_house": 1
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 10th house (vocation, responsibility and visible contribution) is placed in the 1st house (embodiment, temperament and agency), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H10-IN-H02",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 10,
+      "placed_in_house": 2
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 10th house (vocation, responsibility and visible contribution) is placed in the 2nd house (family context, speech and accumulated resources), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H10-IN-H03",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 10,
+      "placed_in_house": 3
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 10th house (vocation, responsibility and visible contribution) is placed in the 3rd house (effort, courage, skills and communication), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H10-IN-H04",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 10,
+      "placed_in_house": 4
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 10th house (vocation, responsibility and visible contribution) is placed in the 4th house (home, inner security and the foundations of learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H10-IN-H05",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 10,
+      "placed_in_house": 5
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      5,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 10th house (vocation, responsibility and visible contribution) is placed in the 5th house (learning, creativity and children (traditional framing)), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H10-IN-H06",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 10,
+      "placed_in_house": 6
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      6,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 10th house (vocation, responsibility and visible contribution) is placed in the 6th house (service, routines, contest and obstacles), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H10-IN-H07",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 10,
+      "placed_in_house": 7
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      7,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 10th house (vocation, responsibility and visible contribution) is placed in the 7th house (partnerships and agreements), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H10-IN-H08",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 10,
+      "placed_in_house": 8
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      8,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 10th house (vocation, responsibility and visible contribution) is placed in the 8th house (change, shared resources and research), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H10-IN-H09",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 10,
+      "placed_in_house": 9
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      9,
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 10th house (vocation, responsibility and visible contribution) is placed in the 9th house (dharma, mentors and higher learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H10-IN-H10",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 10,
+      "placed_in_house": 10
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      10
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 10th house (vocation, responsibility and visible contribution) is placed in the 10th house (vocation, responsibility and visible contribution), connecting these two areas. The lord sits in its own house, concentrating the themes of that house.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H10-IN-H11",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 10,
+      "placed_in_house": 11
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      10,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 10th house (vocation, responsibility and visible contribution) is placed in the 11th house (gains, networks and goals), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H10-IN-H12",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 10,
+      "placed_in_house": 12
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      10,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 10th house (vocation, responsibility and visible contribution) is placed in the 12th house (expenditure, retreat, and foreign or inward contexts), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H11-IN-H01",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 11,
+      "placed_in_house": 1
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 11th house (gains, networks and goals) is placed in the 1st house (embodiment, temperament and agency), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H11-IN-H02",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 11,
+      "placed_in_house": 2
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 11th house (gains, networks and goals) is placed in the 2nd house (family context, speech and accumulated resources), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H11-IN-H03",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 11,
+      "placed_in_house": 3
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 11th house (gains, networks and goals) is placed in the 3rd house (effort, courage, skills and communication), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H11-IN-H04",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 11,
+      "placed_in_house": 4
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 11th house (gains, networks and goals) is placed in the 4th house (home, inner security and the foundations of learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H11-IN-H05",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 11,
+      "placed_in_house": 5
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      5,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 11th house (gains, networks and goals) is placed in the 5th house (learning, creativity and children (traditional framing)), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H11-IN-H06",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 11,
+      "placed_in_house": 6
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      6,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 11th house (gains, networks and goals) is placed in the 6th house (service, routines, contest and obstacles), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H11-IN-H07",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 11,
+      "placed_in_house": 7
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      7,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 11th house (gains, networks and goals) is placed in the 7th house (partnerships and agreements), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H11-IN-H08",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 11,
+      "placed_in_house": 8
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      8,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 11th house (gains, networks and goals) is placed in the 8th house (change, shared resources and research), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H11-IN-H09",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 11,
+      "placed_in_house": 9
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      9,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 11th house (gains, networks and goals) is placed in the 9th house (dharma, mentors and higher learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H11-IN-H10",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 11,
+      "placed_in_house": 10
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      10,
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 11th house (gains, networks and goals) is placed in the 10th house (vocation, responsibility and visible contribution), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H11-IN-H11",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 11,
+      "placed_in_house": 11
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      11
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 11th house (gains, networks and goals) is placed in the 11th house (gains, networks and goals), connecting these two areas. The lord sits in its own house, concentrating the themes of that house.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H11-IN-H12",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 11,
+      "placed_in_house": 12
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      11,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 11th house (gains, networks and goals) is placed in the 12th house (expenditure, retreat, and foreign or inward contexts), connecting these two areas. A lord placed in a dusthana is traditionally read as mixed for that topic, calling for effort and adjustment.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H12-IN-H01",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 12,
+      "placed_in_house": 1
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      1,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 12th house (expenditure, retreat, and foreign or inward contexts) is placed in the 1st house (embodiment, temperament and agency), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H12-IN-H02",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 12,
+      "placed_in_house": 2
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      2,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 12th house (expenditure, retreat, and foreign or inward contexts) is placed in the 2nd house (family context, speech and accumulated resources), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H12-IN-H03",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 12,
+      "placed_in_house": 3
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      3,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 12th house (expenditure, retreat, and foreign or inward contexts) is placed in the 3rd house (effort, courage, skills and communication), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H12-IN-H04",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 12,
+      "placed_in_house": 4
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      4,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 12th house (expenditure, retreat, and foreign or inward contexts) is placed in the 4th house (home, inner security and the foundations of learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H12-IN-H05",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 12,
+      "placed_in_house": 5
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      5,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 12th house (expenditure, retreat, and foreign or inward contexts) is placed in the 5th house (learning, creativity and children (traditional framing)), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H12-IN-H06",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 12,
+      "placed_in_house": 6
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      6,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 12th house (expenditure, retreat, and foreign or inward contexts) is placed in the 6th house (service, routines, contest and obstacles), connecting these two areas. A dusthana lord in a dusthana is only read as constructive (viparita) if the viparita detector passes; otherwise treat as mixed.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H12-IN-H07",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 12,
+      "placed_in_house": 7
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      7,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 12th house (expenditure, retreat, and foreign or inward contexts) is placed in the 7th house (partnerships and agreements), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H12-IN-H08",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 12,
+      "placed_in_house": 8
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      8,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 12th house (expenditure, retreat, and foreign or inward contexts) is placed in the 8th house (change, shared resources and research), connecting these two areas. A dusthana lord in a dusthana is only read as constructive (viparita) if the viparita detector passes; otherwise treat as mixed.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H12-IN-H09",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 12,
+      "placed_in_house": 9
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      9,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 12th house (expenditure, retreat, and foreign or inward contexts) is placed in the 9th house (dharma, mentors and higher learning), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H12-IN-H10",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 12,
+      "placed_in_house": 10
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      10,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 12th house (expenditure, retreat, and foreign or inward contexts) is placed in the 10th house (vocation, responsibility and visible contribution), connecting these two areas. Placement in a kendra or trikona is traditionally read as supportive of the first house's themes.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H12-IN-H11",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 12,
+      "placed_in_house": 11
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "supportive",
+    "houses_involved": [
+      11,
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 12th house (expenditure, retreat, and foreign or inward contexts) is placed in the 11th house (gains, networks and goals), connecting these two areas. The expression depends on dignity, aspects and timing.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  },
+  {
+    "id": "HL-H12-IN-H12",
+    "version": "2.0.0",
+    "category": "house_lord_in_house",
+    "tradition": "Parashari",
+    "conditions": {
+      "lord_of_house": 12,
+      "placed_in_house": 12
+    },
+    "required_inputs": [
+      "house_lord_map",
+      "planets.*.house"
+    ],
+    "effect_direction": "mixed",
+    "houses_involved": [
+      12
+    ],
+    "timing_applicability": "natal",
+    "interpretation_template": "The lord of the 12th house (expenditure, retreat, and foreign or inward contexts) is placed in the 12th house (expenditure, retreat, and foreign or inward contexts), connecting these two areas. The lord sits in its own house, concentrating the themes of that house.",
+    "source": {
+      "status": "pending_review",
+      "note": "Structural/traditional-principle rule. Verify against chosen edition before enabling."
+    },
+    "status": "draft",
+    "tests": [
+      "T-HL"
+    ]
+  }
+]

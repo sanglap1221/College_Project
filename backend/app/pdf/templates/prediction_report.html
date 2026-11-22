@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ customer.name or 'Client' }} — Vedic Jyotish Natal Prediction Report</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600;700&family=Hind+Siliguri:wght@400;600;700&display=swap');
+
+    @page {
+      size: A4;
+      margin: 14mm 12mm 14mm 12mm;
+      @bottom-right {
+        content: "Page " counter(page) " of " counter(pages);
+        font-family: 'Inter', sans-serif;
+        font-size: 8pt;
+        color: #78350f;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', 'Hind Siliguri', sans-serif;
+      background-color: #fcfbf7;
+      color: #1e293b;
+      font-size: 10pt;
+      line-height: 1.6;
+    }
+
+    .report-container {
+      max-width: 210mm;
+      margin: 0 auto;
+      padding: 12px 18px;
+    }
+
+    /* ── Header ── */
+    .header-banner {
+      text-align: center;
+      padding: 18px 20px 14px;
+      border: 2px solid #800020;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #fffdfa 0%, #fdf8ee 100%);
+      position: relative;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(128, 0, 32, 0.06);
+    }
+
+    .om-symbol {
+      font-size: 26pt;
+      color: #92400e;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .brand-title {
+      font-family: 'Cinzel', serif;
+      font-size: 18pt;
+      font-weight: 700;
+      color: #800020;
+      letter-spacing: 1.5px;
+      margin: 0 0 2px 0;
+      text-transform: uppercase;
+    }
+
+    .brand-sub {
+      font-size: 9pt;
+      font-weight: 600;
+      color: #92400e;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin: 0 0 10px 0;
+    }
+
+    .header-rule {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #b45309, transparent);
+      margin: 8px auto;
+      width: 60%;
+    }
+
+    .report-meta-strip {
+      display: flex;
+      justify-content: space-between;
+      font-size: 8.5pt;
+      color: #64748b;
+      font-weight: 500;
+      margin-top: 6px;
+    }
+
+    /* ── Subject Card ── */
+    .subject-card {
+      background: #ffffff;
+      border: 1px solid #ebdcb9;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      page-break-inside: avoid;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .meta-label {
+      font-size: 7.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #92400e;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .meta-value {
+      font-size: 9.5pt;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    /* ── Overview & Dasha Strip ── */
+    .highlight-card {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 4px solid #b45309;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      page-break-inside: avoid;
+    }
+
+    .highlight-title {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: #78350f;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .highlight-desc {
+      font-size: 9pt;
+      color: #451a03;
+      line-height: 1.5;
+    }
+
+    /* ── Section Cards ── */
+    .section-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 18px;
+      page-break-inside: avoid;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 13pt;
+      font-weight: 700;
+      color: #800020;
+      margin: 0;
+    }
+
+    .pill-badge {
+      font-size: 7.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    .pill-convergent {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .pill-moderate {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+
+    .pill-limited {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+    }
+
+    .section-summary {
+      font-style: italic;
+      color: #475569;
+      font-size: 9pt;
+      margin-bottom: 12px;
+      background: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border-left: 3px solid #800020;
+    }
+
+    .section-content {
+      font-size: 9.5pt;
+      color: #334155;
+      line-height: 1.6;
+    }
+
+    .section-content h3 {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 14px 0 6px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .factors-box {
+      margin: 10px 0;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 8.5pt;
+    }
+
+    .factors-sup {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+    }
+
+    .factors-chal {
+      background: #fff7ed;
+      border: 1px solid #ffedd5;
+      color: #9a3412;
+    }
+
+    .rule-tag {
+      font-family: monospace;
+      font-size: 7.5pt;
+      background: rgba(0,0,0,0.06);
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+
+    /* ── Yogas Table ── */
+    .yoga-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.5pt;
+      margin-top: 8px;
+    }
+
+    .yoga-table th {
+      background: #f8fafc;
+      border-bottom: 2px solid #cbd5e1;
+      padding: 6px 10px;
+      text-align: left;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    .yoga-table td {
+      border-bottom: 1px solid #f1f5f9;
+      padding: 6px 10px;
+    }
+
+    /* ── Disclaimer Footer ── */
+    .disclaimer-box {
+      background: #fdfaf3;
+      border: 1px dashed #d97706;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 24px;
+      font-size: 8pt;
+      color: #78350f;
+      line-height: 1.5;
+      page-break-inside: avoid;
+    }
+
+    @media print {
+      body {
+        background-color: #ffffff;
+      }
+      .section-card {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="report-container">
+
+    <!-- ── Header ── -->
+    <div class="header-banner">
+      <div class="om-symbol">🕉️</div>
+      <h1 class="brand-title">Astro Workspace — জীবন জিজ্ঞাসা</h1>
+      <div class="brand-sub">Comprehensive Vedic Jyotish Natal Predictions &amp; Life Guidance</div>
+      <div class="header-rule"></div>
+      <div class="report-meta-strip">
+        <span><strong>Subject:</strong> {{ customer.name or 'Valued Client' }}</span>
+        <span><strong>Rulebook:</strong> Parashari Engine v{{ ruleset.version or '2.0.0' }}</span>
+        <span><strong>Generated:</strong> {{ generated_at[:10] }}</span>
+      </div>
+    </div>
+
+    <!-- ── Subject Birth Details ── -->
+    <div class="subject-card">
+      <div class="meta-item">
+        <span class="meta-label">Full Name</span>
+        <span class="meta-value">{{ customer.name or '-' }}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Date of Birth</span>
+        <span class="meta-value">{{ customer.dob or '-' }}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Time of Birth</span>
+        <span class="meta-value">{{ customer.time or '-' }}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Birth Place</span>
+        <span class="meta-value">{{ customer.place or '-' }}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Lagna (Ascendant)</span>
+        <span class="meta-value">{{ chart_overview.lagna_sign_name or '-' }} ({{ "%.2f"|format(chart_overview.lagna_degree or 0) }}°)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Rashi (Moon Sign)</span>
+        <span class="meta-value">{{ chart_overview.rashi_sign_name or '-' }}</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Janma Nakshatra</span>
+        <span class="meta-value">{{ chart_overview.nakshatra_name or '-' }} (Pada {{ chart_overview.nakshatra_pada or '-' }})</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Ayanamsa</span>
+        <span class="meta-value">{{ "%.4f"|format(chart_overview.ayanamsa or 0) }}° (Lahiri)</span>
+      </div>
+    </div>
+
+    <!-- ── Active Dasha Highlight ── -->
+    {% if dasha_summary %}
+    <div class="highlight-card">
+      <div class="highlight-title">
+        <span>⏳</span> Active Vimshottari Dasha Periods
+      </div>
+      <div class="highlight-desc">
+        {% for d in dasha_summary %}
+          <strong>{{ d.level }}:</strong> {{ d.lord }} (From {{ d.start }} to {{ d.end }}){% if not loop.last %} &nbsp;|&nbsp; {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- ── Verified Classical Yogas ── -->
+    {% if yoga_trace %}
+    <div class="section-card">
+      <div class="section-header">
+        <h2 class="section-title">Verified Classical Yogas</h2>
+        <span class="pill-badge pill-convergent">{{ yoga_trace|length }} Combinations Identified</span>
+      </div>
+      <table class="yoga-table">
+        <thead>
+          <tr>
+            <th>Yoga Name</th>
+            <th>Grahas Involved</th>
+            <th>Houses</th>
+            <th>Classical Conditions Verified</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for y in yoga_trace %}
+          <tr>
+            <td><strong>{{ y.name }}</strong></td>
+            <td>{{ y.planets|join(', ') }}</td>
+            <td>{{ y.houses|join(', ') }}</td>
+            <td>
+              {% for c in y.conditions %}
+                <span style="color: #166534;">✓</span> {{ c.cond }}{% if not loop.last %}<br>{% endif %}
+              {% endfor %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+
+    <!-- ── Prediction Sections ── -->
+    {% for s in sections %}
+    <div class="section-card">
+      <div class="section-header">
+        <h2 class="section-title">{{ s.title }}</h2>
+        <span class="pill-badge {% if s.evidence_level == 'Convergent' %}pill-convergent{% elif s.evidence_level == 'Moderate' %}pill-moderate{% else %}pill-limited{% endif %}">
+          {{ s.evidence_level }} ({{ s.lean }})
+        </span>
+      </div>
+
+      {% if s.summary %}
+      <div class="section-summary">
+        {{ s.summary }}
+      </div>
+      {% endif %}
+
+      {% if s.supporting_factors %}
+      <div class="factors-box factors-sup">
+        <strong>Supporting Influences:</strong>
+        <ul style="margin: 4px 0 0 16px; padding: 0;">
+          {% for sf in s.supporting_factors[:4] %}
+            <li>{{ sf.interpretation }} <span class="rule-tag">{{ sf.rule_id }}</span></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      {% if s.challenging_factors %}
+      <div class="factors-box factors-chal">
+        <strong>Modifying &amp; Growth Factors:</strong>
+        <ul style="margin: 4px 0 0 16px; padding: 0;">
+          {% for cf in s.challenging_factors[:3] %}
+            <li>{{ cf.interpretation }} <span class="rule-tag">{{ cf.rule_id }}</span></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      <div class="section-content">
+        {{ s.prediction | replace('## ' + s.title, '') | replace('**Evidence Level:**', '') | safe }}
+      </div>
+    </div>
+    {% endfor %}
+
+    <!-- ── Ethical Disclaimer & Limitations ── -->
+    <div class="disclaimer-box">
+      <strong>Vedic Jyotish Interpretation Boundary &amp; Disclaimer:</strong><br>
+      This natal report is generated strictly from classical Parashari principles using your verified astronomical chart positions.
+      Planetary influences reflect symbolic tendencies, karmic patterns, and psychological predispositions rather than fatalistic or pre-determined certainties.
+      Predictions are non-deterministic and must not be used as medical diagnoses, legal guarantees, immigration warranties, or financial mandates.
+      Human free will, conscious effort, ethical conduct (Dharma), and practical wisdom remain the supreme determinants of life success.
+    </div>
+
+  </div>
+</body>
+</html>

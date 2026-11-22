@@ -22,6 +22,7 @@ from app.api.routes.report import router as report_router
 from app.api.routes.pdf import router as pdf_router
 from app.api.routes.auth import router as auth_router
 from app.api.routes.admin import router as admin_router
+from app.api.routes.predictions import router as predictions_router
 from app.db import init_default_admin
 
 logger = logging.getLogger("astro_app")
@@ -69,6 +70,7 @@ app.include_router(auth_router)
 app.include_router(report_router)
 app.include_router(pdf_router)
 app.include_router(admin_router)
+app.include_router(predictions_router)
 
 app.mount("/generated", StaticFiles(directory=generated_dir), name="generated")
 
