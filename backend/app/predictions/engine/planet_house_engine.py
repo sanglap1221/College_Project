@@ -9,12 +9,12 @@ Generates 3-Level structured interpretations for all 9 classical planets across 
 Supported in English, Bengali (বাংলা), and Hindi (हिन्दी).
 """
 
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional
 from .reference import (
     PLANETS, GRAHAS7, SIGNS, SIGN_LORD, EXALT, DEBIL, OWN, MOOLATRIKONA,
     ASPECT_OFFSETS, HOUSE_DOMAIN, PLANET_KEYWORDS, ordinal
 )
-from .explain import PLANET_NAMES, HOUSE_NAMES, PLANET_CORE_THEMES
+from .explain import PLANET_NAMES, HOUSE_NAMES
 
 # Classical Planet Significations & Domains
 PLANET_SIGNIFICATORS = {

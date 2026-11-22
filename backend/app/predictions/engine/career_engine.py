@@ -20,19 +20,6 @@ from .reference import (
 from .explain import PLANET_NAMES, HOUSE_NAMES
 
 
-def _calculate_age_at_date(dob_str: Optional[str], target_date_str: str) -> Optional[int]:
-    """Calculate age in whole years from ISO DOB and target date string."""
-    if not dob_str or not target_date_str:
-        return None
-    try:
-        d_dob = date.fromisoformat(dob_str[:10])
-        d_tgt = date.fromisoformat(target_date_str[:10])
-        age = d_tgt.year - d_dob.year - ((d_tgt.month, d_tgt.day) < (d_dob.month, d_dob.day))
-        return max(0, age)
-    except Exception:
-        return None
-
-
 def generate_career_placement_explanation(
     planet: str,
     house_occupied: int,

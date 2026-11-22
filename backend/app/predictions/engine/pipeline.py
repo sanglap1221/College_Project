@@ -8,11 +8,10 @@ Stage 5: Final output (Structured prediction JSON + rich Markdown + validation a
 """
 
 import datetime
-import json
 import logging
 from typing import Any, Dict, List, Optional, Set
 
-from .reference import TOPICS, HOUSE_DOMAIN, PLANET_KEYWORDS, ordinal, CANONICAL_TOPIC_ORDER
+from .reference import TOPICS, CANONICAL_TOPIC_ORDER
 from .chart import Chart
 from .rules import RuleBook, evaluate
 from . import dasha as D

@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date
 from .reference import *
 
 def _d(s): return date.fromisoformat(s)

@@ -1,4 +1,4 @@
-from .reference import TOPICS, PLANETS, GRAHAS7
+from .reference import TOPICS, PLANETS
 
 def relevant(items, topic, chart=None, group_usage=None):
     t = TOPICS[topic]

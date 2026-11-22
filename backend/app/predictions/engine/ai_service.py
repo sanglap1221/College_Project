@@ -12,9 +12,9 @@ import re
 import time
 import urllib.request
 import urllib.error
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional
 
-from .writer import enforce_topic_json_limits, clean_markdown_artifacts
+from .writer import enforce_topic_json_limits
 
 logger = logging.getLogger("astro_app.predictions.ai")
 

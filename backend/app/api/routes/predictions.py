@@ -10,11 +10,11 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, Response
-from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.responses import FileResponse
 from jinja2 import Environment, FileSystemLoader
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
-from app.auth_middleware import get_current_user, get_optional_user
+from app.auth_middleware import get_optional_user
 from app.predictions.service import (
     generate_prediction_report,
     get_prediction_by_id,
