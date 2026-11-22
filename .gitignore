@@ -9,3 +9,21 @@ build/
 venv/
 Complete_Jyotish_Prediction_Engine_Rulebook.docx
 jyotish_rulebook_v2
+
+# All Environment and Secret files
+.env
+.env.*
+.env.local
+backend/.env
+backend/.env.*
+frontend/.env
+frontend/.env.*
+frontend/.env.local
+secrets.txt
+
+# Generated reports & logs
+backend/generated/
+generated/
+*.pdf
+*.log
+__pycache__/
